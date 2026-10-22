@@ -4,8 +4,6 @@
   const root = document.documentElement;
   const hero = document.querySelector(".hero");
   const media = document.querySelector("[data-hero-media]");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
 
   /* ---------- Фото как cover, но с фокусом на шефе ----------
      В макете (узел 45:208) фото 3:2 растянуто до 1446×964 и сдвинуто на (1, -13)
@@ -112,45 +110,6 @@
   Promise.race([Promise.all([imageReady, steamReady, fontsReady]), wait(2500)]).then(() => {
     void root.offsetWidth;
     root.classList.add("is-loaded");
-  });
-
-  /* ---------- Лёгкая интерактивность (только мышь) ----------
-     Параллакс: фото уходит вглубь, тексты чуть ближе к зрителю.
-     Магнитные кнопки: тянутся к курсору на несколько пикселей. */
-  const interactive = () => finePointer.matches && !reduceMotion.matches;
-
-  if (hero) {
-    let tx = 0, ty = 0, cx = 0, cy = 0, rafId = 0;
-
-    const tick = () => {
-      cx += (tx - cx) * 0.06;
-      cy += (ty - cy) * 0.06;
-      hero.style.setProperty("--mx", cx.toFixed(4));
-      hero.style.setProperty("--my", cy.toFixed(4));
-      rafId = Math.abs(tx - cx) + Math.abs(ty - cy) > 0.0005 ? requestAnimationFrame(tick) : 0;
-    };
-    const kick = () => { if (!rafId) rafId = requestAnimationFrame(tick); };
-
-    hero.addEventListener("pointermove", (e) => {
-      if (!interactive() || e.pointerType !== "mouse") return;
-      const r = hero.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width) * 2 - 1;
-      ty = ((e.clientY - r.top) / r.height) * 2 - 1;
-      kick();
-    });
-    hero.addEventListener("pointerleave", () => { tx = 0; ty = 0; kick(); });
-  }
-
-  document.querySelectorAll("[data-magnet]").forEach((btn) => {
-    const strength = Number(btn.dataset.magnet) || 6;
-    btn.addEventListener("pointermove", (e) => {
-      if (!interactive() || e.pointerType !== "mouse") return;
-      const r = btn.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      btn.style.translate = `${(x * strength).toFixed(2)}px ${(y * strength * 0.6).toFixed(2)}px`;
-    });
-    btn.addEventListener("pointerleave", () => { btn.style.translate = ""; });
   });
 
   /* ---------- Мобильное меню ---------- */

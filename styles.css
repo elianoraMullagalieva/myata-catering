@@ -75,9 +75,6 @@ img, svg, canvas { display: block; }
   overflow: hidden;
   overflow: clip;
   pointer-events: none;
-  /* запас 2% под параллакс, чтобы при сдвиге не открывались края */
-  scale: 1.02;
-  translate: calc(var(--mx, 0) * -10px) calc(var(--my, 0) * -6px);
 }
 
 /* Фото и пар живут в одной коробке — main.js растягивает её как cover с фокусом на шефе */
@@ -273,9 +270,9 @@ img, svg, canvas { display: block; }
 }
 
 .btn--sm {
-  height: 36px;
-  padding: 0 24px;
-  font-size: 10px;
+  height: 42px;
+  padding: 0 26px;
+  font-size: 12px;
 }
 
 /* ---------- BODY ---------- */
@@ -617,10 +614,10 @@ img, svg, canvas { display: block; }
 /* фото и пар въезжают вместе: проявление и медленное «оседание» масштаба */
 .js .hero__bg {
   opacity: 0;
-  scale: 1.09;
+  scale: 1.07;
   transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), scale 3.4s var(--ease-expo);
 }
-.js.is-loaded .hero__bg { opacity: 1; scale: 1.02; }
+.js.is-loaded .hero__bg { opacity: 1; scale: 1; }
 
 /* шапка: элементы опускаются на место по очереди */
 .js .logo,
@@ -633,19 +630,17 @@ img, svg, canvas { display: block; }
   transition: opacity 0.9s var(--ease) var(--d, 0s), transform 1.1s var(--ease-expo) var(--d, 0s);
 }
 
-/* заголовок: слова выезжают из-под маски */
-.js .w {
-  display: inline-block;
-  overflow: hidden;
-  padding: 0.14em 0.03em 0.2em;
-  margin: -0.14em -0.03em -0.2em;
-  vertical-align: top;
-}
+/* заголовок: слова по очереди поднимаются снизу прямо, без наклона, и выходят из размытия */
+.js .w { display: inline-block; }
 .js .w__in {
   display: inline-block;
-  transform: translate3d(0, 112%, 0) rotate(5deg);
-  transform-origin: 0 100%;
-  transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1) var(--d, 0s);
+  opacity: 0;
+  transform: translate3d(0, 0.55em, 0);
+  filter: blur(14px);
+  transition:
+    opacity 1.1s var(--ease) var(--d, 0s),
+    transform 1.4s var(--ease-expo) var(--d, 0s),
+    filter 1.2s var(--ease) var(--d, 0s);
 }
 
 /* заметки: знак разворачивается, текст выходит из размытия, линия прорисовывается */
@@ -672,7 +667,7 @@ img, svg, canvas { display: block; }
   transition: opacity 1.6s var(--ease) var(--d, 0s);
 }
 
-/* кнопки: всплывают последними; translate — для «магнита», не мешает появлению */
+/* кнопки: всплывают последними */
 .js .actions .btn,
 .js .header__contacts .btn {
   opacity: 0;
@@ -680,7 +675,6 @@ img, svg, canvas { display: block; }
   transition:
     opacity 1s var(--ease) var(--d, 0s),
     transform 1.2s var(--ease-expo) var(--d, 0s),
-    translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
     background-color 0.3s var(--ease),
     border-color 0.3s var(--ease),
     color 0.3s var(--ease);
@@ -705,10 +699,6 @@ img, svg, canvas { display: block; }
 .js.is-loaded .note__curve path { stroke-dashoffset: 0; }
 .js.is-loaded .note::before,
 .js.is-loaded .facts::before { opacity: 1; }
-
-/* параллакс: фото уходит вглубь (см. .hero__bg), тексты чуть ближе к зрителю */
-.hero__title { translate: calc(var(--mx, 0) * 5px) calc(var(--my, 0) * 3px); }
-.note { translate: calc(var(--mx, 0) * 9px) calc(var(--my, 0) * 6px); }
 
 /* блик по кнопкам при наведении */
 .btn--solid,
@@ -737,5 +727,4 @@ img, svg, canvas { display: block; }
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
   }
-  .hero__title, .note, .hero__bg { translate: none !important; }
 }
