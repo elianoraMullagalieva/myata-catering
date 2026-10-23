@@ -147,13 +147,13 @@ img, svg, canvas { display: block; }
 
 /* меню держится рядом с логотипом одной группой, весь свободный воздух — до телефона */
 .nav {
-  margin: 0 auto 0 clamp(28px, 3.4vw, 64px);
-  padding-right: 40px;
+  margin: 0 auto 0 calc(clamp(28px, 3.4vw, 64px) + 15px);
+  padding-right: 24px;
 }
 
 .nav__list {
   display: flex;
-  gap: clamp(14px, 1.39vw, 24px);
+  gap: clamp(14px, 1.25vw, 24px);
 }
 
 .nav__list a,
@@ -489,12 +489,12 @@ img, svg, canvas { display: block; }
 /* ---------- 1280–1439: шапка компактнее, телефон остаётся; ниже 1280 телефон прячется ---------- */
 
 @media (max-width: 1439px) {
-  .nav__list { gap: 14px; }
+  .nav__list { gap: 12px; }
   .nav__list a { font-size: 12px; }
   .header__contacts { gap: 18px; }
   .phone { font-size: 14px; }
   .socials { gap: 8px; }
-  .btn--sm { padding: 0 20px; font-size: 11px; }
+  .btn--sm { padding: 0 16px; font-size: 11px; }
 }
 
 @media (max-width: 1279px) {
