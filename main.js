@@ -5,11 +5,38 @@
   const hero = document.querySelector(".hero");
   const media = document.querySelector("[data-hero-media]");
 
+  /* ---------- Варианты фото первого экрана ----------
+     1 — Повар/Любимка 4к.png, 2 — Повар/любимка 4к2.png (тот же кадр, другая обработка).
+     Выбор запоминается и задаётся ссылкой ?photo=2. Размеры — в базе ширины 2048 px. */
+  const VARIANTS = {
+    "1": { prefix: "hero",  h: 1344 },
+    "2": { prefix: "hero2", h: 1348.5 },
+  };
+  const srcsetOf = (p) => `assets/${p}-1200.webp 1200w, assets/${p}.webp 1600w, assets/${p}-2048.webp 2048w, assets/${p}-2880.webp 2880w`;
+  const store = {
+    get() { try { return localStorage.getItem("myata-photo"); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem("myata-photo", v); } catch (e) { /* приватный режим */ } },
+  };
+  const fromUrl = new URLSearchParams(location.search).get("photo");
+  let photo = VARIANTS[fromUrl] ? fromUrl : VARIANTS[store.get()] ? store.get() : "1";
+
+  function setPhotoSources(key) {
+    const v = VARIANTS[key];
+    const source = media && media.querySelector("source");
+    const img = media && media.querySelector("img");
+    if (source) source.srcset = srcsetOf(v.prefix);
+    if (img) img.src = `assets/${v.prefix}.jpg`;
+  }
+
+  if (media) {
+    media.dataset.photo = photo;
+    if (photo !== "1") setPhotoSources(photo);
+  }
+
   /* ---------- Фото как cover, но с фокусом на шефе ----------
-     Фото (Повар/Любимка 4к.png; координаты — в базе 2048×1344) масштабируем как в макете (узел 45:208):
-     чуть шире кадра и на 12% выше него, и держим точку FOCUS (грудь шефа,
-     под голову по центру) в нужном месте кадра на любом экране. */
-  const SRC = { w: 2048, h: 1344 };
+     Фото масштабируем как в макете (узел 45:208): чуть шире кадра и на 12% выше него,
+     и держим точку FOCUS (грудь шефа, голова по центру) в нужном месте кадра на любом экране. */
+  const SRC = { w: 2048, h: VARIANTS[photo].h };
   const FOCUS = { u: 1043 / 2048, v: 720 / 1344 };
 
   function placeMedia() {
@@ -112,6 +139,44 @@
     void root.offsetWidth;
     root.classList.add("is-loaded");
   });
+
+  /* ---------- Еле заметный переключатель фото ----------
+     Фото и пар гаснут, меняются и проявляются снова — без перезагрузки страницы. */
+  const switcher = document.querySelector("[data-photo-switch]");
+  if (switcher && media) {
+    const buttons = [...switcher.querySelectorAll("[data-photo]")];
+    const mark = () => buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.photo === photo)));
+    mark();
+    let busy = false;
+    switcher.addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-photo]");
+      if (!btn || busy || btn.dataset.photo === photo) return;
+      busy = true;
+      photo = btn.dataset.photo;
+      store.set(photo);
+      mark();
+      media.classList.add("is-swapping");
+      await wait(350);
+      setPhotoSources(photo);
+      SRC.h = VARIANTS[photo].h;
+      media.dataset.photo = photo;
+      const img = media.querySelector("img");
+      const imgReady = img.complete && img.naturalWidth
+        ? Promise.resolve()
+        : new Promise((r) => { img.addEventListener("load", r, { once: true }); img.addEventListener("error", r, { once: true }); });
+      // ждём новое фото и его пар, но не дольше 1,5 с — смена не должна зависать
+      await Promise.race([
+        Promise.all([
+          imgReady,
+          window.MYATA_STEAM ? window.MYATA_STEAM.setVariant(photo).catch(() => {}) : Promise.resolve(),
+        ]),
+        wait(1500),
+      ]);
+      placeMedia();
+      media.classList.remove("is-swapping");
+      busy = false;
+    });
+  }
 
   /* ---------- Мобильное меню ---------- */
   const burger = document.querySelector("[data-burger]");

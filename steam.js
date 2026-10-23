@@ -6,24 +6,27 @@
      Шейдер накладывает несколько копий этого слоя (screen): одна «дышит» на месте и уплотняет
      пар у живота, другие продолжают его вверх по фартуку и едва дымят у краёв рукавов.
      Движение почти незаметное: подъём ~0,6 px/с и медленное колыхание.
-     Координаты — в пикселях фото в базе 2048×1344 (Повар/Любимка 4к.png — ровно 2×). */
+     Координаты — в пикселях фото в базе ширины 2048 px. Вариантов фото два (переключатель
+     на первом экране), у каждого свой слой пара; копии стоят по общему силуэту. */
 
   const canvas = document.querySelector("[data-steam]");
   const media = document.querySelector("[data-hero-media]");
-  const TEX = window.MYATA_STEAM_TEXTURE;
+  const TEXS = window.MYATA_STEAM_TEXTURES || {};
   if (!canvas || !media) return;
 
   // сообщаем main.js, что первый кадр пара готов (или что пара не будет) —
   // фото и пар появляются одновременно, без «догоняющего» пара
   const announce = (ok) => media.dispatchEvent(new CustomEvent(ok ? "steam:ready" : "steam:none"));
 
+  let variant = media.dataset.photo && TEXS[media.dataset.photo] ? media.dataset.photo : Object.keys(TEXS)[0];
+  let TEX = TEXS[variant];
   const gl = TEX && canvas.getContext("webgl", { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false, powerPreference: "low-power" });
   if (!gl) { announce(false); return; }
 
-  const SRC = { x: TEX.x + TEX.w / 2, y: TEX.y + TEX.h / 2 }; // центр родного пара
-  // [x, y центра копии (px фото), масштаб, поворот°] и [зеркало, прозрачность, фаза, амплитуда колыхания px]
+  // [x, y центра копии (px фото), масштаб, поворот°] и [зеркало, прозрачность, фаза, амплитуда колыхания px];
+  // null вместо x, y — копия стоит на месте родного пара. dy варианта сдвигает все копии по вертикали.
   const COPIES = [
-    [SRC.x, SRC.y, 1.0, 0,    0, 0.50, 0.00, 4.0], // на месте: пар у живота гуще и «дышит»
+    [null, null, 1.0, 0,      0, 0.50, 0.00, 4.0], // на месте: пар у живота гуще и «дышит»
     [1046, 850, 1.08, -4,     1, 0.38, 0.37, 5.5], // продолжение вверх по фартуку к груди
     [775, 880, 0.75, 8,       0, 0.28, 0.61, 5.0], // край левого рукава
     [1488, 880, 0.75, -8,     1, 0.24, 0.83, 5.0], // край правого рукава
@@ -31,7 +34,7 @@
   const N = COPIES.length;
   // зона, где вообще может быть пар (в пикселях фото) — остальное не рисуем
   const REGION = { x0: 600, y0: 620, x1: 1660, y1: 1160 };
-  const PHOTO = { w: 2048, h: 1344, ox: 0, oy: 0 };
+  const PHOTO_W = 2048;
 
   const VERT = `
     attribute vec2 aPos;
@@ -42,6 +45,7 @@
     precision mediump float;
     uniform sampler2D uTex;
     uniform vec2 uRes;
+    uniform vec2 uPhoto;    // размер фото в базе ширины 2048
     uniform float uTime;
     uniform vec4 uBox;      // x, y, w, h слоя пара в пикселях фото
     uniform vec4 uA[${N}];  // центр, масштаб, поворот (рад)
@@ -75,7 +79,7 @@
     void main() {
       vec2 uv = gl_FragCoord.xy / uRes;
       uv.y = 1.0 - uv.y;
-      vec2 P = uv * vec2(${PHOTO.w}.0, ${PHOTO.h}.0) - vec2(${PHOTO.ox}.0, ${PHOTO.oy}.0);
+      vec2 P = uv * uPhoto;
       float t = uTime;
 
       float acc = 0.0;
@@ -119,8 +123,22 @@
     return s;
   }
 
-  let program, uRes, uTime;
+  let program, uRes, uTime, tex;
   let texImage = null;
+
+  // параметры, которые зависят от варианта фото: слой пара, высота кадра, сдвиг копий
+  function applyVariant() {
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, texImage);
+    gl.uniform1f(gl.getUniformLocation(program, "uGain"), TEX.gain);
+    gl.uniform4f(gl.getUniformLocation(program, "uBox"), TEX.x, TEX.y, TEX.w, TEX.h);
+    gl.uniform2f(gl.getUniformLocation(program, "uPhoto"), PHOTO_W, TEX.photoH);
+    const cx = TEX.x + TEX.w / 2, cy = TEX.y + TEX.h / 2, dy = TEX.dy || 0;
+    gl.uniform4fv(gl.getUniformLocation(program, "uA"), COPIES.flatMap((c) => [
+      c[0] ?? cx, c[1] == null ? cy : c[1] + dy, c[2], (c[3] * Math.PI) / 180,
+    ]));
+    gl.uniform4fv(gl.getUniformLocation(program, "uB"), COPIES.flatMap((c) => c.slice(4, 8)));
+  }
 
   function init() {
     const vs = compile(gl.VERTEX_SHADER, VERT);
@@ -140,22 +158,18 @@
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-    const tex = gl.createTexture();
+    tex = gl.createTexture();
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, tex);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, texImage);
 
     uRes = gl.getUniformLocation(program, "uRes");
     uTime = gl.getUniformLocation(program, "uTime");
     gl.uniform1i(gl.getUniformLocation(program, "uTex"), 0);
-    gl.uniform1f(gl.getUniformLocation(program, "uGain"), TEX.gain);
-    gl.uniform4f(gl.getUniformLocation(program, "uBox"), TEX.x, TEX.y, TEX.w, TEX.h);
-    gl.uniform4fv(gl.getUniformLocation(program, "uA"), COPIES.flatMap((c) => [c[0], c[1], c[2], (c[3] * Math.PI) / 180]));
-    gl.uniform4fv(gl.getUniformLocation(program, "uB"), COPIES.flatMap((c) => c.slice(4, 8)));
+    applyVariant();
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.SCISSOR_TEST);
     return true;
@@ -180,10 +194,10 @@
     gl.uniform2f(uRes, w, h);
 
     // ножницы: рисуем только прямоугольник вокруг шефа
-    const sx = (REGION.x0 + PHOTO.ox) / PHOTO.w;
-    const ex = (REGION.x1 + PHOTO.ox) / PHOTO.w;
-    const sy = (REGION.y0 + PHOTO.oy) / PHOTO.h;
-    const ey = (REGION.y1 + PHOTO.oy) / PHOTO.h;
+    const sx = REGION.x0 / PHOTO_W;
+    const ex = REGION.x1 / PHOTO_W;
+    const sy = REGION.y0 / TEX.photoH;
+    const ey = Math.min(1, REGION.y1 / TEX.photoH);
     gl.disable(gl.SCISSOR_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.enable(gl.SCISSOR_TEST);
@@ -244,8 +258,26 @@
     canvas.addEventListener("webglcontextrestored", () => { if (init()) { resize(); play(); } });
   }
 
-  texImage = new Image();
-  texImage.onload = boot;
-  texImage.onerror = () => announce(false);
-  texImage.src = TEX.src;
+  const loadTexture = (src) => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+
+  // переключение варианта фото на лету (вызывает main.js)
+  window.MYATA_STEAM = {
+    async setVariant(key) {
+      if (!TEXS[key] || key === variant || !program) return;
+      const img = await loadTexture(TEXS[key].src);
+      variant = key;
+      TEX = TEXS[key];
+      texImage = img;
+      applyVariant();
+      resize();
+      draw(performance.now());
+    },
+  };
+
+  loadTexture(TEX.src).then((img) => { texImage = img; boot(); }, () => announce(false));
 })();
