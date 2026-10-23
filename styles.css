@@ -144,16 +144,15 @@ img, svg, canvas { display: block; }
   letter-spacing: 0;
 }
 
-/* меню стоит по центру между логотипом и контактами: равный воздух с обеих сторон,
-   но не меньше 24–64px, чтобы пункты никогда не упирались в лого или телефон */
+/* меню держится рядом с логотипом одной группой, весь свободный воздух — до телефона */
 .nav {
-  margin: 0 auto;
-  padding: 0 clamp(24px, 3.5vw, 64px);
+  margin: 0 auto 0 clamp(28px, 3.4vw, 64px);
+  padding-right: 40px;
 }
 
 .nav__list {
   display: flex;
-  gap: clamp(14px, 1.53vw, 26px);
+  gap: clamp(14px, 1.39vw, 24px);
 }
 
 .nav__list a,
@@ -167,7 +166,7 @@ img, svg, canvas { display: block; }
   display: inline-block;
   padding: 6px 0;
   color: var(--ink-soft);
-  font-size: clamp(12px, 0.97vw, 15px);
+  font-size: clamp(12px, 0.9vw, 14px);
   line-height: 1.25;
   text-transform: uppercase;
   white-space: nowrap;
@@ -486,8 +485,8 @@ img, svg, canvas { display: block; }
 /* ---------- 1280–1439: шапка компактнее, телефон остаётся; ниже 1280 телефон прячется ---------- */
 
 @media (max-width: 1439px) {
-  .nav__list { gap: 16px; }
-  .nav__list a { font-size: 12.5px; }
+  .nav__list { gap: 14px; }
+  .nav__list a { font-size: 12px; }
   .header__contacts { gap: 18px; }
   .phone { font-size: 14px; }
   .socials { gap: 8px; }
@@ -496,7 +495,6 @@ img, svg, canvas { display: block; }
 
 @media (max-width: 1279px) {
   .header .phone { display: none; }
-  .nav { padding: 0 24px; }
 }
 
 /* 1024–1099: полное меню не влезает — уходит в бургер, иконки и кнопка остаются */
@@ -508,7 +506,6 @@ img, svg, canvas { display: block; }
 
 /* 1100–1199: меню ещё компактнее, чтобы влезали иконки и кнопка */
 @media (max-width: 1199px) {
-  .nav { padding: 0 20px; }
   .nav__list { gap: 12px; }
   .nav__list a { font-size: 11.5px; }
 }
