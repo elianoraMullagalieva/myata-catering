@@ -26,7 +26,8 @@
     const H = SRC.h * scale;
 
     const fx = mobile ? 0.5 : w < 1024 ? 0.5 : 735 / 1440;
-    const fy = mobile ? 0.6 : 520 / 859;
+    // на телефоне заголовок и кнопки внизу — поднимаем шефа выше, чтобы лицо было открыто
+    const fy = mobile ? 0.47 : 520 / 859;
 
     let left = fx * w - FOCUS.u * W;
     let top = fy * h - FOCUS.v * H;
