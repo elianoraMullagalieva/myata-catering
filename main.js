@@ -154,7 +154,7 @@
   });
 
   // если экран расширили до десктопа с открытым меню — закрываем
-  window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => {
+  window.matchMedia("(min-width: 1100px)").addEventListener("change", (e) => {
     if (e.matches) setOpen(false);
   });
 })();

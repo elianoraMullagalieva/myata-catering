@@ -144,8 +144,12 @@ img, svg, canvas { display: block; }
   letter-spacing: 0;
 }
 
-/* в макете между блоком логотипа (85px) и меню 107px */
-.nav { margin-left: clamp(24px, 7.43vw, 124px); }
+/* меню стоит по центру между логотипом и контактами: равный воздух с обеих сторон,
+   но не меньше 24–64px, чтобы пункты никогда не упирались в лого или телефон */
+.nav {
+  margin: 0 auto;
+  padding: 0 clamp(24px, 3.5vw, 64px);
+}
 
 .nav__list {
   display: flex;
@@ -189,8 +193,6 @@ img, svg, canvas { display: block; }
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-left: auto;
-  padding-left: 24px;
 }
 
 .phone {
@@ -481,9 +483,34 @@ img, svg, canvas { display: block; }
 
 /* ---------- ≤1279: прячем телефон текстом, сохраняем иконки ---------- */
 
+/* ---------- 1280–1439: шапка компактнее, телефон остаётся; ниже 1280 телефон прячется ---------- */
+
+@media (max-width: 1439px) {
+  .nav__list { gap: 16px; }
+  .nav__list a { font-size: 12.5px; }
+  .header__contacts { gap: 18px; }
+  .phone { font-size: 14px; }
+  .socials { gap: 8px; }
+  .btn--sm { padding: 0 20px; font-size: 11px; }
+}
+
 @media (max-width: 1279px) {
   .header .phone { display: none; }
-  .nav { margin-left: clamp(16px, 4vw, 60px); }
+  .nav { padding: 0 24px; }
+}
+
+/* 1024–1099: полное меню не влезает — уходит в бургер, иконки и кнопка остаются */
+@media (min-width: 1024px) and (max-width: 1099px) {
+  .nav { display: none; }
+  .header__contacts { margin-left: auto; }
+  .burger { display: block; margin-left: 18px; }
+}
+
+/* 1100–1199: меню ещё компактнее, чтобы влезали иконки и кнопка */
+@media (max-width: 1199px) {
+  .nav { padding: 0 20px; }
+  .nav__list { gap: 12px; }
+  .nav__list a { font-size: 11.5px; }
 }
 
 /* ---------- TABLET ≤1023 ---------- */
