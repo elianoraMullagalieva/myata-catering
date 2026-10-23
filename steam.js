@@ -6,8 +6,7 @@
      Шейдер накладывает несколько копий этого слоя (screen): одна «дышит» на месте и уплотняет
      пар у живота, другие продолжают его вверх по фартуку и едва дымят у краёв рукавов.
      Движение почти незаметное: подъём ~0,6 px/с и медленное колыхание.
-     Координаты — в пикселях фото в базе ширины 2048 px. Вариантов фото два (переключатель
-     на первом экране), у каждого свой слой пара; копии стоят по общему силуэту. */
+     Координаты — в пикселях фото в базе ширины 2048 px (Повар/любимка 4к2.png). */
 
   const canvas = document.querySelector("[data-steam]");
   const media = document.querySelector("[data-hero-media]");
@@ -18,8 +17,7 @@
   // фото и пар появляются одновременно, без «догоняющего» пара
   const announce = (ok) => media.dispatchEvent(new CustomEvent(ok ? "steam:ready" : "steam:none"));
 
-  let variant = media.dataset.photo && TEXS[media.dataset.photo] ? media.dataset.photo : Object.keys(TEXS)[0];
-  let TEX = TEXS[variant];
+  const TEX = TEXS[Object.keys(TEXS)[0]];
   const gl = TEX && canvas.getContext("webgl", { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false, powerPreference: "low-power" });
   if (!gl) { announce(false); return; }
 
@@ -126,7 +124,7 @@
   let program, uRes, uTime, tex;
   let texImage = null;
 
-  // параметры, которые зависят от варианта фото: слой пара, высота кадра, сдвиг копий
+  // параметры слоя пара: текстура, высота кадра, сдвиг копий
   function applyVariant() {
     gl.bindTexture(gl.TEXTURE_2D, tex);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, texImage);
@@ -264,20 +262,6 @@
     img.onerror = reject;
     img.src = src;
   });
-
-  // переключение варианта фото на лету (вызывает main.js)
-  window.MYATA_STEAM = {
-    async setVariant(key) {
-      if (!TEXS[key] || key === variant || !program) return;
-      const img = await loadTexture(TEXS[key].src);
-      variant = key;
-      TEX = TEXS[key];
-      texImage = img;
-      applyVariant();
-      resize();
-      draw(performance.now());
-    },
-  };
 
   loadTexture(TEX.src).then((img) => { texImage = img; boot(); }, () => announce(false));
 })();

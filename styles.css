@@ -94,43 +94,6 @@ img, svg, canvas { display: block; }
 
 .hero__media.is-placed img { object-fit: fill; }
 
-/* смена варианта фото: фото и пар гаснут вместе и проявляются уже новыми */
-.hero__media { transition: opacity 0.35s ease; }
-.hero__media.is-swapping { opacity: 0; }
-
-/* еле заметный переключатель вариантов фото — две точки у правого края */
-.photo-switch {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  z-index: 6;
-  display: flex;
-  flex-direction: column;
-  translate: 0 -50%;
-  opacity: 0.28;
-  transition: opacity 0.3s ease;
-}
-.photo-switch:hover,
-.photo-switch:focus-within { opacity: 0.9; }
-.photo-switch button {
-  display: grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-.photo-switch button::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 50%;
-  transition: background-color 0.3s ease;
-}
-.photo-switch button[aria-pressed="true"]::before { background: #fff; }
 
 .hero__steam {
   position: absolute;
