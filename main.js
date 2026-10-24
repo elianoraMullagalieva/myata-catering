@@ -20,23 +20,29 @@
        Это та же сцена, что на фото, но срезана сверху (~130 px потолка над шефом), а сам шеф
        в ней выше и чуть мельче. Чтобы грудь стояла там же, где на фото (735 × 520 на 1440×859),
        видео поднимаем на 20% выше экрана — шеф выходит на ~15% крупнее, лицо на своём месте.
-       Фокус — среднее положение груди за ролик (шеф наклоняется на ±15 px). */
+       Фокус — среднее положение груди за ролик (шеф наклоняется на ±15 px).
+     video3 — «пока лучше» (1920×1080 → 2048×1152): шеф в кадре ниже (грудь на 0,595 высоты)
+       и на 2,5% крупнее, чем в первых двух. На десктопе зум меньше на те же 2,5% — лицо там же;
+       на телефоне кадр крупнее (km 1,15), иначе лицо уходит под заголовок. */
   const FRAMES = {
     photo: { w: 2048, h: 1348.5, u: 1043 / 2048, v: 720 / 1344, ky: 1.122, km: 1.04 },
     video: { w: 2048, h: 1152, u: 1016 / 2048, v: 580 / 1152, ky: 1.2, km: 1.01 },
+    video3: { w: 2048, h: 1152, u: 1023 / 2048, v: 686 / 1152, ky: 1.171, km: 1.15 },
   };
 
   /* ---------- Видео вместо фото ----------
-     Два ролика для сравнения: выбор запоминается и задаётся ссылкой ?video=2.
+     Три ролика для сравнения (по умолчанию — третий, «пока лучше»): выбор запоминается
+     и задаётся ссылкой ?video=1|2|3.
      Фото остаётся запасным вариантом — без JS, при «уменьшить движение», экономии трафика
      и если видео не загрузилось; только тогда включается WebGL-пар (у видео свой живой пар). */
-  const VIDEOS = { "1": "hero-video-1", "2": "hero-video-2" };
+  const VIDEOS = { "1": "hero-video-1", "2": "hero-video-2", "3": "hero-video-3" };
+  const VIDEO_FRAMES = { "3": "video3" }; // у кого кадр отличается от первых двух
   const store = {
     get() { try { return localStorage.getItem("myata-video"); } catch (e) { return null; } },
     set(v) { try { localStorage.setItem("myata-video", v); } catch (e) { /* приватный режим */ } },
   };
   const fromUrl = new URLSearchParams(location.search).get("video");
-  let clip = VIDEOS[fromUrl] ? fromUrl : VIDEOS[store.get()] ? store.get() : "1";
+  let clip = VIDEOS[fromUrl] ? fromUrl : VIDEOS[store.get()] ? store.get() : "3";
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const saveData = !!(navigator.connection && navigator.connection.saveData);
@@ -75,7 +81,7 @@
     const w = hero.clientWidth;
     const h = hero.clientHeight;
     const mobile = w < 768;
-    const F = FRAMES[mode];
+    const F = FRAMES[mode === "video" ? VIDEO_FRAMES[clip] || "video" : "photo"];
 
     // десктоп: тот же зум, что в макете; телефон: шеф крупнее и по центру
     const scale = mobile

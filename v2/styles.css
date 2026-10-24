@@ -26,7 +26,7 @@
   pointer-events: none;
   mix-blend-mode: screen;
   opacity: 0;
-  transition: opacity 2.2s ease 0.8s;
+  transition: opacity 1.87s ease 0.68s;
 }
 .js.is-loaded .v2-glow { opacity: 1; }
 .v2-glow::before,
@@ -211,9 +211,9 @@
   scale: 1.12;
   filter: blur(16px) brightness(0.55);
   transition:
-    opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-    scale 3s var(--ease-expo),
-    filter 1.7s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 1.02s cubic-bezier(0.4, 0, 0.2, 1),
+    scale 2.55s var(--ease-expo),
+    filter 1.44s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .js.is-loaded .v2 .hero__bg { opacity: 1; scale: 1; filter: none; }
 
@@ -225,9 +225,9 @@
 .js .v2 .burger {
   filter: blur(6px);
   transition:
-    opacity 0.7s var(--ease) var(--d, 0s),
-    transform 0.95s var(--ease-expo) var(--d, 0s),
-    filter 0.7s var(--ease) var(--d, 0s);
+    opacity 0.59s var(--ease) var(--d, 0s),
+    transform 0.81s var(--ease-expo) var(--d, 0s),
+    filter 0.59s var(--ease) var(--d, 0s);
 }
 .js .v2 .socials li { transform: translate3d(0, -12px, 0) scale(0.7); }
 .js.is-loaded .v2 .logo,
@@ -242,7 +242,7 @@
   opacity: 1;
   transform: none;
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.85s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s), background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: clip-path 0.72s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s), background-color 0.26s var(--ease), border-color 0.26s var(--ease);
 }
 .js.is-loaded .v2 .header__contacts .btn { clip-path: inset(0 0 0 0); }
 
@@ -254,9 +254,9 @@
   transform: translate3d(0, 0.42em, 0);
   filter: blur(12px);
   transition:
-    opacity 0.65s var(--ease) var(--d, 0s),
-    transform 1.05s var(--ease-expo) var(--d, 0s),
-    filter 0.8s var(--ease) var(--d, 0s);
+    opacity 0.55s var(--ease) var(--d, 0s),
+    transform 0.89s var(--ease-expo) var(--d, 0s),
+    filter 0.68s var(--ease) var(--d, 0s);
 }
 .js.is-loaded .v2-c { opacity: 1; transform: none; filter: none; }
 
@@ -267,10 +267,10 @@
   transform: translate3d(-0.12em, 0, 0);
   filter: blur(8px);
   transition:
-    opacity 0.45s var(--ease) var(--d, 0s),
-    clip-path 1.3s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s),
-    transform 1.4s var(--ease-expo) var(--d, 0s),
-    filter 1s var(--ease) var(--d, 0s);
+    opacity 0.38s var(--ease) var(--d, 0s),
+    clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s),
+    transform 1.19s var(--ease-expo) var(--d, 0s),
+    filter 0.85s var(--ease) var(--d, 0s);
 }
 .js.is-loaded .v2-title__accent-in {
   opacity: 1;
@@ -288,7 +288,7 @@
     color: transparent;
   }
   .js.is-loaded .v2-title__accent-in {
-    animation: v2-shimmer 2s cubic-bezier(0.4, 0, 0.2, 1) var(--shine, 2s) 1 both;
+    animation: v2-shimmer 1.7s cubic-bezier(0.4, 0, 0.2, 1) var(--shine, 1.7s) 1 both;
   }
 }
 @keyframes v2-shimmer {
@@ -300,14 +300,14 @@
 .js .v2-note::before {
   opacity: 0;
   transform: scale(0.82);
-  transition: opacity 1.2s var(--ease) var(--d, 0s), transform 1.5s var(--ease-expo) var(--d, 0s);
+  transition: opacity 1.02s var(--ease) var(--d, 0s), transform 1.27s var(--ease-expo) var(--d, 0s);
 }
 .js.is-loaded .v2-note::before { opacity: 1; transform: none; }
 
 .js .v2-note__mark {
   opacity: 0;
   transform: rotate(-135deg) scale(0.3);
-  transition: opacity 0.65s var(--ease) var(--d, 0s), transform 1.1s var(--ease-expo) var(--d, 0s);
+  transition: opacity 0.55s var(--ease) var(--d, 0s), transform 0.94s var(--ease-expo) var(--d, 0s);
 }
 .js.is-loaded .v2-note__mark { opacity: 1; transform: none; }
 
@@ -317,9 +317,9 @@
   transform: translate3d(0, 10px, 0);
   filter: blur(6px);
   transition:
-    opacity 0.65s var(--ease) var(--d, 0s),
-    transform 0.85s var(--ease-expo) var(--d, 0s),
-    filter 0.65s var(--ease) var(--d, 0s);
+    opacity 0.55s var(--ease) var(--d, 0s),
+    transform 0.72s var(--ease-expo) var(--d, 0s),
+    filter 0.55s var(--ease) var(--d, 0s);
 }
 .js.is-loaded .v2-w { opacity: 1; transform: none; filter: none; }
 

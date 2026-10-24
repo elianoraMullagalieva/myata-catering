@@ -46,7 +46,9 @@
   /* ---------- Хореография ----------
      Заголовок делим на буквы (внутри слов — без переноса посреди слова), заметки — на слова,
      всем раздаём задержки. Старт — когда готовы фото и шрифты. */
-  const setDelay = (el, s) => el && el.style.setProperty("--d", `${s.toFixed(3)}s`);
+  // общий темп хореографии: 1 — исходный, меньше — быстрее
+  const PACE = 0.85;
+  const setDelay = (el, s) => el && el.style.setProperty("--d", `${(s * PACE).toFixed(3)}s`);
 
   function splitChars(el) {
     const words = el.textContent.trim().split(/\s+/);
@@ -108,7 +110,7 @@
   const accent = document.querySelector(".v2-title__accent-in");
   const accentAt = t + 0.15;
   setDelay(accent, accentAt);
-  if (accent) accent.style.setProperty("--shine", `${(accentAt + 1.1).toFixed(2)}s`);
+  if (accent) accent.style.setProperty("--shine", `${((accentAt + 1.1) * PACE).toFixed(2)}s`);
 
   // заметки: сначала правая (она выше), затем левая
   [[".v2-note--right", accentAt + 0.25], [".v2-note--left", accentAt + 0.42]].forEach(([sel, at]) => {
