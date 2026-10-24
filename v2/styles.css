@@ -144,6 +144,21 @@
   margin-top: auto;
 }
 
+/* подложка под фактами: шире и мягче, чем в первой версии, — размытие растекается к краям без границы */
+.v2 .facts {
+  --glass-inset: -78px -130px -96px -92px;
+}
+.v2 .facts::before {
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.09) 50%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0, 0, 0, 0.82) 22%, rgba(0, 0, 0, 0.5) 48%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.05) 90%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 0%, rgba(0, 0, 0, 0.82) 22%, rgba(0, 0, 0, 0.5) 48%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.05) 90%, transparent 100%);
+}
+@media (max-width: 767px) {
+  .v2 .facts { --glass-inset: -34px -44px; }
+}
+
 @media (min-width: 1680px) {
   .v2-note--left { width: 196px; }
   .v2-note--right { width: 236px; }
