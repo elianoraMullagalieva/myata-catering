@@ -90,34 +90,34 @@
   }
 
   // шапка
-  setDelay(document.querySelector(".logo"), 0.25);
-  setDelay(document.querySelector(".burger"), 0.45);
-  document.querySelectorAll(".nav__list li").forEach((li, i) => setDelay(li, 0.42 + i * 0.06));
-  setDelay(document.querySelector(".header__contacts .phone"), 0.78);
-  document.querySelectorAll(".socials li").forEach((li, i) => setDelay(li, 0.86 + i * 0.07));
-  setDelay(document.querySelector(".header__contacts .btn"), 1.0);
+  setDelay(document.querySelector(".logo"), 0.15);
+  setDelay(document.querySelector(".burger"), 0.3);
+  document.querySelectorAll(".nav__list li").forEach((li, i) => setDelay(li, 0.28 + i * 0.04));
+  setDelay(document.querySelector(".header__contacts .phone"), 0.5);
+  document.querySelectorAll(".socials li").forEach((li, i) => setDelay(li, 0.56 + i * 0.05));
+  setDelay(document.querySelector(".header__contacts .btn"), 0.66);
 
   // заголовок: строка за строкой, буква за буквой
   const lines = [...document.querySelectorAll("[data-split]")];
-  let t = 0.6;
+  let t = 0.38;
   lines.forEach((line, li) => {
     const chars = splitChars(line);
-    chars.forEach((c, i) => setDelay(c, t + i * 0.024));
-    t += li === 0 ? 0.32 : 0.36;
+    chars.forEach((c, i) => setDelay(c, t + i * 0.016));
+    t += li === 0 ? 0.22 : 0.24;
   });
   const accent = document.querySelector(".v2-title__accent-in");
-  const accentAt = t + 0.25;
+  const accentAt = t + 0.15;
   setDelay(accent, accentAt);
-  if (accent) accent.style.setProperty("--shine", `${(accentAt + 1.7).toFixed(2)}s`);
+  if (accent) accent.style.setProperty("--shine", `${(accentAt + 1.1).toFixed(2)}s`);
 
   // заметки: сначала правая (она выше), затем левая
-  [[".v2-note--right", accentAt + 0.35], [".v2-note--left", accentAt + 0.6]].forEach(([sel, at]) => {
+  [[".v2-note--right", accentAt + 0.25], [".v2-note--left", accentAt + 0.42]].forEach(([sel, at]) => {
     const note = document.querySelector(sel);
     if (!note) return;
     setDelay(note, at - 0.1);
     setDelay(note.querySelector(".v2-note__mark"), at);
     const text = note.querySelector("[data-words]");
-    if (text) splitWords(text).forEach((w, i) => setDelay(w, at + 0.18 + i * 0.045));
+    if (text) splitWords(text).forEach((w, i) => setDelay(w, at + 0.12 + i * 0.03));
   });
 
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -127,8 +127,8 @@
     : Promise.resolve();
   const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
 
-  // ждём фото и шрифты, но не дольше 2,5 с
-  Promise.race([Promise.all([imageReady, fontsReady]), wait(2500)]).then(() => {
+  // ждём фото и шрифты, но не дольше 1,6 с
+  Promise.race([Promise.all([imageReady, fontsReady]), wait(1600)]).then(() => {
     void root.offsetWidth;
     root.classList.add("is-loaded");
   });
