@@ -69,17 +69,24 @@
   }
 
   function splitWords(el) {
-    // неразрывные пробелы оставляем внутри «слова», чтобы предлоги не отрывались
-    const parts = el.textContent.trim().split(/ +/);
-    el.textContent = "";
-    return parts.map((part, i) => {
-      const w = document.createElement("span");
-      w.className = "v2-w";
-      w.textContent = part;
-      el.appendChild(w);
-      if (i < parts.length - 1) el.appendChild(document.createTextNode(" "));
-      return w;
+    // делим только текст, переносы <br> оставляем на месте — строки заметок заданы явно;
+    // неразрывные пробелы остаются внутри «слова», чтобы предлоги не отрывались
+    const words = [];
+    [...el.childNodes].forEach((node) => {
+      if (node.nodeType !== Node.TEXT_NODE) return;
+      const frag = document.createDocumentFragment();
+      node.textContent.split(/( +)/).forEach((part) => {
+        if (!part) return;
+        if (/^ +$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+        const w = document.createElement("span");
+        w.className = "v2-w";
+        w.textContent = part;
+        frag.appendChild(w);
+        words.push(w);
+      });
+      node.replaceWith(frag);
     });
+    return words;
   }
 
   // шапка

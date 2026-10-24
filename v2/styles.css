@@ -89,7 +89,8 @@
   color: #fff;
 }
 
-.v2-title__line { display: block; }
+/* каждая строка заголовка держится целиком — никакой «лесенки» ни на одной ширине */
+.v2-title__line { display: block; white-space: nowrap; }
 
 .v2-title__accent {
   display: block;
@@ -120,12 +121,14 @@
 
 .v2-note__mark { width: 25px; height: 25px; color: #fff; }
 
+/* строки заметок заданы явно, как в макете, — переносы не зависят от ширины экрана */
 .v2-note__text {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 18px;
   line-height: 1.16;
+  white-space: nowrap;
 }
 
 /* стеклянные подложки по эллипсам макета: размытие в центре, края тают */
@@ -203,7 +206,9 @@
   }
 
   .v2-note__mark { width: 20px; height: 20px; }
-  .v2-note__text { font-size: 15px; line-height: 1.25; }
+  /* на телефоне подзаголовок по центру — переносится сам */
+  .v2-note__text { font-size: 15px; line-height: 1.25; white-space: normal; }
+  .v2-note__text br { display: none; }
 }
 
 /* ---------- ХОРЕОГРАФИЯ ПОЯВЛЕНИЯ ----------
