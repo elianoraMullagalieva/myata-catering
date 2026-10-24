@@ -122,6 +122,12 @@
     if (text) splitWords(text).forEach((w, i) => setDelay(w, at + 0.12 + i * 0.03));
   });
 
+  // низ: факты, затем кнопки — последними
+  const bottomAt = accentAt + 0.55;
+  setDelay(document.querySelector(".facts"), bottomAt);
+  document.querySelectorAll(".fact").forEach((el, i) => setDelay(el, bottomAt + 0.08 + i * 0.08));
+  document.querySelectorAll(".actions .btn").forEach((el, i) => setDelay(el, bottomAt + 0.16 + i * 0.09));
+
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const img = media && media.querySelector("img");
   const imageReady = img

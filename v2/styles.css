@@ -137,6 +137,13 @@
 .v2-note--left { --glass-inset: -46px -23px -39px -40px; }
 .v2-note--right { --glass-inset: -43px -22px -42px -57px; }
 
+/* низ экрана — факты и кнопки, как в первой версии (общие стили ../styles.css) */
+.v2-bottom {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+}
+
 @media (min-width: 1680px) {
   .v2-note--left { width: 196px; }
   .v2-note--right { width: 236px; }
