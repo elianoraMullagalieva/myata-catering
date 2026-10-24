@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500&family=Golos+Text:wght@400;500&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20261023204957">
+  <link rel="stylesheet" href="styles.css?v=20261024110408">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -23,10 +23,13 @@
   <section class="hero" aria-label="Главный экран">
     <div class="hero__bg">
     <div class="hero__media" data-hero-media>
-      <picture>
-        <source type="image/webp" srcset="assets/hero-1200.webp 1200w, assets/hero.webp 1600w, assets/hero-2048.webp 2048w, assets/hero-2880.webp 2880w" sizes="(max-width: 767px) 160vh, 102vw">
-        <img src="assets/hero.jpg" width="1600" height="1050" alt="Шеф-повар МЯТА выкладывает свежую зелень на подачу" fetchpriority="high">
+      <!-- видео-фон: ролик выбирает main.js (?video=2 или переключатель); фото ниже — запасной вариант -->
+      <video class="hero__video" data-hero-video autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1"></video>
+      <!-- запасное фото — исходник «любимка 4к2.png» без пережатия; грузится, только когда нужно (см. main.js) -->
+      <picture class="hero__photo">
+        <img data-src="assets/hero-photo.png" width="4096" height="2697" alt="Шеф-повар МЯТА выкладывает свежую зелень на подачу">
       </picture>
+      <noscript><img src="assets/hero-photo.png" width="4096" height="2697" alt="Шеф-повар МЯТА выкладывает свежую зелень на подачу"></noscript>
       <canvas class="hero__steam" data-steam aria-hidden="true"></canvas>
     </div>
     <div class="hero__shade" aria-hidden="true"></div>
@@ -76,6 +79,11 @@
         <span></span><span></span>
       </button>
     </header>
+
+    <div class="video-switch" role="group" aria-label="Вариант видео первого экрана" data-video-switch hidden>
+      <button type="button" data-video="1" aria-label="Видео 1" aria-pressed="true"></button>
+      <button type="button" data-video="2" aria-label="Видео 2" aria-pressed="false"></button>
+    </div>
 
     <div class="hero__body">
       <h1 class="hero__title">
@@ -143,8 +151,7 @@
   </section>
 
 
-  <script src="main.js?v=20261023204957" defer></script>
-  <script src="steam-texture.js?v=20261023204957" defer></script>
-  <script src="steam.js?v=20261023204957" defer></script>
+  <!-- пар (steam-texture.js, steam.js) подгружает main.js — только для фото, у видео свой живой пар -->
+  <script src="main.js?v=20261024110408" defer></script>
 </body>
 </html>

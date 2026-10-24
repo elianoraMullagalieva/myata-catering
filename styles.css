@@ -94,6 +94,66 @@ img, svg, canvas { display: block; }
 
 .hero__media.is-placed img { object-fit: fill; }
 
+/* без JS фото показывается из <noscript>; пустой <img data-src> прячем */
+.no-js .hero__photo { display: none; }
+
+/* видео-фон: занимает ту же коробку, что фото; без JS и в режиме фото его нет */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--bg);
+  pointer-events: none;
+}
+.hero__media:not([data-mode="video"]) .hero__video { display: none; }
+/* в режиме видео фото и WebGL-пар не показываем — у ролика свой живой пар */
+.hero__media[data-mode="video"] .hero__photo,
+.hero__media[data-mode="video"] .hero__steam { display: none; }
+
+/* смена ролика: фон гаснет и проявляется уже новым */
+.hero__media { transition: opacity 0.35s ease; }
+.hero__media.is-swapping { opacity: 0; }
+
+/* еле заметный переключатель роликов — две точки у правого края */
+.video-switch {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  translate: 0 -50%;
+  opacity: 0.28;
+  transition: opacity 0.3s ease;
+}
+.video-switch[hidden] { display: none; }
+/* открыто мобильное меню — точки не должны висеть поверх него */
+body.is-locked .video-switch { visibility: hidden; }
+.video-switch:hover,
+.video-switch:focus-within { opacity: 0.9; }
+.video-switch button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.video-switch button::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+.video-switch button[aria-pressed="true"]::before { background: #fff; }
+
 
 .hero__steam {
   position: absolute;
@@ -467,11 +527,20 @@ img, svg, canvas { display: block; }
 .drawer.is-open .drawer__nav a:nth-child(6) { transition-delay: 0.2s; }
 .drawer.is-open .drawer__nav a:nth-child(7) { transition-delay: 0.24s; }
 
-.drawer__footer { display: flex; flex-direction: column; gap: 20px; }
-.drawer__row { display: flex; align-items: center; gap: 12px; }
-.drawer .social { border: 1.5px solid var(--line); width: 52px; height: 52px; flex: none; }
-.drawer .btn--grow { flex: 1; height: 52px; padding: 0 16px; }
+/* низ меню: телефон → кнопка заявки на всю ширину → иконки отдельной строкой */
+.drawer__footer { display: flex; flex-direction: column; gap: 18px; }
+.drawer__row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 10px; }
+.drawer .social { border: 1.5px solid var(--line); width: 46px; height: 46px; flex: none; }
+.drawer .social svg { width: 34px; height: 34px; }
+.drawer .btn--grow { order: -1; flex: 1 0 100%; height: 52px; padding: 0 16px; }
 .phone--lg { font-size: 22px; }
+
+/* маленькие телефоны: пункты меню компактнее, чтобы всё помещалось без прокрутки */
+@media (max-width: 400px), (max-height: 720px) {
+  .drawer { gap: 24px; padding-top: calc(var(--header-top) + 76px); }
+  .drawer__nav a { padding: 9px 0; font-size: clamp(22px, 6vw, 28px); }
+  .phone--lg { font-size: 20px; }
+}
 
 /* ---------- LARGE SCREENS ---------- */
 

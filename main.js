@@ -4,33 +4,92 @@
   const root = document.documentElement;
   const hero = document.querySelector(".hero");
   const media = document.querySelector("[data-hero-media]");
+  const video = media && media.querySelector("[data-hero-video]");
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  // версия файлов (?v=…) — ей же подгружаем скрипты пара
+  const version = document.currentScript ? new URL(document.currentScript.src).search : "";
 
-  /* ---------- Фото как cover, но с фокусом на шефе ----------
-     Фото (Повар/любимка 4к2.png, в базе ширины 2048 — 2048×1348,5) масштабируем как в макете
-     (узел 45:208): чуть шире кадра и на 12% выше него, и держим точку FOCUS (грудь шефа,
-     голова по центру) в нужном месте кадра на любом экране. */
-  const SRC = { w: 2048, h: 1348.5 };
-  const FOCUS = { u: 1043 / 2048, v: 720 / 1344 };
+  /* ---------- Кадры фона: фото и видео ----------
+     Размеры — в базе ширины 2048 px. Коробка .hero__media растягивается как cover, а точка
+     фокуса (u, v — грудь шефа, голова по центру) держится в нужном месте экрана.
+     ky — во сколько раз кадр выше экрана на десктопе, km — запас на телефоне.
+
+     photo — Повар/любимка 4к2.png (2048×1348,5): как в макете (узел 45:208), чуть шире кадра
+       и на 12% выше него.
+     video — ролики «Дима итог 2к» и «Дима итог 2» (2560×1440 → 2048×1152, кадр у обоих одинаковый).
+       Это та же сцена, что на фото, но срезана сверху (~130 px потолка над шефом), а сам шеф
+       в ней выше и чуть мельче. Чтобы грудь стояла там же, где на фото (735 × 520 на 1440×859),
+       видео поднимаем на 20% выше экрана — шеф выходит на ~15% крупнее, лицо на своём месте.
+       Фокус — среднее положение груди за ролик (шеф наклоняется на ±15 px). */
+  const FRAMES = {
+    photo: { w: 2048, h: 1348.5, u: 1043 / 2048, v: 720 / 1344, ky: 1.122, km: 1.04 },
+    video: { w: 2048, h: 1152, u: 1016 / 2048, v: 580 / 1152, ky: 1.2, km: 1.01 },
+  };
+
+  /* ---------- Видео вместо фото ----------
+     Два ролика для сравнения: выбор запоминается и задаётся ссылкой ?video=2.
+     Фото остаётся запасным вариантом — без JS, при «уменьшить движение», экономии трафика
+     и если видео не загрузилось; только тогда включается WebGL-пар (у видео свой живой пар). */
+  const VIDEOS = { "1": "hero-video-1", "2": "hero-video-2" };
+  const store = {
+    get() { try { return localStorage.getItem("myata-video"); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem("myata-video", v); } catch (e) { /* приватный режим */ } },
+  };
+  const fromUrl = new URLSearchParams(location.search).get("video");
+  let clip = VIDEOS[fromUrl] ? fromUrl : VIDEOS[store.get()] ? store.get() : "1";
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  const canVideo = !!(video && video.canPlayType && video.canPlayType("video/mp4"));
+  let mode = hero && media && canVideo && !reduceMotion && !saveData ? "video" : "photo";
+
+  function setVideoSource() {
+    const base = `assets/${VIDEOS[clip]}`;
+    video.poster = `${base}.webp`; // первый кадр ролика — той же геометрии, без скачка при старте
+    video.src = `${base}.mp4`;
+    const p = video.play();
+    if (p && p.catch) p.catch(() => { /* автозапуск запрещён (энергосбережение) — остаётся постер */ });
+  }
+
+  // первый кадр видео готов (или видео не будет)
+  const videoFrameReady = () => new Promise((r) => {
+    if (video.readyState >= 2) return r();
+    ["loadeddata", "canplay", "error"].forEach((ev) => video.addEventListener(ev, r, { once: true }));
+  });
+
+  // пар нужен только фото — для видео его скрипты не грузим вовсе
+  let steamRequested = false;
+  function loadSteam() {
+    if (steamRequested) return;
+    steamRequested = true;
+    ["steam-texture.js", "steam.js"].forEach((name) => {
+      const s = document.createElement("script");
+      s.src = name + version;
+      s.async = false; // строго по порядку: сначала слой пара, потом шейдер
+      document.body.appendChild(s);
+    });
+  }
 
   function placeMedia() {
     if (!hero || !media) return;
     const w = hero.clientWidth;
     const h = hero.clientHeight;
     const mobile = w < 768;
+    const F = FRAMES[mode];
 
     // десктоп: тот же зум, что в макете; телефон: шеф крупнее и по центру
     const scale = mobile
-      ? Math.max(w / SRC.w, h / SRC.h) * 1.04
-      : Math.max((1.004 * w) / SRC.w, (1.122 * h) / SRC.h);
-    const W = SRC.w * scale;
-    const H = SRC.h * scale;
+      ? Math.max(w / F.w, h / F.h) * F.km
+      : Math.max((1.004 * w) / F.w, (F.ky * h) / F.h);
+    const W = F.w * scale;
+    const H = F.h * scale;
 
     const fx = mobile ? 0.5 : w < 1024 ? 0.5 : 735 / 1440;
     // на телефоне заголовок и кнопки внизу — поднимаем шефа выше, чтобы лицо было открыто
     const fy = mobile ? 0.47 : 520 / 859;
 
-    let left = fx * w - FOCUS.u * W;
-    let top = fy * h - FOCUS.v * H;
+    let left = fx * w - F.u * W;
+    let top = fy * h - F.v * H;
     left = Math.min(0, Math.max(w - W, left));
     top = Math.min(0, Math.max(h - H, top));
 
@@ -40,6 +99,46 @@
     media.style.transform = `translate3d(${left}px, ${top}px, 0)`;
     media.classList.add("is-placed");
     media.dispatchEvent(new CustomEvent("media:resize", { detail: { width: W, height: H } }));
+  }
+
+  const switcher = document.querySelector("[data-video-switch]");
+
+  // исходное фото тяжёлое (без пережатия) — подставляем его только в режиме фото
+  function loadPhoto() {
+    const photo = media && media.querySelector(".hero__photo img");
+    if (photo && !photo.getAttribute("src") && photo.dataset.src) photo.src = photo.dataset.src;
+  }
+
+  // видео не загрузилось — возвращаем фото с паром
+  function fallbackToPhoto() {
+    if (mode === "photo") return;
+    mode = "photo";
+    media.dataset.mode = "photo";
+    loadPhoto();
+    video.removeAttribute("src");
+    video.load();
+    if (switcher) switcher.hidden = true;
+    placeMedia();
+    loadSteam();
+  }
+
+  if (media) {
+    media.dataset.mode = mode;
+    if (mode === "video") {
+      setVideoSource();
+      video.addEventListener("error", fallbackToPhoto);
+      // за кадром ролик не крутим — бережём батарею
+      if ("IntersectionObserver" in window && hero) {
+        new IntersectionObserver(([entry]) => {
+          if (mode !== "video") return;
+          if (entry.isIntersecting) { const p = video.play(); if (p && p.catch) p.catch(() => {}); }
+          else video.pause();
+        }).observe(hero);
+      }
+    } else {
+      loadPhoto();
+      loadSteam();
+    }
   }
 
   placeMedia();
@@ -95,23 +194,51 @@
   document.querySelectorAll(".fact").forEach((el, i) => setDelay(el, 1.36 + i * 0.08));
   document.querySelectorAll(".actions .btn").forEach((el, i) => setDelay(el, 1.44 + i * 0.09));
 
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const img = media && media.querySelector("img");
-  const imageReady = img
+  const imageReady = mode === "photo" && img
     ? (img.decode ? img.decode() : new Promise((r) => (img.complete ? r() : img.addEventListener("load", r, { once: true })))).catch(() => {})
     : Promise.resolve();
   const steamReady = new Promise((r) => {
-    if (!media) return r();
+    if (!media || mode === "video") return r();
     media.addEventListener("steam:ready", r, { once: true });
     media.addEventListener("steam:none", r, { once: true });
   });
+  // у видео ждём первый кадр — фон проявляется уже живым
+  const videoReady = mode === "video" ? videoFrameReady() : Promise.resolve();
   const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
 
   // ждём всё вместе, но не дольше 2.5 с — на медленной сети страница не должна висеть пустой
-  Promise.race([Promise.all([imageReady, steamReady, fontsReady]), wait(2500)]).then(() => {
+  // (если видео не успело, видно его постер — первый кадр ролика)
+  Promise.race([Promise.all([imageReady, steamReady, videoReady, fontsReady]), wait(2500)]).then(() => {
     void root.offsetWidth;
     root.classList.add("is-loaded");
   });
+
+  /* ---------- Еле заметный переключатель роликов ----------
+     Фон гаснет, ролик меняется и проявляется снова — без перезагрузки страницы. */
+  if (switcher && mode === "video") {
+    switcher.hidden = false;
+    const buttons = [...switcher.querySelectorAll("[data-video]")];
+    const mark = () => buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.video === clip)));
+    mark();
+    let busy = false;
+    switcher.addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-video]");
+      if (!btn || busy || mode !== "video" || btn.dataset.video === clip || !VIDEOS[btn.dataset.video]) return;
+      busy = true;
+      clip = btn.dataset.video;
+      store.set(clip);
+      mark();
+      media.classList.add("is-swapping");
+      await wait(350);
+      setVideoSource();
+      // ждём первый кадр нового ролика, но не дольше 1,5 с — смена не должна зависать
+      await Promise.race([videoFrameReady(), wait(1500)]);
+      placeMedia();
+      media.classList.remove("is-swapping");
+      busy = false;
+    });
+  }
 
   /* ---------- Мобильное меню ---------- */
   const burger = document.querySelector("[data-burger]");
