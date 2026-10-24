@@ -1,0 +1,341 @@
+/* МЯТА — вариант 2 «Фаворит» (Figma, узел 110:1840).
+   Шапка, меню, кнопки и стекло общие с основным сайтом (../styles.css),
+   здесь — раскладка первого экрана и хореография появления. */
+
+.v2 {
+  --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-accent: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/* шапка — точно как в первой версии (общие стили ../styles.css) */
+
+/* фото: стол занимает низ, свет и люди — фон */
+.v2 .hero__media img { object-position: 50% 40%; }
+
+.v2 .hero__shade {
+  background:
+    radial-gradient(ellipse 34% 30% at 50% 26%, rgba(0, 0, 0, 0.34), transparent 72%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.12) 22%, transparent 40%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.22), transparent 18%);
+}
+
+/* тёплое «дыхание» огней: свечи и боке по фону еле заметно мерцают */
+.v2-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 3s ease 1.2s;
+}
+.js.is-loaded .v2-glow { opacity: 1; }
+.v2-glow::before,
+.v2-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.v2-glow::before {
+  background:
+    radial-gradient(ellipse 7% 9% at 3.5% 88%, rgba(255, 176, 92, 0.28), transparent 70%),
+    radial-gradient(ellipse 7% 9% at 95.5% 87%, rgba(255, 176, 92, 0.26), transparent 70%),
+    radial-gradient(ellipse 16% 8% at 30% 46%, rgba(255, 160, 90, 0.12), transparent 70%);
+  animation: v2-flicker-a 5.2s ease-in-out infinite alternate;
+}
+.v2-glow::after {
+  background:
+    radial-gradient(ellipse 18% 9% at 70% 44%, rgba(255, 150, 96, 0.12), transparent 70%),
+    radial-gradient(ellipse 30% 14% at 50% 38%, rgba(190, 40, 70, 0.08), transparent 72%);
+  animation: v2-flicker-b 7.4s ease-in-out infinite alternate;
+}
+@keyframes v2-flicker-a { 0% { opacity: 0.55; } 35% { opacity: 0.85; } 60% { opacity: 0.62; } 100% { opacity: 1; } }
+@keyframes v2-flicker-b { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 0.85; } }
+
+/* очень медленный дрейф кадра после появления — фото «живёт» */
+.v2 .hero__media picture {
+  display: block;
+  transform-origin: 50% 62%;
+}
+.js.is-loaded .v2 .hero__media picture {
+  animation: v2-drift 34s ease-in-out 4.2s infinite alternate;
+}
+@keyframes v2-drift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.045) translate3d(-0.5%, -0.9%, 0); }
+}
+
+/* ---------- РАСКЛАДКА (макет 1440×859) ---------- */
+
+.v2-body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.v2-title {
+  position: absolute;
+  top: max(16.2%, 104px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0 var(--gutter);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(36px, 4.72vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-align: center;
+  color: #fff;
+}
+
+.v2-title__line { display: block; }
+
+.v2-title__accent {
+  display: block;
+  margin-top: -0.235em;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: -0.01em;
+}
+
+.v2-title__accent-in {
+  display: inline-block;
+  padding: 0 0.1em;
+}
+
+.v2-note {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #fff;
+  pointer-events: auto;
+}
+
+.v2-note--left { left: 10%; top: 42.6%; width: 166px; }
+.v2-note--right { right: 4.65%; top: 29.6%; width: 208px; }
+
+.v2-note__mark { width: 25px; height: 25px; color: #fff; }
+
+.v2-note__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.16;
+}
+
+/* стеклянные подложки по эллипсам макета: размытие в центре, края тают */
+.v2-note::before {
+  content: "";
+  position: absolute;
+  inset: var(--glass-inset);
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.1) 55%, transparent);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0, 0, 0, 0.92) 28%, rgba(0, 0, 0, 0.5) 62%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 0%, rgba(0, 0, 0, 0.92) 28%, rgba(0, 0, 0, 0.5) 62%, transparent 100%);
+}
+.v2-note--left { --glass-inset: -46px -23px -39px -40px; }
+.v2-note--right { --glass-inset: -43px -22px -42px -57px; }
+
+@media (min-width: 1680px) {
+  .v2-note--left { width: 196px; }
+  .v2-note--right { width: 236px; }
+  .v2-note__text { font-size: 20px; }
+}
+
+@media (max-width: 1023px) {
+  .v2-note--left { left: 5%; top: 52%; }
+  .v2-note--right { top: 40%; }
+  .v2-note__text { font-size: 16px; }
+}
+
+/* ---------- ТЕЛЕФОН ---------- */
+
+@media (max-width: 767px) {
+  .v2 .hero__shade {
+    background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.25) 34%, transparent 52%),
+      linear-gradient(to top, rgba(0, 0, 0, 0.25), transparent 20%);
+  }
+
+  .v2-body {
+    position: relative;
+    inset: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: clamp(24px, 5svh, 48px);
+  }
+
+  /* строго три строки: «Кейтеринг, который» / «сделает мероприятие» / «особенным»;
+     кегль по ширине самой длинной строки, чтобы она не переносилась */
+  .v2-title {
+    position: relative;
+    top: auto;
+    padding: 0;
+    font-size: min(9vw, 46px);
+    line-height: 0.95;
+  }
+
+  .v2-title__line { white-space: nowrap; }
+
+  .v2-note--left { display: none; }
+
+  .v2-note--right {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: auto;
+    max-width: 300px;
+    margin-top: 18px;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    --glass-inset: -26px -30px;
+  }
+
+  .v2-note__mark { width: 20px; height: 20px; }
+  .v2-note__text { font-size: 15px; line-height: 1.25; }
+}
+
+/* ---------- ХОРЕОГРАФИЯ ПОЯВЛЕНИЯ ----------
+   Порядок: фото «проявляется» из темноты и фокуса → шапка → заголовок по буквам →
+   «особенным» вписывается курсивом и пробегает тёплым бликом → заметки. Задержки --d задаёт main.js. */
+
+/* фото: из темноты, расфокуса и лёгкого приближения */
+.js .v2 .hero__bg {
+  opacity: 0;
+  scale: 1.12;
+  filter: blur(16px) brightness(0.55);
+  transition:
+    opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1),
+    scale 4.2s var(--ease-expo),
+    filter 2.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.js.is-loaded .v2 .hero__bg { opacity: 1; scale: 1; filter: none; }
+
+/* шапка — с лёгким расфокусом */
+.js .v2 .logo,
+.js .v2 .nav__list li,
+.js .v2 .header__contacts .phone,
+.js .v2 .socials li,
+.js .v2 .burger {
+  filter: blur(6px);
+  transition:
+    opacity 1s var(--ease) var(--d, 0s),
+    transform 1.3s var(--ease-expo) var(--d, 0s),
+    filter 1s var(--ease) var(--d, 0s);
+}
+.js .v2 .socials li { transform: translate3d(0, -12px, 0) scale(0.7); }
+.js.is-loaded .v2 .logo,
+.js.is-loaded .v2 .nav__list li,
+.js.is-loaded .v2 .header__contacts .phone,
+.js.is-loaded .v2 .socials li,
+.js.is-loaded .v2 .burger { filter: none; }
+.js.is-loaded .v2 .socials li { transform: none; }
+
+/* кнопка заявки: рамка «прочерчивается» слева направо */
+.js .v2 .header__contacts .btn {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s), background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.js.is-loaded .v2 .header__contacts .btn { clip-path: inset(0 0 0 0); }
+
+/* заголовок: буквы поднимаются снизу прямо и выходят из размытия */
+.v2-cw { display: inline-block; white-space: nowrap; }
+.v2-c { display: inline-block; }
+.js .v2-c {
+  opacity: 0;
+  transform: translate3d(0, 0.42em, 0);
+  filter: blur(12px);
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    transform 1.5s var(--ease-expo) var(--d, 0s),
+    filter 1.1s var(--ease) var(--d, 0s);
+}
+.js.is-loaded .v2-c { opacity: 1; transform: none; filter: none; }
+
+/* «особенным»: вписывается слева направо, как от руки, затем по слову пробегает тёплый блик */
+.js .v2-title__accent-in {
+  opacity: 0;
+  clip-path: inset(-25% 100% -30% -6%);
+  transform: translate3d(-0.12em, 0, 0);
+  filter: blur(8px);
+  transition:
+    opacity 0.6s var(--ease) var(--d, 0s),
+    clip-path 1.9s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s),
+    transform 2s var(--ease-expo) var(--d, 0s),
+    filter 1.4s var(--ease) var(--d, 0s);
+}
+.js.is-loaded .v2-title__accent-in {
+  opacity: 1;
+  clip-path: inset(-25% -6% -30% -6%);
+  transform: none;
+  filter: none;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .v2-title__accent-in {
+    background: linear-gradient(100deg, #fff 0%, #fff 40%, #f4d7a3 50%, #fff 60%, #fff 100%);
+    background-size: 260% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .js.is-loaded .v2-title__accent-in {
+    animation: v2-shimmer 2.8s cubic-bezier(0.4, 0, 0.2, 1) var(--shine, 3s) 1 both;
+  }
+}
+@keyframes v2-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
+/* заметки: подложка расцветает, знак разворачивается, слова проступают по одному */
+.js .v2-note::before {
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 1.8s var(--ease) var(--d, 0s), transform 2.2s var(--ease-expo) var(--d, 0s);
+}
+.js.is-loaded .v2-note::before { opacity: 1; transform: none; }
+
+.js .v2-note__mark {
+  opacity: 0;
+  transform: rotate(-135deg) scale(0.3);
+  transition: opacity 0.9s var(--ease) var(--d, 0s), transform 1.6s var(--ease-expo) var(--d, 0s);
+}
+.js.is-loaded .v2-note__mark { opacity: 1; transform: none; }
+
+.v2-w { display: inline-block; }
+.js .v2-w {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    transform 1.2s var(--ease-expo) var(--d, 0s),
+    filter 0.9s var(--ease) var(--d, 0s);
+}
+.js.is-loaded .v2-w { opacity: 1; transform: none; filter: none; }
+
+/* на телефоне фото не размываем при появлении — бережём плавность */
+@media (max-width: 767px) {
+  .js .v2 .hero__bg { filter: brightness(0.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-glow::before,
+  .v2-glow::after,
+  .js.is-loaded .v2 .hero__media picture,
+  .js.is-loaded .v2-title__accent-in { animation: none !important; }
+}
