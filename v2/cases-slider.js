@@ -1,0 +1,519 @@
+/* МЯТА — блок кейсов: бесконечная лента карточек и «проваливание» в галерею мероприятия.
+
+   Лента: медленно плывёт сама; курсор у края листает её в ту сторону, в центре — замирает,
+   чтобы было удобно нажать; ещё её можно тянуть мышью и пальцем, листать тачпадом и стрелками.
+   Нажатие на карточку: соседние уходят, фото карточки вырастает в первый кадр галереи,
+   следом выезжают остальные фото. «Все кейсы» — обратно в ленту. Данные — в cases.js. */
+(() => {
+  "use strict";
+
+  const section = document.querySelector("[data-cases-section]");
+  const data = window.MYATA_CASES || [];
+  if (!section || !data.length) return;
+
+  const $ = (sel) => section.querySelector(sel);
+  const stage = $("[data-cases]");
+  const strip = $("[data-cases-strip]");
+  const track = $("[data-cases-track]");
+  const gallery = $("[data-cases-gallery]");
+  const gtrack = $("[data-cases-gtrack]");
+  const countEl = $("[data-cases-count]");
+  const crumbEl = $("[data-cases-crumb]");
+  const metaEl = $("[data-cases-meta]");
+  const backBtn = $("[data-cases-back]");
+  const prevBtn = $("[data-cases-prev]");
+  const nextBtn = $("[data-cases-next]");
+  const cursor = $("[data-cases-cursor]");
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const N = data.length;
+
+  /* ---------- тексты ---------- */
+  const nbsp = (s) => s.replace(/[  ]/g, " ");
+  const nf = new Intl.NumberFormat("ru-RU");
+  const num = (n) => nbsp(nf.format(n));
+  const plural = (n, one, few, many) => {
+    const a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return one;
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few;
+    return many;
+  };
+  const guestsText = (c) => `${num(c.guests)} ${plural(c.guests, "гость", "гостя", "гостей")}`;
+  const priceText = (c) => `${num(c.price)} ₽/гость`;
+  const metaText = (c) => [c.guests && guestsText(c), c.price && priceText(c)].filter(Boolean).join(" · ");
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+
+  // галерея кейса: обложка первой, если её нет среди фото
+  const photosOf = (c) => {
+    const list = (c.photos || []).slice();
+    if (c.cover && !(list[0] && list[0].src === c.cover.src)) list.unshift(c.cover);
+    return list.length ? list : [c.cover];
+  };
+  const coverOf = (c) => c.cover || photosOf(c)[0];
+
+  const imgHtml = (p, attrs = "") =>
+    `<img src="${esc(p.src)}" alt="" draggable="false" decoding="async" ${attrs}${p.pos ? ` style="object-position:${esc(p.pos)}"` : ""}>`;
+
+  function cardHtml(c, i, copy) {
+    const tags = (c.tags || []).map((t) => `<span class="case-card__tag">${esc(t)}</span>`).join("");
+    const hidden = copy ? ' aria-hidden="true" tabindex="-1"' : "";
+    return `<button type="button" class="case-card" data-index="${i}"${hidden} aria-label="Открыть кейс: ${esc(c.title)}. ${esc(metaText(c))}">
+      <span class="case-card__in">
+        <span class="case-card__media">${imgHtml(coverOf(c))}<span class="case-card__tags">${tags}</span></span>
+        <span class="case-card__title">${esc(c.title)}</span>
+        <span class="case-card__meta">${esc(metaText(c))}</span>
+      </span>
+    </button>`;
+  }
+
+  /* ---------- лента ---------- */
+  let copies = 0;
+  let cards = [];
+  let step = 0, setW = 0, cardW = 0, padL = 0, stripW = 0;
+
+  function renderStrip(k) {
+    copies = k;
+    let html = "";
+    for (let r = 0; r < k; r++) data.forEach((c, i) => { html += cardHtml(c, i, r > 0); });
+    track.innerHTML = html;
+    cards = [...track.children];
+    cards.forEach((el, j) => {
+      el.dataset.j = j;
+      el.style.setProperty("--d", `${(Math.min(j, 6) * 0.07).toFixed(2)}s`);
+    });
+  }
+
+  function measure() {
+    stripW = strip.clientWidth;
+    padL = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+    cardW = cards[0].offsetWidth;
+    step = cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cardW;
+    setW = step * N;
+  }
+
+  function layoutStrip() {
+    if (!cards.length) renderStrip(3);
+    measure();
+    const need = Math.ceil(stripW / setW) + 2;
+    if (need !== copies) { renderStrip(need); measure(); }
+    apply();
+  }
+
+  let pos = 0;          // смещение ленты, px (растёт — лента едет влево)
+  let vel = 0;          // скорость, px/с
+  let coasting = false; // инерция после броска
+  let tween = null;     // плавный переход к карточке (стрелки, фокус)
+  let hoverX = null;    // положение курсора над лентой, 0…1
+  let drag = null;
+  let mode = "strip";   // strip | opening | case | closing
+  let active = 0;
+
+  const DRIFT = reduce ? 0 : 22;    // сама по себе лента едва плывёт
+  const STEER = reduce ? 520 : 980; // скорость у самого края
+
+  function targetVel() {
+    if (hoverX === null) return DRIFT;
+    const t = hoverX * 2 - 1;          // −1 … 1
+    const dead = 0.32;                  // центр — пауза, чтобы спокойно нажать
+    const a = Math.abs(t);
+    if (a < dead) return 0;
+    const k = Math.pow((a - dead) / (1 - dead), 1.7);
+    return Math.sign(t) * k * STEER;
+  }
+
+  const mod = (a, m) => ((a % m) + m) % m;
+  const centeredPos = (j) => padL + j * step + cardW / 2 - stripW / 2;
+  const contIndex = () => (pos - padL - cardW / 2 + stripW / 2) / step;
+
+  function apply() {
+    if (!setW) return;
+    track.style.transform = `translate3d(${-mod(pos, setW)}px, 0, 0)`;
+    const a = mod(Math.round(contIndex()), N);
+    if (a !== active || !countEl.textContent) {
+      active = a;
+      if (mode === "strip") countEl.textContent = `${pad2(a + 1)} / ${pad2(N)}`;
+    }
+  }
+
+  function stepStrip(dir) {
+    const j = Math.round(contIndex()) + dir;
+    tween = { from: pos, to: centeredPos(j), t0: performance.now(), dur: reduce ? 1 : 900 };
+    vel = 0;
+    coasting = false;
+  }
+
+  const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+
+  /* ---------- курсор «Открыть» ---------- */
+  const cur = { x: 0, y: 0, tx: 0, ty: 0, on: false };
+
+  /* ---------- цикл ---------- */
+  let raf = 0, last = 0, visible = false;
+
+  function frame(now) {
+    const dt = Math.min(64, now - (last || now)) / 1000;
+    last = now;
+
+    if (mode === "strip") {
+      if (tween) {
+        const t = Math.min(1, (now - tween.t0) / tween.dur);
+        pos = tween.from + (tween.to - tween.from) * easeOut(t);
+        if (t >= 1) tween = null;
+      } else if (!drag) {
+        const target = targetVel();
+        const tau = coasting ? 0.9 : 0.35;
+        vel += (target - vel) * (1 - Math.exp(-dt / tau));
+        if (coasting && Math.abs(vel - target) < 8) coasting = false;
+        pos += vel * dt;
+      }
+      apply();
+    }
+
+    if (cursor) {
+      cur.x += (cur.tx - cur.x) * (1 - Math.exp(-dt / 0.08));
+      cur.y += (cur.ty - cur.y) * (1 - Math.exp(-dt / 0.08));
+      cursor.style.transform = `translate3d(${cur.x}px, ${cur.y}px, 0)`;
+    }
+
+    raf = visible && !document.hidden ? requestAnimationFrame(frame) : 0;
+  }
+
+  function run() {
+    if (!raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); }
+  }
+
+  /* ---------- ввод на ленте ---------- */
+  let suppressClick = false;
+
+  strip.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "mouse" && canHover) {
+      const r = strip.getBoundingClientRect();
+      hoverX = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    }
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 6) {
+      drag.moved = true;
+      strip.setPointerCapture(e.pointerId);
+      strip.classList.add("is-dragging");
+    }
+    if (drag.moved) {
+      const now = performance.now();
+      pos = drag.pos - dx;
+      const dtm = Math.max(1, now - drag.lt);
+      drag.v = 0.8 * (-(e.clientX - drag.lx) / dtm) * 1000 + 0.2 * drag.v;
+      drag.lx = e.clientX;
+      drag.lt = now;
+    }
+  });
+
+  strip.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") hoverX = null; });
+
+  strip.addEventListener("pointerdown", (e) => {
+    if (mode !== "strip" || e.button !== 0) return;
+    tween = null;
+    drag = { x: e.clientX, pos, moved: false, v: 0, lx: e.clientX, lt: performance.now() };
+  });
+
+  function endDrag() {
+    if (!drag) return;
+    if (drag.moved) {
+      vel = Math.max(-4000, Math.min(4000, drag.v));
+      coasting = true;
+      suppressClick = true;
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+    strip.classList.remove("is-dragging");
+    drag = null;
+  }
+  strip.addEventListener("pointerup", endDrag);
+  strip.addEventListener("pointercancel", () => { if (drag) drag.moved = false; endDrag(); });
+
+  // тачпад: горизонтальный жест листает ленту, вертикальная прокрутка страницы не перехватывается
+  strip.addEventListener("wheel", (e) => {
+    if (mode !== "strip" || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    tween = null;
+    coasting = false;
+    pos += e.deltaX;
+  }, { passive: false });
+
+  track.addEventListener("click", (e) => {
+    const card = e.target.closest(".case-card");
+    if (!card || suppressClick || mode !== "strip") return;
+    openCase(card);
+  });
+
+  // карточка в фокусе с клавиатуры — подъезжает в центр
+  track.addEventListener("focusin", (e) => {
+    const card = e.target.closest(".case-card");
+    if (!card || mode !== "strip" || drag) return;
+    strip.scrollLeft = 0;
+    const j = +card.dataset.j;
+    const jj = Math.round(contIndex()) + (((j - Math.round(contIndex())) % N) + N) % N;
+    const alt = jj - N;
+    const target = Math.abs(alt - contIndex()) < Math.abs(jj - contIndex()) ? alt : jj;
+    tween = { from: pos, to: centeredPos(target), t0: performance.now(), dur: reduce ? 1 : 700 };
+  });
+
+  // наведение: подгружаем фото кейса заранее, показываем курсор «Открыть»
+  const preloaded = new Set();
+  track.addEventListener("pointerover", (e) => {
+    const card = e.target.closest(".case-card");
+    if (!card) return;
+    const i = +card.dataset.index;
+    if (!preloaded.has(i)) {
+      preloaded.add(i);
+      photosOf(data[i]).forEach((p) => { const im = new Image(); im.src = p.src; });
+    }
+  });
+
+  if (cursor && canHover) {
+    section.addEventListener("pointermove", (e) => {
+      cur.tx = e.clientX;
+      cur.ty = e.clientY;
+      if (!cur.on) { cur.x = cur.tx; cur.y = cur.ty; }
+      const on = mode === "strip" && !drag?.moved && !!e.target.closest(".case-card");
+      if (on !== cur.on) { cur.on = on; cursor.classList.toggle("is-on", on); }
+    });
+    section.addEventListener("pointerleave", () => { cur.on = false; cursor.classList.remove("is-on"); });
+  }
+
+  /* ---------- галерея кейса ---------- */
+  let gIdx = 0, gCount = 0, slides = [], openCard = null, openData = null;
+  let slideW = 0;
+
+  function buildGallery(c) {
+    const list = photosOf(c);
+    gCount = list.length;
+    // кадр галереи — в пропорциях самого фото (w/h из cases.js), чтобы ничего не обрезалось
+    gtrack.innerHTML = list
+      .map((p, k) => {
+        const r = p.w && p.h ? (p.w / p.h).toFixed(4) : "1.5";
+        return `<div class="case-slide" data-k="${k}" style="--r:${r}" role="group" aria-roledescription="фото" aria-label="${k + 1} из ${list.length}">${imgHtml({ src: p.src })}</div>`;
+      })
+      .join("");
+    slides = [...gtrack.children];
+    slides.forEach((s, k) => {
+      s.style.setProperty("--d", `${(0.05 + k * 0.07).toFixed(2)}s`);
+      // если размеры фото не указаны — подстраиваем кадр, когда фото загрузится
+      const p = list[k];
+      if (!(p.w && p.h)) {
+        const im = s.querySelector("img");
+        im.addEventListener("load", () => {
+          s.style.setProperty("--r", (im.naturalWidth / im.naturalHeight).toFixed(4));
+          if (mode === "case") layoutGallery(false);
+        }, { once: true });
+      }
+    });
+  }
+
+  // смещение ленты галереи, при котором кадр k стоит по центру
+  const galleryX = (k) => {
+    const s = slides[k];
+    return gallery.clientWidth / 2 - (s.offsetLeft + s.offsetWidth / 2);
+  };
+
+  function layoutGallery(animate) {
+    if (!slides.length) return;
+    slideW = slides[gIdx].offsetWidth;
+    gtrack.classList.toggle("is-instant", !animate);
+    gtrack.style.transform = `translate3d(${galleryX(gIdx)}px, 0, 0)`;
+    slides.forEach((s, k) => s.classList.toggle("is-active", k === gIdx));
+  }
+
+  function goTo(k) {
+    k = Math.max(0, Math.min(gCount - 1, k));
+    if (k === gIdx) return;
+    gIdx = k;
+    layoutGallery(true);
+    updateBar();
+  }
+
+  function updateBar() {
+    if (mode === "strip") {
+      countEl.textContent = `${pad2(active + 1)} / ${pad2(N)}`;
+      prevBtn.disabled = nextBtn.disabled = false;
+    } else {
+      countEl.textContent = `${pad2(gIdx + 1)} / ${pad2(gCount)}`;
+      prevBtn.disabled = gIdx === 0;
+      nextBtn.disabled = gIdx === gCount - 1;
+    }
+  }
+
+  // «двойник» фото, который перелетает между карточкой и галереей
+  function flyer(p, rect) {
+    const base = section.getBoundingClientRect();
+    const el = document.createElement("div");
+    el.className = "cases__flyer";
+    el.innerHTML = imgHtml(p);
+    Object.assign(el.style, {
+      left: `${rect.left - base.left}px`, top: `${rect.top - base.top}px`,
+      width: `${rect.width}px`, height: `${rect.height}px`,
+    });
+    section.appendChild(el);
+    return el;
+  }
+
+  function fly(el, from, to, dur) {
+    const base = section.getBoundingClientRect();
+    const box = (r) => ({ left: `${r.left - base.left}px`, top: `${r.top - base.top}px`, width: `${r.width}px`, height: `${r.height}px` });
+    const a = el.animate([box(from), box(to)], { duration: reduce ? 1 : dur, easing: "cubic-bezier(0.76, 0, 0.24, 1)", fill: "forwards" });
+    return a.finished.catch(() => {});
+  }
+
+  const wait = (ms) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+
+  async function openCase(card) {
+    if (mode !== "strip") return;
+    mode = "opening";
+    tween = null; vel = 0; coasting = false;
+    cur.on = false;
+    if (cursor) cursor.classList.remove("is-on");
+
+    openCard = card;
+    openData = data[+card.dataset.index];
+    buildGallery(openData);
+    gIdx = 0;
+    gallery.hidden = false;
+    gallery.classList.add("is-entering", "is-arriving");
+    layoutGallery(false);
+
+    const from = card.querySelector(".case-card__media").getBoundingClientRect();
+    const to = slides[0].getBoundingClientRect();
+    const fl = flyer(coverOf(openData), from);
+
+    crumbEl.textContent = openData.title;
+    metaEl.innerHTML = [
+      ...(openData.tags || []).map((t) => `<span class="cases__tag">${esc(t)}</span>`),
+      `<span>${esc(metaText(openData))}</span>`,
+    ].join("");
+    card.classList.add("is-picked");
+    section.classList.add("is-case");
+    updateBar();
+
+    const flight = fly(fl, from, to, 1050);
+    await wait(520);
+    void gallery.offsetWidth;
+    gallery.classList.remove("is-entering");
+    await flight;
+    slides[0].classList.add("is-landed");
+    gallery.classList.remove("is-arriving");
+    fl.remove();
+    mode = "case";
+    backBtn.focus({ preventScroll: true });
+  }
+
+  async function closeCase() {
+    if (mode !== "case") return;
+    mode = "closing";
+    if (gIdx !== 0) { gIdx = 0; layoutGallery(true); updateBar(); await wait(700); }
+
+    const from = slides[0].getBoundingClientRect();
+    const to = openCard.querySelector(".case-card__media").getBoundingClientRect();
+    const fl = flyer(coverOf(openData), from);
+    slides[0].classList.remove("is-landed");
+    gallery.classList.add("is-leaving");
+    section.classList.remove("is-case");
+
+    await fly(fl, from, to, 950);
+    openCard.classList.remove("is-picked");
+    fl.remove();
+    gallery.hidden = true;
+    gallery.classList.remove("is-leaving");
+    gtrack.innerHTML = "";
+    slides = [];
+    mode = "strip";
+    updateBar();
+    if (!canHover) hoverX = null;
+    openCard.focus({ preventScroll: true });
+  }
+
+  backBtn.addEventListener("click", closeCase);
+  prevBtn.addEventListener("click", () => (mode === "strip" ? stepStrip(-1) : mode === "case" && goTo(gIdx - 1)));
+  nextBtn.addEventListener("click", () => (mode === "strip" ? stepStrip(1) : mode === "case" && goTo(gIdx + 1)));
+
+  // галерея: нажатие на соседнее фото — к нему, на текущее — дальше; свайп — листает
+  let gdrag = null;
+  gallery.addEventListener("pointerdown", (e) => {
+    if (mode !== "case" || e.button !== 0) return;
+    gdrag = { x: e.clientX, moved: false };
+  });
+  gallery.addEventListener("pointermove", (e) => {
+    if (!gdrag) return;
+    const dx = e.clientX - gdrag.x;
+    if (!gdrag.moved && Math.abs(dx) > 6) { gdrag.moved = true; gallery.setPointerCapture(e.pointerId); }
+    if (gdrag.moved) {
+      const x = galleryX(gIdx) + dx * 0.9;
+      gtrack.classList.add("is-instant");
+      gtrack.style.transform = `translate3d(${x}px, 0, 0)`;
+    }
+  });
+  const gEnd = (e) => {
+    if (!gdrag) return;
+    const dx = e.clientX - gdrag.x;
+    const moved = gdrag.moved;
+    gdrag = null;
+    if (moved) {
+      const k = Math.abs(dx) > Math.min(80, slideW * 0.12) ? gIdx - Math.sign(dx) : gIdx;
+      if (k !== gIdx && k >= 0 && k < gCount) goTo(k); else layoutGallery(true);
+      return;
+    }
+    const s = e.target.closest(".case-slide");
+    if (!s) return;
+    const k = +s.dataset.k;
+    goTo(k === gIdx ? gIdx + 1 : k);
+  };
+  gallery.addEventListener("pointerup", gEnd);
+  gallery.addEventListener("pointercancel", () => { gdrag = null; layoutGallery(true); });
+
+  document.addEventListener("keydown", (e) => {
+    if (mode === "case") {
+      if (e.key === "Escape") { e.preventDefault(); closeCase(); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); goTo(gIdx + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); goTo(gIdx - 1); }
+    } else if (mode === "strip" && strip.contains(document.activeElement)) {
+      if (e.key === "ArrowRight") { e.preventDefault(); stepStrip(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); stepStrip(-1); }
+    }
+  });
+
+  /* ---------- размеры, видимость, появление ---------- */
+  layoutStrip();
+  pos = 0; // первая карточка — у левого поля, следующие уходят за край: видно, что лента продолжается
+  apply();
+  updateBar();
+
+  const onResize = () => {
+    const k = contIndex();
+    layoutStrip();
+    pos = padL + k * step + cardW / 2 - stripW / 2; // сохраняем, какая карточка в центре
+    apply();
+    if (mode === "case") layoutGallery(false);
+  };
+  if ("ResizeObserver" in window) new ResizeObserver(onResize).observe(stage);
+  else window.addEventListener("resize", onResize, { passive: true });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        visible = en.isIntersecting;
+        if (visible) run();
+      });
+    }, { rootMargin: "100px 0px" }).observe(section);
+
+    new IntersectionObserver((entries, io) => {
+      if (entries.some((en) => en.isIntersecting)) {
+        section.classList.add("is-in");
+        io.disconnect();
+      }
+    }, { threshold: 0.18 }).observe(section);
+  } else {
+    visible = true;
+    section.classList.add("is-in");
+    run();
+  }
+  document.addEventListener("visibilitychange", run);
+})();
