@@ -169,6 +169,8 @@
         pos += vel * dt;
       }
       apply();
+    } else if ((mode === "case" || mode === "closing") && slides.length) {
+      stepGallery(now, dt);
     }
 
     if (cursor) {
@@ -304,7 +306,7 @@
         const im = s.querySelector("img");
         im.addEventListener("load", () => {
           s.style.setProperty("--r", (im.naturalWidth / im.naturalHeight).toFixed(4));
-          if (mode === "case") layoutGallery(false);
+          if (mode === "case") layoutGallery();
         }, { once: true });
       }
     });
@@ -316,21 +318,69 @@
     return gallery.clientWidth / 2 - (s.offsetLeft + s.offsetWidth / 2);
   };
 
-  function layoutGallery(animate) {
+  /* Галерея листается непрерывно: курсор справа — едет вправо, слева — влево;
+     в центре — едва заметно, к краям — быстрее. Стрелки, клавиши и нажатие на фото
+     плавно доводят нужное фото до центра. */
+  let gx = 0, gvel = 0, gTween = null, gHover = null;
+  const G_MIN = reduce ? 0 : 16;     // px/с в самом центре
+  const G_MAX = reduce ? 420 : 820;  // px/с у края
+
+  const gBounds = () => [galleryX(gCount - 1), galleryX(0)];
+  const clampGx = (x) => { const [lo, hi] = gBounds(); return Math.min(hi, Math.max(lo, x)); };
+
+  function nearestSlide() {
+    const c = gallery.clientWidth / 2 - gx;
+    let best = 0, d = Infinity;
+    slides.forEach((s, k) => { const dd = Math.abs(s.offsetLeft + s.offsetWidth / 2 - c); if (dd < d) { d = dd; best = k; } });
+    return best;
+  }
+
+  function renderGallery() {
+    gtrack.style.transform = `translate3d(${gx}px, 0, 0)`;
+    const k = nearestSlide();
+    if (k !== gIdx || !slides[k].classList.contains("is-active")) {
+      gIdx = k;
+      slides.forEach((s, j) => s.classList.toggle("is-active", j === gIdx));
+      updateBar();
+    }
+  }
+
+  function gTargetVel() {
+    if (gHover === null || gdrag) return 0;
+    const t = gHover * 2 - 1;                     // −1 … 1
+    const a = Math.abs(t);
+    return -Math.sign(t) * (G_MIN + (G_MAX - G_MIN) * Math.pow(a, 2.2));
+  }
+
+  function stepGallery(now, dt) {
+    if (gTween) {
+      const t = Math.min(1, (now - gTween.t0) / gTween.dur);
+      const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      gx = gTween.from + (gTween.to - gTween.from) * e;
+      if (t >= 1) { gTween = null; if (gTween === null && closingResolve) { closingResolve(); closingResolve = null; } }
+      gvel = 0;
+    } else if (!gdrag) {
+      gvel += (gTargetVel() - gvel) * (1 - Math.exp(-dt / 0.3));
+      gx = clampGx(gx + gvel * dt);
+    }
+    renderGallery();
+  }
+
+  let closingResolve = null;
+  function layoutGallery() {
     if (!slides.length) return;
+    gtrack.classList.add("is-instant");
+    gx = galleryX(gIdx);
     slideW = slides[gIdx].offsetWidth;
-    gtrack.classList.toggle("is-instant", !animate);
-    gtrack.style.transform = `translate3d(${galleryX(gIdx)}px, 0, 0)`;
-    slides.forEach((s, k) => s.classList.toggle("is-active", k === gIdx));
+    renderGallery();
   }
 
   function goTo(k) {
     k = Math.max(0, Math.min(gCount - 1, k));
-    if (k === gIdx) return;
-    gIdx = k;
-    layoutGallery(true);
-    updateBar();
+    gTween = { from: gx, to: galleryX(k), t0: performance.now(), dur: reduce ? 1 : 850 };
+    run();
   }
+  const slideTo = (dir) => goTo(Math.max(0, Math.min(gCount - 1, nearestSlide() + dir)));
 
   function updateBar() {
     if (mode === "strip") {
@@ -376,10 +426,10 @@
     openCard = card;
     openData = data[+card.dataset.index];
     buildGallery(openData);
-    gIdx = 0;
+    gIdx = 0; gTween = null; gvel = 0; gHover = null;
     gallery.hidden = false;
     gallery.classList.add("is-entering", "is-arriving");
-    layoutGallery(false);
+    layoutGallery();
 
     const from = card.querySelector(".case-card__media").getBoundingClientRect();
     const to = slides[0].getBoundingClientRect();
@@ -409,7 +459,10 @@
   async function closeCase() {
     if (mode !== "case") return;
     mode = "closing";
-    if (gIdx !== 0) { gIdx = 0; layoutGallery(true); updateBar(); await wait(700); }
+    gHover = null; gvel = 0;
+    if (Math.abs(gx - galleryX(0)) > 1) {
+      await new Promise((r) => { closingResolve = r; gTween = { from: gx, to: galleryX(0), t0: performance.now(), dur: reduce ? 1 : 700 }; run(); });
+    }
 
     const from = slides[0].getBoundingClientRect();
     const to = openCard.querySelector(".case-card__media").getBoundingClientRect();
@@ -432,23 +485,30 @@
   }
 
   backBtn.addEventListener("click", closeCase);
-  prevBtn.addEventListener("click", () => (mode === "strip" ? stepStrip(-1) : mode === "case" && goTo(gIdx - 1)));
-  nextBtn.addEventListener("click", () => (mode === "strip" ? stepStrip(1) : mode === "case" && goTo(gIdx + 1)));
+  prevBtn.addEventListener("click", () => (mode === "strip" ? stepStrip(-1) : mode === "case" && slideTo(-1)));
+  nextBtn.addEventListener("click", () => (mode === "strip" ? stepStrip(1) : mode === "case" && slideTo(1)));
+
+  gallery.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse" || !canHover) return;
+    const r = gallery.getBoundingClientRect();
+    gHover = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+  });
+  gallery.addEventListener("pointerleave", () => { gHover = null; });
 
   // галерея: нажатие на соседнее фото — к нему, на текущее — дальше; свайп — листает
   let gdrag = null;
   gallery.addEventListener("pointerdown", (e) => {
     if (mode !== "case" || e.button !== 0) return;
-    gdrag = { x: e.clientX, moved: false };
+    gTween = null;
+    gdrag = { x: e.clientX, gx, moved: false };
   });
   gallery.addEventListener("pointermove", (e) => {
     if (!gdrag) return;
     const dx = e.clientX - gdrag.x;
     if (!gdrag.moved && Math.abs(dx) > 6) { gdrag.moved = true; gallery.setPointerCapture(e.pointerId); }
     if (gdrag.moved) {
-      const x = galleryX(gIdx) + dx * 0.9;
-      gtrack.classList.add("is-instant");
-      gtrack.style.transform = `translate3d(${x}px, 0, 0)`;
+      gx = clampGx(gdrag.gx + dx);
+      renderGallery();
     }
   });
   const gEnd = (e) => {
@@ -456,24 +516,20 @@
     const dx = e.clientX - gdrag.x;
     const moved = gdrag.moved;
     gdrag = null;
-    if (moved) {
-      const k = Math.abs(dx) > Math.min(80, slideW * 0.12) ? gIdx - Math.sign(dx) : gIdx;
-      if (k !== gIdx && k >= 0 && k < gCount) goTo(k); else layoutGallery(true);
-      return;
-    }
+    if (moved) return;
     const s = e.target.closest(".case-slide");
     if (!s) return;
     const k = +s.dataset.k;
     goTo(k === gIdx ? gIdx + 1 : k);
   };
   gallery.addEventListener("pointerup", gEnd);
-  gallery.addEventListener("pointercancel", () => { gdrag = null; layoutGallery(true); });
+  gallery.addEventListener("pointercancel", () => { gdrag = null; });
 
   document.addEventListener("keydown", (e) => {
     if (mode === "case") {
       if (e.key === "Escape") { e.preventDefault(); closeCase(); }
-      else if (e.key === "ArrowRight") { e.preventDefault(); goTo(gIdx + 1); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); goTo(gIdx - 1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); slideTo(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); slideTo(-1); }
     } else if (mode === "strip" && strip.contains(document.activeElement)) {
       if (e.key === "ArrowRight") { e.preventDefault(); stepStrip(1); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); stepStrip(-1); }
@@ -491,7 +547,7 @@
     layoutStrip();
     pos = padL + k * step + cardW / 2 - stripW / 2; // сохраняем, какая карточка в центре
     apply();
-    if (mode === "case") layoutGallery(false);
+    if (mode === "case") { gx = clampGx(galleryX(gIdx)); renderGallery(); }
   };
   if ("ResizeObserver" in window) new ResizeObserver(onResize).observe(stage);
   else window.addEventListener("resize", onResize, { passive: true });

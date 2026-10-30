@@ -795,3 +795,7 @@
 
 /* подсказка — две аккуратные строки у левого края */
 .cases__hint { line-height: 1.6; }
+
+/* открытый кейс: теги, гости и цена — чуть крупнее */
+.cases__meta { gap: 10px; font-size: 15px; letter-spacing: 0.04em; }
+.cases__meta .cases__tag { font-size: 12px; padding: 9px 16px 8px; }
