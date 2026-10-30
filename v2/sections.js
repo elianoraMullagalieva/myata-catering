@@ -55,7 +55,8 @@
       }
       const step = stepW();
       const first = Math.min(N, Math.round(x / step) + 1);
-      const per = Math.max(1, Math.floor((vis - slots[0].offsetLeft + 16) / step));
+      // карточка считается видимой, если на экране хотя бы 70% её ширины
+      const per = Math.max(1, Math.floor((vis - slots[0].offsetLeft) / step + 0.3));
       const last = Math.min(N, first + per - 1);
       if (count) count.textContent = `${pad2(first)} — ${pad2(last)} / ${pad2(N)}`;
       if (prev) prev.disabled = x <= 2;

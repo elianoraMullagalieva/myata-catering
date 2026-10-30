@@ -1469,3 +1469,25 @@
 @media (max-width: 359px) {
   .svc { --svc-card: 80vw; }
 }
+
+/* карточки услуг: на 10% крупнее, больше воздуха; четвёртая чуть уходит за правый край */
+.svc {
+  --svc-gap: clamp(20px, 1.95vw, 36px);
+  --svc-card: calc((var(--svc-w, 100vw) - 2 * var(--gutter) - 3 * var(--svc-gap)) / 4 * 1.1);
+}
+@media (min-width: 1024px) {
+  .svc__viewport { clip-path: inset(-40px 0 -60px var(--gutter)); }
+}
+/* подзаголовок — ровно две строки, переносы заданы в разметке */
+.svc-card__text { min-height: 2.8em; text-wrap: balance; }
+.svc-card--cta .svc-card__text { min-height: 0; }
+@media (max-width: 1279px) {
+  .svc { --svc-card: calc((var(--svc-w, 100vw) - 2 * var(--gutter) - 2 * var(--svc-gap)) / 3.2 * 1.1); }
+}
+@media (max-width: 1023px) {
+  .svc { --svc-card: calc((var(--svc-w, 100vw) - 2 * var(--gutter) - var(--svc-gap)) / 2.25 * 1.05); }
+  .svc-card__text br { display: none; }
+}
+@media (max-width: 767px) {
+  .svc { --svc-gap: 14px; --svc-card: 76vw; }
+}
