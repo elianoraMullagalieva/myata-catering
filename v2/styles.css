@@ -1656,3 +1656,20 @@
 .js .qz__photo img.is-ready { opacity: 1; }
 .svc__bar { opacity: 0; transition: opacity 0.4s var(--ease); }
 .svc__bar.is-ready { opacity: 1; }
+
+/* кнопки квиза — тем же шрифтом, что «Рассчитать мероприятие» на первом экране */
+.qz-next,
+.qz-back {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.qz-next { min-height: 63px; }
+
+/* плашка «Алина Юсупова» — как в макете: знак у левого верхнего угла, чуть заходит на плашку */
+.qz__badge { padding: 14px 0 0 10px; }
+.qz__badge-mark { left: 0; top: 0; width: 22px; height: 22px; z-index: 1; }
+@media (max-width: 767px) {
+  .qz__badge { padding: 13px 0 0 9px; }
+}
