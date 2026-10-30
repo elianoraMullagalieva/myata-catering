@@ -1694,3 +1694,10 @@
   .qz__photo img { object-position: 10% 44%; }
   .qz__badge { top: 24%; }
 }
+
+/* первый экран на телефоне: текст выше и компактнее, чтобы подзаголовок не упирался в еду */
+@media (max-width: 767px) {
+  .v2-body { padding-top: clamp(10px, 2svh, 20px); }
+  .v2-note--right { margin-top: 12px; gap: 8px; }
+  .v2-note__mark { width: 16px; height: 16px; }
+}
