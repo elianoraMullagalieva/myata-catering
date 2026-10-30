@@ -132,7 +132,7 @@
   if (photo) {
     const pimg = photo.querySelector("img");
     const badge = photo.querySelector(".qz__badge");
-    const IW = 736, IH = 981, FACE_L = 0.27, GAP = 14, POS_X = 0.1, POS_Y = 0.48;
+    const IW = 736, IH = 981, FACE_L = 0.27, GAP = 14, POS_X = 0.1;
     const placeAlina = () => {
       const w = photo.clientWidth, h = photo.clientHeight;
       if (!w || !h || !badge) return;

@@ -1681,3 +1681,16 @@
   .qz__badge-box span { font-size: 10px; }
   .qz__badge { left: 10px; }
 }
+
+/* переносы только для телефона / только для десктопа */
+.m-only { display: none; }
+@media (max-width: 767px) {
+  .m-only { display: inline; }
+  .d-only { display: none; }
+  .qz__lead { font-size: min(4vw, 15px); }
+
+  /* фото Алины ниже: от макушки до фруктов — вопросы квиза поднимаются выше */
+  .qz__photo { aspect-ratio: 9 / 5.4; }
+  .qz__photo img { object-position: 10% 44%; }
+  .qz__badge { top: 24%; }
+}
