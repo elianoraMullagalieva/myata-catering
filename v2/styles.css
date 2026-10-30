@@ -1673,3 +1673,11 @@
 @media (max-width: 767px) {
   .qz__badge { padding: 13px 0 0 9px; }
 }
+
+/* на самых узких экранах плашка компактнее — фото меньше сдвигается */
+@media (max-width: 420px) {
+  .qz__badge-box { padding: 5px 9px 6px; }
+  .qz__badge-box b { font-size: 13px; }
+  .qz__badge-box span { font-size: 10px; }
+  .qz__badge { left: 10px; }
+}

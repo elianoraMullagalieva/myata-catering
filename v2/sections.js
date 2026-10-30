@@ -124,6 +124,33 @@
     vp.addEventListener("dragstart", (e) => e.preventDefault());
   }
 
+  /* ---------- фото Алины: плашка с именем никогда не заходит на лицо ----------
+     Фото 736×981, лицо — примерно 27–38% ширины и 29–39% высоты кадра.
+     Считаем, где лицо окажется в рамке, и сдвигаем фото вправо ровно настолько,
+     чтобы лицо начиналось правее плашки (с запасом). Пустое место слева — продолжение стены. */
+  const photo = document.querySelector(".qz__photo");
+  if (photo) {
+    const pimg = photo.querySelector("img");
+    const badge = photo.querySelector(".qz__badge");
+    const IW = 736, IH = 981, FACE_L = 0.27, GAP = 14, POS_X = 0.1, POS_Y = 0.48;
+    const placeAlina = () => {
+      const w = photo.clientWidth, h = photo.clientHeight;
+      if (!w || !h || !badge) return;
+      const s = Math.max(w / IW, h / IH);
+      const dw = IW * s;
+      const ox = (w - dw) * POS_X;
+      const pr = photo.getBoundingClientRect(), br = badge.getBoundingClientRect();
+      const badgeRight = br.right - pr.left;
+      const need = badgeRight + GAP - (ox + FACE_L * dw);
+      const shift = Math.min(w * 0.45, Math.max(w * 0.08, need));
+      photo.style.setProperty("--shift", `${Math.round(shift)}px`);
+    };
+    placeAlina();
+    if ("ResizeObserver" in window) new ResizeObserver(placeAlina).observe(photo);
+    else window.addEventListener("resize", placeAlina, { passive: true });
+    if (document.fonts) document.fonts.ready.then(placeAlina);
+  }
+
   /* ---------- квиз ---------- */
   const form = document.querySelector("[data-quiz]");
   if (!form) return;
