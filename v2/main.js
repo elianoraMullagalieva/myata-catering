@@ -37,6 +37,21 @@
   }
 
   placeMedia();
+
+  // видео проявляется поверх фото, только когда реально пошло; при «меньше движения» остаётся фото
+  const video = media && media.querySelector(".v2-video");
+  if (video) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    } else {
+      const shown = () => video.classList.add("is-playing");
+      video.addEventListener("playing", shown, { once: true });
+      if (!video.paused && video.readyState > 2) shown();
+      const p = video.play && video.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+  }
   if ("ResizeObserver" in window && hero) {
     new ResizeObserver(placeMedia).observe(hero);
   } else {

@@ -1559,3 +1559,16 @@
 }
 .svc-variants button[aria-pressed="true"] { background: var(--ink2); border-color: var(--ink2); color: #fff; }
 @media (max-width: 767px) { .svc-variants { display: none; } }
+
+/* живой фон первого экрана: видео лежит поверх фото в том же кадре */
+.v2 .v2-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.v2 .v2-video.is-playing { opacity: 1; }
