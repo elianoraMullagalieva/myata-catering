@@ -23,10 +23,29 @@
     const prog = sec.querySelector(".svc__progress");
     if (prog) prog.style.setProperty("--d", "0.5s");
   });
+  // фото проявляются, только когда загрузились, — без «пустых» карточек и резкой подмены
+  document.querySelectorAll(".svc-card__photo img, .qz__photo img").forEach((img) => {
+    const done = () => img.classList.add("is-ready");
+    if (img.complete && img.naturalWidth) done();
+    else { img.addEventListener("load", done, { once: true }); img.addEventListener("error", done, { once: true }); }
+  });
+
+  // блок появляется, когда готовы шрифты и фото первых карточек (но не дольше 1,5 с),
+  // чтобы ничего не подменялось и не дёргалось во время анимации
+  const waitFor = (ms) => new Promise((r) => setTimeout(r, ms));
+  const imgReady = (img) => (img.complete && img.naturalWidth ? Promise.resolve() : new Promise((r) => { img.addEventListener("load", r, { once: true }); img.addEventListener("error", r, { once: true }); }));
+  const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+  function reveal(sec) {
+    const imgs = [...sec.querySelectorAll(".svc-card__photo img, .qz__photo img")].slice(0, 4);
+    Promise.race([Promise.all([fontsReady, ...imgs.map(imgReady)]), waitFor(1500)]).then(() => {
+      requestAnimationFrame(() => sec.classList.add("is-in"));
+    });
+  }
+
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
-        if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+        if (en.isIntersecting) { reveal(en.target); io.unobserve(en.target); }
       });
     }, { threshold: 0.15 });
     document.querySelectorAll("[data-reveal]").forEach((s) => io.observe(s));
@@ -50,6 +69,7 @@
     function update() {
       const total = vp.scrollWidth, vis = vp.clientWidth, x = vp.scrollLeft;
       if (bar) {
+        bar.classList.add("is-ready");
         bar.style.width = `${Math.min(100, (vis / total) * 100)}%`;
         bar.style.transform = `translate3d(${(x / vis) * 100}%, 0, 0)`;
       }

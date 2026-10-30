@@ -1387,7 +1387,7 @@
   transform: translate3d(0, 28px, 0);
   transition: opacity 1s var(--ease) var(--d, 0s), transform 1.2s var(--ease-expo) var(--d, 0s);
 }
-.js [data-reveal] .svc-slot { transform: translate3d(70px, 0, 0); }
+.js [data-reveal] .svc-slot { transform: translate3d(0, 24px, 0); }
 .js [data-reveal].is-in .svc__head,
 .js [data-reveal].is-in .svc-slot,
 .js [data-reveal].is-in .svc__progress,
@@ -1648,3 +1648,11 @@
 @media (prefers-reduced-motion: reduce) {
   .cpop, .cpop__panel, .cpop__slide { transition: none; }
 }
+
+/* плавная загрузка: фото проявляются по готовности, полоса прогресса — после расчёта положения */
+.js .svc-card__photo img,
+.js .qz__photo img { opacity: 0; transition: opacity 0.8s var(--ease), transform 1.2s var(--ease-expo); }
+.js .svc-card__photo img.is-ready,
+.js .qz__photo img.is-ready { opacity: 1; }
+.svc__bar { opacity: 0; transition: opacity 0.4s var(--ease); }
+.svc__bar.is-ready { opacity: 1; }
