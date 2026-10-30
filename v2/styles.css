@@ -1491,3 +1491,71 @@
 @media (max-width: 767px) {
   .svc { --svc-gap: 14px; --svc-card: 76vw; }
 }
+
+/* ---------- квиз: выше, больше воздуха; фото Алины сдвинуто вправо, чтобы плашка встала на белую стену ---------- */
+.qz { padding-top: clamp(56px, 5vw, 96px); padding-bottom: clamp(88px, 8vw, 150px); }
+.qz__card { min-height: clamp(720px, 58vw, 900px); }
+.qz__photo {
+  --shift: 15%;
+  background: rgb(221, 220, 226); /* цвет стены у левого края фото */
+}
+.qz__photo img {
+  transform: translateX(var(--shift));
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%);
+  mask-image: linear-gradient(to right, transparent 0, #000 9%);
+}
+/* знак — над плашкой с именем, по одной левой линии */
+.qz__badge { left: clamp(14px, 4%, 28px); top: 21%; padding: 30px 0 0; }
+.qz__badge-mark { left: 0; top: 0; width: 24px; height: 24px; }
+@media (max-width: 1023px) {
+  .qz { padding-bottom: 72px; }
+  .qz__card { min-height: 0; }
+  .qz__photo { --shift: 12%; }
+}
+@media (max-width: 767px) {
+  .qz__photo { --shift: 14%; }
+  .qz__badge { top: 18%; padding-top: 28px; }
+}
+
+/* ---------- услуги: кнопки выше, зум фото сильнее, линия прогресса ниже ---------- */
+.svc-btn { padding: 12px 18px; font-size: 13px; }
+.svc-card:hover .svc-card__photo img { transform: scale(1.09); }
+.svc__track { padding-bottom: clamp(44px, 3.6vw, 64px); }
+.svc__progress { margin-top: 0; }
+.svc { padding-bottom: clamp(28px, 2.4vw, 44px); }
+@media (max-width: 767px) {
+  .svc-btn { padding: 11px 13px; font-size: 12px; }
+}
+
+/* ---------- стрелки в шапке услуг: три варианта (переключатель — точки рядом) ---------- */
+.svc__nav { align-items: center; }
+/* A — полупрозрачные контуры, при наведении заливаются */
+.svc[data-arrows="a"] .svc__arrow,
+.svc[data-arrows="a"] .svc__arrow--next { background: transparent; border-color: rgba(28, 23, 20, 0.22); color: rgba(28, 23, 20, 0.5); }
+.svc[data-arrows="a"] .svc__arrow:hover:not(:disabled) { background: var(--ink2); border-color: var(--ink2); color: #fff; }
+/* B — бледная заливка, при наведении темнеют */
+.svc[data-arrows="b"] .svc__arrow,
+.svc[data-arrows="b"] .svc__arrow--next { background: #e4dfd9; border-color: #e4dfd9; color: rgba(28, 23, 20, 0.6); }
+.svc[data-arrows="b"] .svc__arrow:hover:not(:disabled) { background: var(--ink2); border-color: var(--ink2); color: #fff; }
+/* C — без рамок, только стрелки; при наведении появляется тёмная подложка */
+.svc[data-arrows="c"] .svc__arrow,
+.svc[data-arrows="c"] .svc__arrow--next { background: transparent; border-color: transparent; color: rgba(28, 23, 20, 0.45); }
+.svc[data-arrows="c"] .svc__arrow:hover:not(:disabled) { background: var(--ink2); border-color: var(--ink2); color: #fff; }
+.svc[data-arrows] .svc__arrow:disabled { opacity: 0.4; }
+
+.svc-variants { display: flex; gap: 6px; margin-left: 10px; }
+.svc-variants button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(28, 23, 20, 0.2);
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(28, 23, 20, 0.45);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.svc-variants button[aria-pressed="true"] { background: var(--ink2); border-color: var(--ink2); color: #fff; }
+@media (max-width: 767px) { .svc-variants { display: none; } }
