@@ -104,20 +104,6 @@
     vp.addEventListener("dragstart", (e) => e.preventDefault());
   }
 
-  /* ---------- варианты стрелок в шапке услуг (временный переключатель для выбора) ---------- */
-  const svc = document.querySelector(".svc");
-  const sw = document.querySelector("[data-svc-variants]");
-  if (svc && sw) {
-    const store = { get() { try { return localStorage.getItem("myata-arrows"); } catch (e) { return null; } }, set(v) { try { localStorage.setItem("myata-arrows", v); } catch (e) {} } };
-    const fromUrl = new URLSearchParams(location.search).get("arrows");
-    const apply = (v) => {
-      svc.dataset.arrows = v;
-      sw.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v)));
-    };
-    apply(["a", "b", "c"].includes(fromUrl) ? fromUrl : ["a", "b", "c"].includes(store.get()) ? store.get() : "a");
-    sw.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { apply(b.dataset.v); store.set(b.dataset.v); } });
-  }
-
   /* ---------- квиз ---------- */
   const form = document.querySelector("[data-quiz]");
   if (!form) return;
