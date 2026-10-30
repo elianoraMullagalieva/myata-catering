@@ -277,10 +277,13 @@
       cur.tx = e.clientX;
       cur.ty = e.clientY;
       if (!cur.on) { cur.x = cur.tx; cur.y = cur.ty; }
-      const on = mode === "strip" && !drag?.moved && !!e.target.closest(".case-card");
+      const onCard = mode === "strip" && !drag?.moved && !!e.target.closest(".case-card");
+      const onGallery = mode === "case" && !!e.target.closest("[data-cases-gallery]");
+      const on = onCard || onGallery;
       if (on !== cur.on) { cur.on = on; cursor.classList.toggle("is-on", on); }
+      cursor.classList.toggle("is-scroll", onGallery);
     });
-    section.addEventListener("pointerleave", () => { cur.on = false; cursor.classList.remove("is-on"); });
+    section.addEventListener("pointerleave", () => { cur.on = false; cursor.classList.remove("is-on", "is-scroll"); });
   }
 
   /* ---------- галерея кейса ---------- */
@@ -364,6 +367,25 @@
       gx = clampGx(gx + gvel * dt);
     }
     renderGallery();
+    updateScrollCursor();
+  }
+
+  // кружок над галереей: стрелка смотрит туда, куда едет лента, растёт к краям, гаснет в конце
+  const DEAD = 0.16;
+  function hoverDir() {
+    if (gHover === null) return 0;
+    const t = gHover * 2 - 1;
+    return Math.abs(t) < DEAD ? 0 : Math.sign(t);
+  }
+  function updateScrollCursor() {
+    if (!cursor || !cur.on || mode !== "case") return;
+    const t = gHover === null ? 0 : gHover * 2 - 1;
+    const dir = hoverDir();
+    const [lo, hi] = gBounds();
+    cursor.style.setProperty("--k", Math.pow(Math.abs(t), 1.5).toFixed(3));
+    cursor.classList.toggle("is-mid", dir === 0);
+    cursor.classList.toggle("is-left", dir < 0);
+    cursor.classList.toggle("is-end", (dir > 0 && gx <= lo + 1) || (dir < 0 && gx >= hi - 1));
   }
 
   let closingResolve = null;
@@ -460,6 +482,8 @@
     if (mode !== "case") return;
     mode = "closing";
     gHover = null; gvel = 0;
+    cur.on = false;
+    if (cursor) cursor.classList.remove("is-on", "is-scroll");
     if (Math.abs(gx - galleryX(0)) > 1) {
       await new Promise((r) => { closingResolve = r; gTween = { from: gx, to: galleryX(0), t0: performance.now(), dur: reduce ? 1 : 700 }; run(); });
     }
@@ -517,6 +541,7 @@
     const moved = gdrag.moved;
     gdrag = null;
     if (moved) return;
+    if (e.pointerType === "mouse" && canHover) { slideTo(hoverDir() || 1); return; }
     const s = e.target.closest(".case-slide");
     if (!s) return;
     const k = +s.dataset.k;

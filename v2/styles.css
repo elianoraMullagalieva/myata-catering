@@ -544,7 +544,7 @@
   height: 0;
   pointer-events: none;
 }
-.cases__cursor span {
+.cases__ball {
   position: absolute;
   left: -46px;
   top: -46px;
@@ -563,7 +563,28 @@
   transform: scale(0.2);
   transition: transform 0.5s var(--ease-expo), opacity 0.3s var(--ease);
 }
-.cases__cursor.is-on span { opacity: 1; transform: none; }
+.cases__cursor.is-on .cases__ball { opacity: 1; transform: scale(calc(1 + var(--k, 0) * 0.14)); }
+
+/* «Открыть» — над карточкой ленты; «Листать» со стрелкой — над галереей кейса */
+.cc-open,
+.cc-scroll { grid-area: 1 / 1; transition: opacity 0.3s var(--ease); }
+.cc-scroll { display: grid; justify-items: center; gap: 7px; opacity: 0; }
+.cases__cursor.is-scroll .cc-open { opacity: 0; }
+.cases__cursor.is-scroll .cc-scroll { opacity: 1; }
+.cc-label { font-size: 11px; }
+.cc-one,
+.cc-two { grid-area: 1 / 1; height: 9px; transition: opacity 0.3s var(--ease), transform 0.45s var(--ease-expo); }
+.cc-one { width: calc(20px + var(--k, 0) * 10px); }
+.cc-two { width: 22px; opacity: 0; }
+.cc-label { grid-row: 2; }
+.cases__cursor.is-left .cc-one { transform: scaleX(-1); }
+.cases__cursor.is-mid .cc-one { opacity: 0; }
+.cases__cursor.is-mid .cc-two { opacity: 1; }
+.cases__cursor.is-end .cc-one { opacity: 0.25; }
+@media (hover: hover) and (pointer: fine) {
+  .cases.is-case .cases__gallery,
+  .cases.is-case .case-slide { cursor: none; }
+}
 @media not all and (hover: hover) and (pointer: fine) {
   .cases__cursor { display: none; }
 }
@@ -799,3 +820,4 @@
 /* открытый кейс: теги, гости и цена — чуть крупнее */
 .cases__meta { gap: 10px; font-size: 15px; letter-spacing: 0.04em; }
 .cases__meta .cases__tag { font-size: 12px; padding: 9px 16px 8px; }
+.cc-scroll svg path { stroke-width: 1.5; }
