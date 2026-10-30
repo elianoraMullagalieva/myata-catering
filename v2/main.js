@@ -50,6 +50,13 @@
       if (!video.paused && video.readyState > 2) shown();
       const p = video.play && video.play();
       if (p && p.catch) p.catch(() => {});
+      // когда первый экран ушёл из вида — видео на паузе, телефон не тратит силы
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(([en]) => {
+          if (en.isIntersecting) { const q = video.play(); if (q && q.catch) q.catch(() => {}); }
+          else video.pause();
+        }).observe(hero);
+      }
     }
   }
   if ("ResizeObserver" in window && hero) {

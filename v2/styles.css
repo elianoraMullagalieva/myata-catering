@@ -1701,3 +1701,25 @@
   .v2-note--right { margin-top: 12px; gap: 8px; }
   .v2-note__mark { width: 16px; height: 16px; }
 }
+
+/* ---------- телефоны и встроенные браузеры (Telegram, Safari на iPhone) ---------- */
+/* страница никогда не сдвигается вбок: всё, что шире экрана, обрезается на уровне окна */
+html { overflow-x: hidden; }
+body { overflow-x: clip; }
+
+/* на сенсорных экранах — без размытия под тегами и стеклом: это самое тяжёлое при прокрутке */
+@media (hover: none), (max-width: 767px) {
+  .case-card__tag,
+  .cases__tag {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(10, 10, 10, 0.5);
+  }
+  .cpop__backdrop {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(8, 8, 8, 0.95);
+  }
+  .cases__track,
+  .cases__gtrack { will-change: auto; }
+}
