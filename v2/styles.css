@@ -796,7 +796,7 @@
 @media (max-width: 767px) {
   .cases {
     --card-w: 84vw;
-    --slide-h: min(56svh, 100vw);
+    --slide-h: min(56svh, 88vw);
     padding-top: 72px;
   }
   .cases__head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }
@@ -1736,4 +1736,9 @@ body { overflow-x: clip; }
     text-transform: uppercase;
     color: var(--muted2);
   }
+}
+
+/* телефон: лента кейсов прижата к подзаголовку — без пустоты над карточками */
+@media (max-width: 767px) {
+  .cases__strip { top: 0; transform: none; }
 }
