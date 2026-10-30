@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261030194903">
-  <link rel="stylesheet" href="styles.css?v=20261030194903">
+  <link rel="stylesheet" href="../styles.css?v=20261030195206">
+  <link rel="stylesheet" href="styles.css?v=20261030195206">
 </head>
 <body class="v2">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -390,9 +390,58 @@
     </div>
   </section>
 
-  <script src="sections.js?v=20261030194903" defer></script>
-  <script src="cases.js?v=20261030194903" defer></script>
-  <script src="cases-slider.js?v=20261030194903" defer></script>
-  <script src="main.js?v=20261030194903" defer></script>
+  <!-- экспериментальный вариант: тот же блок, кейс открывается во всплывающем окне -->
+  <section class="cases cases--alt" id="cases-popup" aria-labelledby="cases2-title" data-cases-section data-mode="popup">
+    <div class="cases__head">
+      <p class="cases__label"><svg class="cases__mark" viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg>Кейсы · вариант 2, с&nbsp;поп-апом</p>
+      <h2 class="cases__title" id="cases2-title">Наш взгляд на&nbsp;<em>уникальное</em> событие и&nbsp;наши проекты</h2>
+      <p class="cases__lead">За&nbsp;каждым событием своя история…</p>
+    </div>
+
+    <div class="cases__stage" data-cases>
+      <div class="cases__strip" data-cases-strip>
+        <div class="cases__track" data-cases-track></div>
+      </div>
+      <div class="cases__gallery" data-cases-gallery hidden>
+        <div class="cases__gtrack" data-cases-gtrack></div>
+      </div>
+    </div>
+
+    <div class="cases__bar">
+      <div class="cases__bar-left">
+        <p class="cases__hint">
+          <span class="cases__hint--hover">Ведите курсор к&nbsp;краю&nbsp;— лента листается,<br>нажмите на&nbsp;кейс&nbsp;— откроется окно с&nbsp;фото</span>
+          <span class="cases__hint--touch">Листайте ленту и&nbsp;нажмите на&nbsp;кейс</span>
+        </p>
+        <p class="cases__crumbs">
+          <button type="button" class="cases__back" data-cases-back><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>Все кейсы</button>
+          <span class="cases__crumb-sep" aria-hidden="true">/</span>
+          <span class="cases__crumb" data-cases-crumb></span>
+        </p>
+      </div>
+      <div class="cases__bar-right">
+        <p class="cases__meta" data-cases-meta></p>
+        <span class="cases__count" data-cases-count aria-live="polite"></span>
+        <button type="button" class="cases__arrow cases__arrow--prev" data-cases-prev aria-label="Назад"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="cases__arrow" data-cases-next aria-label="Вперёд"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+
+    <div class="cases__cursor" data-cases-cursor aria-hidden="true">
+      <span class="cases__ball">
+        <span class="cc-open">Открыть</span>
+        <span class="cc-scroll">
+          <svg class="cc-one" viewBox="0 0 20 9"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="cc-two" viewBox="0 0 22 9"><path d="M2 4.5h18M5 .5l-4 4 4 4M17 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cc-label">Листать</span>
+        </span>
+      </span>
+    </div>
+  </section>
+
+  <script src="sections.js?v=20261030195206" defer></script>
+  <script src="cases.js?v=20261030195206" defer></script>
+  <script src="cases-slider.js?v=20261030195206" defer></script>
+  <script src="main.js?v=20261030195206" defer></script>
 </body>
 </html>

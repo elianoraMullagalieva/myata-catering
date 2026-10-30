@@ -7,9 +7,12 @@
 (() => {
   "use strict";
 
-  const section = document.querySelector("[data-cases-section]");
   const data = window.MYATA_CASES || [];
-  if (!section || !data.length) return;
+  if (!data.length) return;
+  // на странице два блока кейсов: основной (галерея прямо в ленте) и экспериментальный (data-mode="popup")
+  document.querySelectorAll("[data-cases-section]").forEach(initCases);
+
+  function initCases(section) {
 
   const $ = (sel) => section.querySelector(sel);
   const stage = $("[data-cases]");
@@ -440,6 +443,7 @@
 
   async function openCase(card) {
     if (mode !== "strip") return;
+    if (section.dataset.mode === "popup") { openPopup(card); return; }
     mode = "opening";
     tween = null; vel = 0; coasting = false;
     cur.on = false;
@@ -506,6 +510,111 @@
     updateBar();
     if (!canHover) hoverX = null;
     openCard.focus({ preventScroll: true });
+  }
+
+  /* ---------- вариант 2: кейс во всплывающем окне ---------- */
+  let pop = null, popOpener = null;
+  const ARROW = '<svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function buildPopup() {
+    pop = document.createElement("div");
+    pop.className = "cpop";
+    pop.hidden = true;
+    pop.setAttribute("role", "dialog");
+    pop.setAttribute("aria-modal", "true");
+    pop.innerHTML = `
+      <div class="cpop__backdrop" data-pop-close></div>
+      <div class="cpop__panel">
+        <header class="cpop__head">
+          <div class="cpop__info">
+            <p class="cpop__tags" data-pop-tags></p>
+            <h3 class="cpop__title" data-pop-title></h3>
+            <p class="cpop__meta" data-pop-meta></p>
+          </div>
+          <button type="button" class="cpop__close" data-pop-close aria-label="Закрыть"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3l14 14M17 3L3 17" fill="none" stroke="currentColor" stroke-linecap="round"/></svg></button>
+        </header>
+        <div class="cpop__gallery" data-pop-gallery tabindex="0"><div class="cpop__track" data-pop-track></div></div>
+        <footer class="cpop__foot">
+          <span class="cpop__count" data-pop-count></span>
+          <button type="button" class="cases__arrow cases__arrow--prev" data-pop-prev aria-label="Предыдущее фото">${ARROW}</button>
+          <button type="button" class="cases__arrow" data-pop-next aria-label="Следующее фото">${ARROW}</button>
+        </footer>
+      </div>`;
+    document.body.appendChild(pop);
+    const g = pop.querySelector("[data-pop-gallery]");
+    const slidesOf = () => [...pop.querySelectorAll(".cpop__slide")];
+    const nearest = () => {
+      const c = g.scrollLeft + g.clientWidth / 2;
+      let best = 0, d = Infinity;
+      slidesOf().forEach((s, k) => { const dd = Math.abs(s.offsetLeft + s.offsetWidth / 2 - c); if (dd < d) { d = dd; best = k; } });
+      return best;
+    };
+    const go = (k) => {
+      const list = slidesOf();
+      k = Math.max(0, Math.min(list.length - 1, k));
+      const s = list[k];
+      g.scrollTo({ left: s.offsetLeft + s.offsetWidth / 2 - g.clientWidth / 2, behavior: reduce ? "auto" : "smooth" });
+    };
+    const sync = () => {
+      const list = slidesOf(), k = nearest();
+      pop.querySelector("[data-pop-count]").textContent = `${pad2(k + 1)} / ${pad2(list.length)}`;
+      list.forEach((s, j) => s.classList.toggle("is-active", j === k));
+      pop.querySelector("[data-pop-prev]").disabled = k === 0;
+      pop.querySelector("[data-pop-next]").disabled = k === list.length - 1;
+    };
+    g.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+    pop.querySelector("[data-pop-prev]").addEventListener("click", () => go(nearest() - 1));
+    pop.querySelector("[data-pop-next]").addEventListener("click", () => go(nearest() + 1));
+    g.addEventListener("click", (e) => { const s = e.target.closest(".cpop__slide"); if (s) go(slidesOf().indexOf(s)); });
+    pop.addEventListener("click", (e) => { if (e.target.closest("[data-pop-close]")) closePopup(); });
+    pop.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { e.preventDefault(); closePopup(); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); go(nearest() + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); go(nearest() - 1); }
+      else if (e.key === "Tab") {
+        // фокус не уходит из окна
+        const f = [...pop.querySelectorAll("button:not([disabled]), [tabindex='0']")];
+        if (!f.length) return;
+        if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+      }
+    });
+    pop._sync = sync;
+  }
+
+  function openPopup(card) {
+    if (!pop) buildPopup();
+    const c = data[+card.dataset.index];
+    popOpener = card;
+    mode = "popup";
+    tween = null; vel = 0; coasting = false;
+    cur.on = false;
+    if (cursor) cursor.classList.remove("is-on");
+    pop.setAttribute("aria-label", c.title);
+    pop.querySelector("[data-pop-tags]").innerHTML = (c.tags || []).map((t) => `<span class="cases__tag">${esc(t)}</span>`).join("");
+    pop.querySelector("[data-pop-title]").textContent = c.title;
+    pop.querySelector("[data-pop-meta]").textContent = metaText(c);
+    pop.querySelector("[data-pop-track]").innerHTML = photosOf(c).map((p, k) => {
+      const r = p.w && p.h ? (p.w / p.h).toFixed(4) : "1.5";
+      return `<figure class="cpop__slide" style="--r:${r};--d:${(0.12 + k * 0.07).toFixed(2)}s">${imgHtml({ src: p.src })}</figure>`;
+    }).join("");
+    pop.querySelector("[data-pop-gallery]").scrollLeft = 0;
+    pop.hidden = false;
+    document.body.classList.add("is-locked");
+    void pop.offsetWidth;
+    pop.classList.add("is-open");
+    pop._sync();
+    pop.querySelector(".cpop__close").focus({ preventScroll: true });
+  }
+
+  function closePopup() {
+    if (!pop || mode !== "popup") return;
+    pop.classList.remove("is-open");
+    document.body.classList.remove("is-locked");
+    setTimeout(() => { pop.hidden = true; pop.querySelector("[data-pop-track]").innerHTML = ""; }, reduce ? 0 : 450);
+    mode = "strip";
+    updateBar();
+    if (popOpener) popOpener.focus({ preventScroll: true });
   }
 
   backBtn.addEventListener("click", closeCase);
@@ -597,4 +706,5 @@
     run();
   }
   document.addEventListener("visibilitychange", run);
+  }
 })();
