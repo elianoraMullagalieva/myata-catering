@@ -34,10 +34,11 @@
     row.classList.add("is-active");
     list.classList.add("is-hover");
 
-    // карточка встаёт по центру строки
+    // карточка встаёт в пустую колонку строки — между названием и пояснением, не задевая текст
     const box = peek.offsetParent.getBoundingClientRect();
-    const r = row.getBoundingClientRect();
+    const r = row.querySelector(".tst__slot").getBoundingClientRect();
     const y = r.top - box.top + r.height / 2;
+    peek.style.setProperty("--x", `${r.left - box.left + r.width / 2}px`);
     peek.style.setProperty("--y", `${y}px`);
 
     // кадр: на первом показе — сразу, дальше новый въезжает снизу, старый уходит вверх

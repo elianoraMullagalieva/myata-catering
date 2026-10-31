@@ -2407,3 +2407,41 @@ body { overflow-x: clip; }
   .tst-chips { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .tst-chip span { justify-content: center; padding: 0 4px; }
 }
+
+/* --- дегустация: правки ---
+   без отступов браузера у заголовков и абзацев — надпись, заголовок и подводка собраны вместе */
+:where(.tst) :where(h2, h3, p, figure) { margin: 0; }
+.tst__intro { gap: clamp(12px, 0.5rem + 0.4vw, 22px); }
+.tst__over { margin-bottom: clamp(2px, 0.1rem + 0.2vw, 8px); }
+
+/* строка: название | пустая колонка под фото-карточку | пояснение — карточка не задевает текст */
+.tst { --peek-w: clamp(64px, 2rem + 4vw, 170px); }
+.tst__peek { width: var(--peek-w); left: 0; }
+.tst__peek,
+.tst__peek.is-on { left: 0; }
+.tst__peek { transform: translate3d(calc(var(--x, 0px) - 50%), calc(var(--y) - 50%), 0) rotate(6deg) scale(0.86); }
+.tst__peek.is-on { transform: translate3d(calc(var(--x, 0px) - 50%), calc(var(--y) - 50%), 0) rotate(6deg) scale(1); }
+.tst__row {
+  grid-template-columns: minmax(0, 1fr) calc(var(--peek-w) * 1.3) minmax(0, 1.15fr);
+  gap: clamp(8px, 0.3rem + 0.6vw, 28px);
+}
+.tst__name { grid-column: 1; grid-row: 1; }
+.tst__slot { grid-column: 2; grid-row: 1; align-self: stretch; }
+.tst__desc { grid-column: 3; grid-row: 1; }
+@media (max-width: 767px) {
+  .tst { --peek-w: 60px; }
+  .tst__row { grid-template-columns: minmax(0, 1fr) calc(var(--peek-w) * 1.35); column-gap: 12px; row-gap: 6px; }
+  .tst__name { grid-column: 1; grid-row: 1; }
+  .tst__desc { grid-column: 1; grid-row: 2; }
+  .tst__slot { grid-column: 2; grid-row: 1 / 3; }
+  .tst__peek,
+  .tst__peek.is-on { right: auto; }
+  .tst__peek { transform: translate3d(calc(var(--x, 0px) - 50%), calc(var(--y) - 50%), 0) rotate(6deg) scale(0.86); }
+  .tst__peek.is-on { transform: translate3d(calc(var(--x, 0px) - 50%), calc(var(--y) - 50%), 0) rotate(6deg) scale(1); }
+}
+
+/* способы связи: четыре равные кнопки в одну строку, пока билет узкий */
+@media (max-width: 1023px) {
+  .tst-chips { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tst-chip span { justify-content: center; padding: 0 4px; }
+}
