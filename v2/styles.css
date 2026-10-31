@@ -2043,3 +2043,24 @@ body { overflow-x: clip; }
 @keyframes v2-load { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .is-loaded .v2-loader,
 .no-js .v2-loader { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* ---------- правки квиза и кейсов на телефоне/планшете ---------- */
+/* заголовок квиза — в две строки: «Рассчитаем кейтеринг / для вашего мероприятия» */
+.qz__title { text-wrap: balance; }
+@media (max-width: 767px) {
+  .qz__title { font-size: min(7.2vw, 28px); }
+  /* подзаголовок — в две строки */
+  .qz__lead { font-size: min(3.75vw, 15px); max-width: none; text-wrap: balance; }
+  /* фото на 10px ниже — срезаем сверху стену, голова остаётся в кадре */
+  .qz__photo { flex: none; aspect-ratio: auto; height: calc((100vw - 2 * var(--gutter)) * 0.6 - 10px); }
+  /* «главный супервайзер» читается: крупнее и темнее */
+  .qz__badge-box span { font-size: 11.5px; color: #5c5c5c; }
+}
+@media (max-width: 420px) {
+  .qz__badge-box span { font-size: 10.5px; color: #5c5c5c; }
+}
+/* до десктопа подсказка кейсов — всегда «листайте», без курсора */
+@media (max-width: 1023px) {
+  .cases__hint--hover { display: none; }
+  .cases__hint--touch { display: inline; }
+}
