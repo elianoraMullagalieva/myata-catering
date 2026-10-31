@@ -2591,3 +2591,7 @@ body { overflow-x: clip; }
   .ft__docs { flex-direction: column; }
   .ft__docs a { display: inline-block; padding: 4px 0; }
 }
+
+/* согласие в билете: цвета галочки и рамки — те же, что в квизе (переменные квиза здесь не видны) */
+.tst { --ink2: #1c1714; --muted2: #6e645b; --line2: rgba(28, 23, 20, 0.18); }
+.tst-consent { cursor: pointer; }

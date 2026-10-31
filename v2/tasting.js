@@ -90,6 +90,9 @@
   list.addEventListener("focusout", (e) => { if (!list.contains(e.relatedTarget)) reset(); });
 
   /* ---------- форма-билет ---------- */
+  // ссылка на политику пока пустая — не даём ей прокручивать страницу наверх и снимать галочку
+  sec.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener("click", (e) => e.preventDefault()));
+
   const form = sec.querySelector("[data-tst-form]");
   const body = form.querySelector("[data-tst-body]");
   const done = form.querySelector("[data-tst-done]");
