@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261031150758">
-  <link rel="stylesheet" href="styles.css?v=20261031150758">
+  <link rel="stylesheet" href="../styles.css?v=20261031151316">
+  <link rel="stylesheet" href="styles.css?v=20261031151316">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -441,9 +441,53 @@
     </div>
   </section>
 
-  <script src="sections.js?v=20261031150758" defer></script>
-  <script src="cases.js?v=20261031150758" defer></script>
-  <script src="cases-slider.js?v=20261031150758" defer></script>
-  <script src="main.js?v=20261031150758" defer></script>
+  <!-- 5. Бесплатная дегустация: строки с превью при наведении + форма-билет на фото -->
+  <section class="tst" id="tasting" aria-labelledby="tst-title">
+    <div class="tst__left">
+      <div class="tst__intro">
+        <p class="tst__over">Для мероприятий от&nbsp;20&nbsp;гостей</p>
+        <h2 class="tst__title" id="tst-title">Бесплатная дегустация<br> до&nbsp;мероприятия</h2>
+        <p class="tst__lead">Привезём блюда, которые планируем включить в&nbsp;ваше меню,&nbsp;— оцените вкус, подачу и&nbsp;качество лично</p>
+      </div>
+      <ul class="tst__rows" data-tst-rows>
+        <li class="tst__row" data-tst-row data-img="assets/cases/tartlets.jpg" tabindex="0"><span class="tst__name">Дегустация меню</span><span class="tst__desc">Попробуете блюда и&nbsp;вместе<br> выберем лучшее сочетание</span></li>
+        <li class="tst__row" data-tst-row data-img="assets/tasting/preview-visit.png" tabindex="0"><span class="tst__name">Выезд к&nbsp;вам</span><span class="tst__desc">Приедем в&nbsp;удобное место&nbsp;—<br> никуда ехать не&nbsp;нужно</span></li>
+        <li class="tst__row" data-tst-row data-img="assets/cases/canapes-guests.jpg" tabindex="0"><span class="tst__name">Консультация</span><span class="tst__desc">Обсудим формат, количество<br> гостей и&nbsp;особенности меню</span></li>
+        <li class="tst__row" data-tst-row data-img="assets/cases/desserts.jpg" tabindex="0"><span class="tst__name">Бесплатно</span><span class="tst__desc">Дегустация бесплатна<br> при мероприятии от&nbsp;20&nbsp;гостей</span></li>
+      </ul>
+      <figure class="tst__peek" data-tst-peek aria-hidden="true"><img alt="" width="736" height="1104" loading="lazy"><img alt="" width="736" height="1104" loading="lazy"></figure>
+      <p class="tst__bar">Не&nbsp;выбирайте вслепую&nbsp;— <em>сначала попробуйте</em></p>
+    </div>
+
+    <div class="tst__right">
+      <img class="tst__photo" src="assets/tasting/photo.png" alt="Канапе и тарталетки на дегустации" width="736" height="1104" loading="lazy">
+      <form class="tst-ticket" data-tst-form novalidate>
+        <div class="tst-ticket__top">
+          <h3 class="tst-ticket__title">Записаться на<br> бесплатную <em>дегустацию</em></h3>
+          <p class="tst-ticket__sub">Перезвоним, уточним дату и&nbsp;меню</p>
+          <ul class="tst-ticket__pills"><li>5–7 блюд</li><li>Выезд к&nbsp;вам</li><li>0&nbsp;₽</li></ul>
+        </div>
+        <div class="tst-ticket__stub" data-tst-body>
+          <p class="tst-ticket__over">Забронировать дегустацию</p>
+          <label class="tst-field"><input type="text" name="name" placeholder="Имя*" autocomplete="name" required></label>
+          <label class="tst-field"><input type="tel" name="phone" placeholder="Телефон*" autocomplete="tel" inputmode="tel" required></label>
+          <p class="tst-ticket__label">Удобный способ связи</p>
+          <div class="tst-chips"><label class="tst-chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label><label class="tst-chip"><input type="radio" name="contact" value="Telegram" checked><span>Telegram</span></label><label class="tst-chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label><label class="tst-chip"><input type="radio" name="contact" value="MAX"><span>MAX</span></label></div>
+          <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
+          <button type="submit" class="tst-submit"><span>Записаться на&nbsp;дегустацию</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="tst-ticket__stub tst-ticket__done" data-tst-done hidden>
+          <p class="tst-ticket__over">Заявка принята</p>
+          <p class="tst-ticket__sub">Спасибо! Перезвоним в&nbsp;ближайшее время, чтобы выбрать дату и&nbsp;меню дегустации.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script src="sections.js?v=20261031151316" defer></script>
+  <script src="cases.js?v=20261031151316" defer></script>
+  <script src="cases-slider.js?v=20261031151316" defer></script>
+  <script src="tasting.js?v=20261031151316" defer></script>
+  <script src="main.js?v=20261031151316" defer></script>
 </body>
 </html>
