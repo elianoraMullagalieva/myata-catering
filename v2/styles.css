@@ -2087,3 +2087,10 @@ body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   .v2-loader__logo path { animation: none; fill-opacity: 1; stroke: none; }
 }
+
+/* услуги на больших экранах: промежутки на 20% меньше, карточки на ~18% шире */
+@media (min-width: 1680px) {
+  .svc { --svc-gap: clamp(14px, 0.4rem + 1.12vw, 38px); }
+}
+@media (min-width: 1680px) and (max-width: 2239px) { .svc { --per: 3.9; } }
+@media (min-width: 2240px)                         { .svc { --per: 4.75; } }
