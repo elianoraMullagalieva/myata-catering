@@ -38,7 +38,19 @@
     const box = peek.offsetParent.getBoundingClientRect();
     const r = row.querySelector(".tst__slot").getBoundingClientRect();
     const y = r.top - box.top + r.height / 2;
-    peek.style.setProperty("--x", `${r.left - box.left + r.width / 2}px`);
+    // по горизонтали — ровно посередине между концом названия и началом пояснения;
+    // на телефоне (пояснение под названием) — по центру пустой колонки справа
+    let x = r.left + r.width / 2;
+    const name = row.querySelector(".tst__name");
+    const desc = row.querySelector(".tst__desc");
+    const dr = desc.getBoundingClientRect();
+    if (dr.left > r.left) {
+      const rng = document.createRange();
+      rng.selectNodeContents(name);
+      const nameEnd = Math.max(...[...rng.getClientRects()].map((b) => b.right));
+      x = (nameEnd + dr.left) / 2;
+    }
+    peek.style.setProperty("--x", `${x - box.left}px`);
     peek.style.setProperty("--y", `${y}px`);
 
     // кадр: на первом показе — сразу, дальше новый въезжает снизу, старый уходит вверх

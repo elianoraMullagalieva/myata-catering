@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261031151531">
-  <link rel="stylesheet" href="styles.css?v=20261031151531">
+  <link rel="stylesheet" href="../styles.css?v=20261031153348">
+  <link rel="stylesheet" href="styles.css?v=20261031153348">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -484,10 +484,41 @@
     </div>
   </section>
 
-  <script src="sections.js?v=20261031151531" defer></script>
-  <script src="cases.js?v=20261031151531" defer></script>
-  <script src="cases-slider.js?v=20261031151531" defer></script>
-  <script src="tasting.js?v=20261031151531" defer></script>
-  <script src="main.js?v=20261031151531" defer></script>
+  <!-- 6. Контакты -->
+  <section class="ct" id="contacts" aria-labelledby="ct-title">
+    <h2 class="ct__title" id="ct-title">Обсудим <em>ваше мероприятие</em></h2>
+    <dl class="ct__list">
+      <div class="ct__item"><dt>Телефон</dt><dd><a href="tel:+70000000000">+7 (000) 000-00-00</a></dd></div>
+      <div class="ct__item"><dt>Почта</dt><dd><a href="mailto:hello@company.ru">hello@company.ru</a></dd></div>
+      <div class="ct__item"><dt>Время работы</dt><dd>Ежедневно с&nbsp;09:00 до&nbsp;21:00</dd></div>
+      <div class="ct__item"><dt>Мессенджеры</dt><dd><ul class="ct__socials"><li><a class="ct-social" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg aria-hidden="true"><use href="#i-tg"/></svg></a></li><li><a class="ct-social" href="https://wa.me/70000000000" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a></li><li><a class="ct-social" href="https://max.ru/" target="_blank" rel="noopener" aria-label="Написать в MAX"><svg aria-hidden="true"><use href="#i-max"/></svg></a></li></ul></dd></div>
+    </dl>
+  </section>
+
+  <!-- 7. Подвал -->
+  <footer class="ft">
+    <div class="ft__top">
+      <a class="ft__logo" href="./" aria-label="МЯТА — на главную"><img src="../assets/logo.svg" width="83" height="24" alt="МЯТА"><span>Catering&amp;Events</span></a>
+      <nav class="ft__nav" aria-label="Меню в подвале"><ul><li><a href="#cases">Кейсы</a></li><li><a href="#services">Услуги</a></li><li><a href="#boxes">Боксы</a></li><li><a href="#menu">Меню</a></li><li><a href="#about">О компании</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#contacts">Контакты</a></li></ul></nav>
+      <div class="ft__call">
+        <a class="ft__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+        <a class="ft__btn" href="#request"><span>Перезвонить мне</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+    <div class="ft__bottom">
+      <p class="ft__copy">© 2026 МЯТА Catering&amp;Events</p>
+      <ul class="ft__docs">
+        <li><a href="#">Политика конфиденциальности</a></li>
+        <li><a href="#">Согласие на обработку персональных данных</a></li>
+        <li><a href="#">Пользовательское соглашение</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="sections.js?v=20261031153348" defer></script>
+  <script src="cases.js?v=20261031153348" defer></script>
+  <script src="cases-slider.js?v=20261031153348" defer></script>
+  <script src="tasting.js?v=20261031153348" defer></script>
+  <script src="main.js?v=20261031153348" defer></script>
 </body>
 </html>
