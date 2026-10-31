@@ -2064,3 +2064,26 @@ body { overflow-x: clip; }
   .cases__hint--hover { display: none; }
   .cases__hint--touch { display: inline; }
 }
+
+/* ---------- прелоадер: МЯТА «пишется от руки» ----------
+   каждая буква сначала прорисовывается тонким контуром, затем заливается;
+   буквы идут друг за другом и укладываются примерно в секунду */
+.v2-loader__logo { width: clamp(130px, 5rem + 5vw, 260px); height: auto; overflow: visible; }
+.v2-loader__logo path {
+  fill: #fff;
+  fill-opacity: 0;
+  stroke: #fff;
+  stroke-width: 0.35;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    v2-ink 0.55s cubic-bezier(0.55, 0.1, 0.35, 1) calc(0.15s + var(--i) * 0.22s) forwards,
+    v2-fill 0.4s ease-out calc(0.5s + var(--i) * 0.22s) forwards;
+}
+@keyframes v2-ink { to { stroke-dashoffset: 0; } }
+@keyframes v2-fill { to { fill-opacity: 1; stroke-opacity: 0; } }
+.v2-loader__line::after { animation-duration: 1.45s; }
+@media (prefers-reduced-motion: reduce) {
+  .v2-loader__logo path { animation: none; fill-opacity: 1; stroke: none; }
+}

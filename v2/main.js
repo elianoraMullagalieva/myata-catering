@@ -160,8 +160,13 @@
     : Promise.resolve();
   const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
 
-  // ждём фото и шрифты, но не дольше 1,6 с
-  Promise.race([Promise.all([imageReady, fontsReady]), wait(1600)]).then(() => {
+  // ждём фото и шрифты (не дольше 2,6 с), но прелоадер показываем не меньше 1,5 с —
+  // чтобы буквы МЯТА успели «написаться»
+  const minShow = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1500;
+  Promise.all([
+    Promise.race([Promise.all([imageReady, fontsReady]), wait(2600)]),
+    wait(Math.max(0, minShow - performance.now())),
+  ]).then(() => {
     void root.offsetWidth;
     root.classList.add("is-loaded");
   });
