@@ -1920,3 +1920,14 @@ body { overflow-x: clip; }
 .svc-card__price { white-space: nowrap; }
 /* квиз на больших экранах — без пустоты между вариантами и кнопкой */
 .qz__card { min-height: clamp(560px, 20rem + 28vw, 860px); }
+
+/* телефон: фото опущено (см. main.js), сверху — тот же тёмный цвет, что у края снимка,
+   переход мягкий — шва не видно; заголовок дальше от логотипа */
+@media (max-width: 767px) {
+  .v2 .hero__bg { background: rgb(24, 11, 13); }
+  .v2 .hero__media {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%);
+  }
+  .v2-body { padding-top: clamp(28px, 5svh, 48px); }
+}

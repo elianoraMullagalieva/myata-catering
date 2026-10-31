@@ -16,8 +16,11 @@
     const h = hero.clientHeight;
     const mobile = w < 768;
 
+    // на телефоне фото опущено на 9% высоты: сверху — продолжение тёмного фона снимка,
+    // заголовок получает воздух, а еда уходит ниже текста
+    const lift = mobile ? h * 0.09 : 0;
     const scale = mobile
-      ? Math.max(w / SRC.w, h / SRC.h)
+      ? Math.max(w / SRC.w, (h - lift) / SRC.h)
       : Math.max((1.019 * w) / SRC.w, (1.139 * h) / SRC.h);
     const W = SRC.w * scale;
     const H = SRC.h * scale;
@@ -27,7 +30,7 @@
     // по вертикали — как в макете: фото почти от верха, лишнее уходит вниз
     let top = mobile ? h * 0.5 - 0.52 * H : -0.005 * h;
     left = Math.min(0, Math.max(w - W, left));
-    top = Math.min(0, Math.max(h - H, top));
+    top = mobile ? lift : Math.min(0, Math.max(h - H, top));
 
     media.style.inset = "0 auto auto 0";
     media.style.width = `${W}px`;
