@@ -116,7 +116,11 @@
   const DRIFT = reduce ? 0 : 22;    // сама по себе лента едва плывёт
   const STEER = reduce ? 520 : 980; // скорость у самого края
 
+  // телефон: лента стоит на месте, одна карточка на экран — листают свайпом или стрелками
+  const phoneMQ = window.matchMedia("(max-width: 767px)");
+
   function targetVel() {
+    if (phoneMQ.matches) return 0;
     if (hoverX === null) return DRIFT;
     const t = hoverX * 2 - 1;          // −1 … 1
     const dead = 0.32;                  // центр — пауза, чтобы спокойно нажать
@@ -227,7 +231,19 @@
 
   function endDrag() {
     if (!drag) return;
-    if (drag.moved) {
+    if (drag.moved && phoneMQ.matches) {
+      // свайп доводит ровно до соседней карточки: короткий рывок или сдвиг больше трети карточки
+      const from = Math.round((drag.pos - padL - cardW / 2 + stripW / 2) / step);
+      const moved = (pos - drag.pos) / step;
+      let j = Math.round(contIndex());
+      if (Math.abs(drag.v) > 350 || Math.abs(moved) > 0.33) j = from + Math.sign(Math.abs(drag.v) > 350 ? drag.v : moved);
+      j = Math.max(from - 1, Math.min(from + 1, j));
+      tween = { from: pos, to: centeredPos(j), t0: performance.now(), dur: reduce ? 1 : 520 };
+      vel = 0;
+      coasting = false;
+      suppressClick = true;
+      setTimeout(() => { suppressClick = false; }, 0);
+    } else if (drag.moved) {
       vel = Math.max(-4000, Math.min(4000, drag.v));
       coasting = true;
       suppressClick = true;

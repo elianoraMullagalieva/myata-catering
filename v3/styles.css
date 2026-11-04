@@ -2896,3 +2896,8 @@ body > .drawer { z-index: 59; }
   .stick .burger[aria-expanded="true"] span:last-child { top: 20.5px; }
 }
 @media (prefers-reduced-motion: reduce) { .stick { transition: none; } }
+
+/* кейсы на телефоне: одна карточка на весь экран, следующая не выглядывает */
+@media (max-width: 767px) {
+  .cases { --card-w: calc(100vw - 2 * var(--gutter)); --cases-gap: calc(var(--gutter) + 2px); }
+}
