@@ -3878,6 +3878,3 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
   .m5 { --m5-n: 4; }
   .m5__col--5, .m5__col--6 { display: none !important; }
 }
-@media (min-width: 768px) {
-  .m5__btn { width: auto; max-width: none; min-width: 0; align-self: flex-start; }
-}
