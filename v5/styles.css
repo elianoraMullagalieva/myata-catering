@@ -3861,3 +3861,14 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
   .tst-ticket__top { padding-top: 40px; }
   .tst-ticket__stub { padding-bottom: 40px; gap: 14px; }
 }
+
+/* --- меню v5: ровно в экран, карточки не грубые (больше колонок на широких экранах),
+   заголовок чуть ниже, кнопка на 10% уже --- */
+.m5 { height: max(560px, 100svh); }
+.m5__text { padding-top: clamp(116px, 3rem + 5.2vw, 210px); }
+.m5__btn { max-width: 90%; }
+@media (min-width: 1500px) { .m5 { --m5-n: 5; } .m5__col--5 { display: block; } }
+@media (min-width: 1900px) { .m5 { --m5-n: 6; } .m5__col--6 { display: block; } }
+@media (max-width: 767px) { .m5 { height: auto; } .m5__btn { max-width: none; } .m5__lead br { display: none; } }
+.m5-card__name { font-size: clamp(13px, 0.5rem + 0.42vw, 18px); line-height: 1.25; }
+@media (max-width: 767px) { .m5-card__name { font-size: 13px; } }
