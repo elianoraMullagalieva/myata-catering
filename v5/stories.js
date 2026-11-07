@@ -231,7 +231,8 @@
     idx = ((i % N) + N) % N;
     const src = base[idx];
     pv.poster = src.querySelector("img").currentSrc || src.querySelector("img").src;
-    pv.src = src.querySelector("video").dataset.src;
+    const sv = src.querySelector("video");
+    pv.src = sv.dataset.full || sv.dataset.src; // в плеере — полная версия ролика
     pv.muted = !sound;
     nameEl.textContent = src.querySelector(".st-card__name").textContent;
     barEls.forEach((b, k) => b.style.setProperty("--p", k < idx ? 1 : 0));

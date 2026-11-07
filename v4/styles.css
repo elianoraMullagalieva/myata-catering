@@ -3665,3 +3665,14 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
   .tst-ticket__top { padding-top: 40px; }
   .tst-ticket__stub { padding-bottom: 40px; gap: 14px; }
 }
+
+/* «Почему мы?» целиком в экран на компьютере: отступы считаются от высоты окна,
+   сверху — место под закреплённую шапку */
+@media (min-width: 1024px) {
+  .why { padding-top: clamp(88px, 4rem + 2vh, 140px); padding-bottom: clamp(40px, 5vh, 96px); }
+  .why__head { margin-bottom: clamp(16px, 2.6vh, 44px); }
+  .why-item__head { padding: clamp(10px, 1.55vh, 30px) 0; }
+  .why-item__title { font-size: clamp(17px, 0.55rem + 0.7vw, 30px); }
+  .why-item__desc { padding-bottom: clamp(10px, 1.6vh, 28px); font-size: clamp(14px, 0.7rem + 0.2vw, 19px); }
+  .why__btn { margin-top: clamp(16px, 2.4vh, 44px); min-height: clamp(52px, 6.4vh, 84px); }
+}

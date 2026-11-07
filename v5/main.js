@@ -168,16 +168,21 @@
   const loaded = (im) => (im.complete && im.naturalWidth) || !im.getAttribute("src")
     ? Promise.resolve()
     : new Promise((r) => { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); });
-  const pageImages = [...document.images].map(loaded);
-  const extra = [...new Set([
-    ...[...document.querySelectorAll("[data-img]")].map((el) => el.dataset.img),
-    ...(window.MYATA_CASES || []).flatMap((c) => [c.cover && c.cover.src, ...(c.photos || []).map((p) => p && (p.src || p))]),
-  ])].filter((s) => typeof s === "string").map((src) => {
-    const im = new Image();
-    im.decoding = "async";
-    im.src = src;
-    return im.decode ? im.decode().catch(() => {}) : loaded(im);
-  });
+  // ждём только картинки первого экрана; ленивые (ниже) не держат прелоадер
+  const pageImages = [...document.images].filter((im) => im.loading !== "lazy").map(loaded);
+  // фото галерей кейсов и превью дегустации догружаем уже после загрузки страницы, в простое —
+  // чтобы они не отнимали канал у первого экрана (раньше из-за этого сайт подтормаживал)
+  const extra = [];
+  const warmLater = () => {
+    const srcs = [...new Set([
+      ...[...document.querySelectorAll("[data-img]")].map((el) => el.dataset.img),
+      ...(window.MYATA_CASES || []).flatMap((c) => [c.cover && c.cover.src, ...(c.photos || []).map((p) => p && (p.src || p))]),
+    ])].filter((s) => typeof s === "string");
+    let i = 0;
+    const next = () => { if (i >= srcs.length) return; const im = new Image(); im.decoding = "async"; im.src = srcs[i++]; im.onload = im.onerror = () => setTimeout(next, 60); };
+    next(); next();
+  };
+  window.addEventListener("load", () => (window.requestIdleCallback ? requestIdleCallback(warmLater, { timeout: 4000 }) : setTimeout(warmLater, 1500)), { once: true });
   Promise.all([
     Promise.race([Promise.all([imageReady, fontsReady, ...pageImages, ...extra]), wait(Math.max(0, 3000 - performance.now()))]), // не дольше 3 с от начала загрузки
     wait(Math.max(0, minShow - performance.now())),

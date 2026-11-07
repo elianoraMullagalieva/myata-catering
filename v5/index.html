@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261107200435">
-  <link rel="stylesheet" href="styles.css?v=20261107200435">
+  <link rel="stylesheet" href="../styles.css?v=20261107201253">
+  <link rel="stylesheet" href="styles.css?v=20261107201253">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -165,7 +165,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/furshet.png" alt="" loading="eager" fetchpriority="low" decoding="async" draggable="false" style="object-position:50% 42%">
+                <img loading="lazy" src="assets/services/furshet.png" alt="" decoding="async" draggable="false" style="object-position:50% 42%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Фуршет</h3>
@@ -180,7 +180,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/banket.png" alt="" loading="eager" fetchpriority="low" decoding="async" draggable="false" style="object-position:50% 55%">
+                <img loading="lazy" src="assets/services/banket.png" alt="" decoding="async" draggable="false" style="object-position:50% 55%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Банкет</h3>
@@ -195,7 +195,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/svadba.png" alt="" loading="eager" fetchpriority="low" decoding="async" draggable="false" style="object-position:50% 31%">
+                <img loading="lazy" src="assets/services/svadba.png" alt="" decoding="async" draggable="false" style="object-position:50% 31%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Свадьба</h3>
@@ -210,7 +210,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/chastnye.png" alt="" loading="eager" fetchpriority="low" decoding="async" draggable="false" style="object-position:50% 35%">
+                <img loading="lazy" src="assets/services/chastnye.png" alt="" decoding="async" draggable="false" style="object-position:50% 35%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Частные события</h3>
@@ -225,7 +225,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/coffee-break.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%">
+                <img loading="lazy" src="assets/services/coffee-break.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Кофе-брейк</h3>
@@ -240,7 +240,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/backstage.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%">
+                <img loading="lazy" src="assets/services/backstage.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Backstage-сервис</h3>
@@ -255,7 +255,7 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <img src="assets/services/prezentacii.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%">
+                <img loading="lazy" src="assets/services/prezentacii.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%">
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Презентации и&nbsp;открытия</h3>
@@ -269,7 +269,7 @@
           </li>
           <li class="svc-slot">
             <article class="svc-card svc-card--cta">
-              <img class="svc-card__bg" src="assets/services/cta.png" width="1024" height="1280" alt="" aria-hidden="true">
+              <img loading="lazy" class="svc-card__bg" src="assets/services/cta.png" width="1024" height="1280" alt="" aria-hidden="true">
               <span class="svc-pill">Индивидуально</span>
               <div class="svc-card__cta">
                 <h3 class="svc-card__cta-title">Не&nbsp;нашли свой формат?</h3>
@@ -441,7 +441,56 @@
     </div>
   </section>
 
-  <!-- 6. Меню: слева заголовок и кнопка, справа бесконечные колонки блюд (едут навстречу друг другу, menu5.js) -->
+  <!-- 8. Почему мы: фото + аккордеон из восьми причин -->
+  <section class="why" id="about" aria-labelledby="why-title">
+    <div class="why__head">
+      <h2 class="why__title" id="why-title">Почему <em>мы?</em></h2>
+      <p class="why__lead">8&nbsp;причин доверить нам ваше событие</p>
+    </div>
+    <figure class="why__photo">
+      <img src="assets/why/photo.png" alt="Официант сервирует стол" width="736" height="920" loading="lazy" decoding="async">
+      <figcaption>Внимание к&nbsp;деталям&nbsp;— в&nbsp;каждом событии</figcaption>
+    </figure>
+    <div class="why__body">
+      <div class="why__list" data-acc data-acc-single>
+        <div class="why-item is-open" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="true" aria-controls="why-p1" id="why-h1"><span class="why-item__num">01</span><span class="why-item__title">Собственное производство</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p1" role="region" aria-labelledby="why-h1"><div class="acc-panel__in"><p class="why-item__desc">Контролируем качество на&nbsp;каждом этапе&nbsp;— от&nbsp;выбора ингредиентов до&nbsp;безупречной подачи</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p2" id="why-h2"><span class="why-item__num">02</span><span class="why-item__title">Индивидуальный подход</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p2" role="region" aria-labelledby="why-h2"><div class="acc-panel__in"><p class="why-item__desc">Создаём уникальные гастрономические решения без шаблонов и&nbsp;стандартных предложений</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p3" id="why-h3"><span class="why-item__num">03</span><span class="why-item__title">Организация под ключ</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p3" role="region" aria-labelledby="why-h3"><div class="acc-panel__in"><p class="why-item__desc">Берём на&nbsp;себя все заботы&nbsp;— от&nbsp;разработки концепции до&nbsp;завершения мероприятия</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p4" id="why-h4"><span class="why-item__num">04</span><span class="why-item__title">Любой масштаб</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p4" role="region" aria-labelledby="why-h4"><div class="acc-panel__in"><p class="why-item__desc">Организуем события любого формата&nbsp;— от&nbsp;камерных встреч до&nbsp;масштабных торжеств</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p5" id="why-h5"><span class="why-item__num">05</span><span class="why-item__title">Эстетика в&nbsp;деталях</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p5" role="region" aria-labelledby="why-h5"><div class="acc-panel__in"><p class="why-item__desc">Уделяем внимание каждой детали&nbsp;— от&nbsp;приготовления блюд до&nbsp;изысканной сервировки</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p6" id="why-h6"><span class="why-item__num">06</span><span class="why-item__title">Точность во&nbsp;времени</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p6" role="region" aria-labelledby="why-h6"><div class="acc-panel__in"><p class="why-item__desc">Соблюдаем согласованные сроки, обеспечивая своевременную доставку и&nbsp;подачу</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p7" id="why-h7"><span class="why-item__num">07</span><span class="why-item__title">Профессиональная команда</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p7" role="region" aria-labelledby="why-h7"><div class="acc-panel__in"><p class="why-item__desc">Объединяем опыт поваров, менеджеров и&nbsp;официантов для безупречного результата</p></div></div>
+        </div>
+        <div class="why-item" data-acc-item>
+          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p8" id="why-h8"><span class="why-item__num">08</span><span class="why-item__title">Прозрачная стоимость</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
+          <div class="why-item__panel acc-panel" id="why-p8" role="region" aria-labelledby="why-h8"><div class="acc-panel__in"><p class="why-item__desc">Формируем понятную смету заранее&nbsp;— без скрытых платежей и&nbsp;неожиданных расходов</p></div></div>
+        </div>
+      </div>
+      <a class="dark-btn why__btn" href="#request"><span>Обсудить событие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+
+<!-- 6. Меню: слева заголовок и кнопка, справа бесконечные колонки блюд (едут навстречу друг другу, menu5.js) -->
   <section class="m5" id="menu" aria-labelledby="m5-title" data-m5>
     <div class="m5__text">
       <div class="m5__head">
@@ -515,28 +564,28 @@
   </section>
 
   <!-- 7. Видео: вертикальные ролики-сторис; на телефоне — по одному, листаются свайпом и стрелками -->
-  <section class="st" id="stories" aria-labelledby="st-title" data-st>
+  <section class="st" id="stories" aria-labelledby="st-title" data-st data-inline="1">
     <div class="st__viewport" data-st-viewport tabindex="0" aria-label="Лента видео, листается стрелками">
       <ul class="st__track" data-st-track>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="0" aria-label="Смотреть видео: Свадьба">
-          <span class="st-card__media"><img src="assets/stories/wedding.png" alt="" width="820" height="1024" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="assets/buffet-video.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
-          <span class="st-card__cap"><span class="st-card__name">Свадьба</span><span class="st-card__time">0:24</span></span>
+          <span class="st-card__media"><img src="../assets/video/1.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/1-sm.mp4" data-full="../assets/video/1.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Свадьба</span><span class="st-card__time">0:20</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="1" aria-label="Смотреть видео: Фуршет на террасе">
-          <span class="st-card__media"><img src="assets/stories/terrace.png" alt="" width="900" height="1200" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="assets/buffet-video.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
-          <span class="st-card__cap"><span class="st-card__name">Фуршет на террасе</span><span class="st-card__time">0:42</span></span>
+          <span class="st-card__media"><img src="../assets/video/2.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/2-sm.mp4" data-full="../assets/video/2.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Фуршет на террасе</span><span class="st-card__time">0:27</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="2" aria-label="Смотреть видео: Корпоратив">
-          <span class="st-card__media"><img src="assets/stories/corporate.png" alt="" width="736" height="920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="assets/buffet-video.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
-          <span class="st-card__cap"><span class="st-card__name">Корпоратив</span><span class="st-card__time">0:31</span></span>
+          <span class="st-card__media"><img src="../assets/video/3.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/3-sm.mp4" data-full="../assets/video/3.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Корпоратив</span><span class="st-card__time">0:19</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="3" aria-label="Смотреть видео: Презентация">
-          <span class="st-card__media"><img src="assets/stories/presentation.png" alt="" width="1200" height="1698" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="assets/buffet-video.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
-          <span class="st-card__cap"><span class="st-card__name">Презентация</span><span class="st-card__time">0:19</span></span>
+          <span class="st-card__media"><img src="../assets/video/4.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/4-sm.mp4" data-full="../assets/video/4.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Презентация</span><span class="st-card__time">0:31</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="4" aria-label="Смотреть видео: Фуршет">
-          <span class="st-card__media"><img src="assets/buffet.jpg" alt="" width="2048" height="1366" style="object-position:50% 50%" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="assets/buffet-video.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
-          <span class="st-card__cap"><span class="st-card__name">Фуршет</span><span class="st-card__time">0:19</span></span>
+          <span class="st-card__media"><img src="../assets/video/5.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/5-sm.mp4" data-full="../assets/video/5.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Фуршет</span><span class="st-card__time">0:14</span></span>
         </button></li>
       </ul>
     </div>
@@ -554,6 +603,9 @@
   <div class="stp" data-stp hidden role="dialog" aria-modal="true" aria-label="Просмотр видео">
     <div class="stp__stage">
       <div class="stp__bars" data-stp-bars aria-hidden="true"></div>
+
+
+  
       <video class="stp__video" data-stp-video playsinline preload="auto"></video>
       <p class="stp__name" data-stp-name></p>
       <button type="button" class="stp__btn stp__sound" data-stp-sound aria-label="Включить звук"><svg class="i-on" viewBox="0 0 20 16" aria-hidden="true"><path d="M2 5.5h3l4-3.5v12l-4-3.5H2z" fill="currentColor"/><path d="M12.5 5a4 4 0 010 6M15 3a7 7 0 010 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="i-off" viewBox="0 0 20 16" aria-hidden="true"><path d="M2 5.5h3l4-3.5v12l-4-3.5H2z" fill="currentColor"/><path d="M13 5.5l5 5M18 5.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
@@ -563,54 +615,7 @@
     <button type="button" class="stp__nav stp__nav--next" data-stp-next aria-label="Следующее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 
-  <!-- 8. Почему мы: фото + аккордеон из восьми причин -->
-  <section class="why" id="about" aria-labelledby="why-title">
-    <div class="why__head">
-      <h2 class="why__title" id="why-title">Почему <em>мы?</em></h2>
-      <p class="why__lead">8&nbsp;причин доверить нам ваше событие</p>
-    </div>
-    <figure class="why__photo">
-      <img src="assets/why/photo.png" alt="Официант сервирует стол" width="736" height="920" loading="lazy" decoding="async">
-      <figcaption>Внимание к&nbsp;деталям&nbsp;— в&nbsp;каждом событии</figcaption>
-    </figure>
-    <div class="why__body">
-      <div class="why__list" data-acc data-acc-single>
-        <div class="why-item is-open" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="true" aria-controls="why-p1" id="why-h1"><span class="why-item__num">01</span><span class="why-item__title">Собственное производство</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p1" role="region" aria-labelledby="why-h1"><div class="acc-panel__in"><p class="why-item__desc">Контролируем качество на&nbsp;каждом этапе&nbsp;— от&nbsp;выбора ингредиентов до&nbsp;безупречной подачи</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p2" id="why-h2"><span class="why-item__num">02</span><span class="why-item__title">Индивидуальный подход</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p2" role="region" aria-labelledby="why-h2"><div class="acc-panel__in"><p class="why-item__desc">Создаём уникальные гастрономические решения без шаблонов и&nbsp;стандартных предложений</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p3" id="why-h3"><span class="why-item__num">03</span><span class="why-item__title">Организация под ключ</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p3" role="region" aria-labelledby="why-h3"><div class="acc-panel__in"><p class="why-item__desc">Берём на&nbsp;себя все заботы&nbsp;— от&nbsp;разработки концепции до&nbsp;завершения мероприятия</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p4" id="why-h4"><span class="why-item__num">04</span><span class="why-item__title">Любой масштаб</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p4" role="region" aria-labelledby="why-h4"><div class="acc-panel__in"><p class="why-item__desc">Организуем события любого формата&nbsp;— от&nbsp;камерных встреч до&nbsp;масштабных торжеств</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p5" id="why-h5"><span class="why-item__num">05</span><span class="why-item__title">Эстетика в&nbsp;деталях</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p5" role="region" aria-labelledby="why-h5"><div class="acc-panel__in"><p class="why-item__desc">Уделяем внимание каждой детали&nbsp;— от&nbsp;приготовления блюд до&nbsp;изысканной сервировки</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p6" id="why-h6"><span class="why-item__num">06</span><span class="why-item__title">Точность во&nbsp;времени</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p6" role="region" aria-labelledby="why-h6"><div class="acc-panel__in"><p class="why-item__desc">Соблюдаем согласованные сроки, обеспечивая своевременную доставку и&nbsp;подачу</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p7" id="why-h7"><span class="why-item__num">07</span><span class="why-item__title">Профессиональная команда</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p7" role="region" aria-labelledby="why-h7"><div class="acc-panel__in"><p class="why-item__desc">Объединяем опыт поваров, менеджеров и&nbsp;официантов для безупречного результата</p></div></div>
-        </div>
-        <div class="why-item" data-acc-item>
-          <h3 class="why-item__h"><button type="button" class="why-item__head" data-acc-head aria-expanded="false" aria-controls="why-p8" id="why-h8"><span class="why-item__num">08</span><span class="why-item__title">Прозрачная стоимость</span><i class="acc-pm" aria-hidden="true"></i></button></h3>
-          <div class="why-item__panel acc-panel" id="why-p8" role="region" aria-labelledby="why-h8"><div class="acc-panel__in"><p class="why-item__desc">Формируем понятную смету заранее&nbsp;— без скрытых платежей и&nbsp;неожиданных расходов</p></div></div>
-        </div>
-      </div>
-      <a class="dark-btn why__btn" href="#request"><span>Обсудить событие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </section>
+
 
   <!-- 6. Контакты -->
   <section class="ct" id="contacts" aria-labelledby="ct-title">
@@ -643,16 +648,16 @@
     </div>
   </footer>
 
-  <script src="sections.js?v=20261107200435" defer></script>
-  <script src="cases.js?v=20261107200435" defer></script>
-  <script src="cases-slider.js?v=20261107200435" defer></script>
-  <script src="tasting.js?v=20261107200435" defer></script>
-  <script src="forms.js?v=20261107200435" defer></script>
-  <script src="header.js?v=20261107200435" defer></script>
-  <script src="stories.js?v=20261107200435" defer></script>
-  <script src="blocks.js?v=20261107200435" defer></script>
-  <script src="menu5.js?v=20261107200435" defer></script>
-  <script src="m5-snap.js?v=20261107200435" defer></script>
-  <script src="main.js?v=20261107200435" defer></script>
+  <script src="sections.js?v=20261107201253" defer></script>
+  <script src="cases.js?v=20261107201253" defer></script>
+  <script src="cases-slider.js?v=20261107201253" defer></script>
+  <script src="tasting.js?v=20261107201253" defer></script>
+  <script src="forms.js?v=20261107201253" defer></script>
+  <script src="header.js?v=20261107201253" defer></script>
+  <script src="stories.js?v=20261107201253" defer></script>
+  <script src="blocks.js?v=20261107201253" defer></script>
+  <script src="menu5.js?v=20261107201253" defer></script>
+  <script src="m5-snap.js?v=20261107201253" defer></script>
+  <script src="main.js?v=20261107201253" defer></script>
 </body>
 </html>
