@@ -89,6 +89,26 @@
   });
   // при смене размера карточка прячется — позиция строк поменялась
   window.addEventListener("resize", reset, { passive: true });
+
+  // планшет и телефон (нет наведения): фото сами по очереди показываются у строк, пока блок на экране;
+  // нажатие на строку показывает её фото, после паузы показ продолжается
+  const autoMQ = window.matchMedia("(hover: none), (max-width: 1023px)");
+  const reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let autoT = 0, autoI = 0, inViewT = false, holdUntil = 0;
+  function autoTick() {
+    if (!autoMQ.matches || reduceMQ.matches || !inViewT) return;
+    if (Date.now() >= holdUntil) { activate(rows[autoI % rows.length]); autoI++; }
+    autoT = setTimeout(autoTick, 2600);
+  }
+  function autoStart() { clearTimeout(autoT); if (autoMQ.matches && inViewT) autoTick(); }
+  rows.forEach((row, i) => row.addEventListener("click", () => { holdUntil = Date.now() + 6000; autoI = i + 1; }));
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([en]) => {
+      inViewT = en.isIntersecting;
+      if (inViewT) autoStart(); else { clearTimeout(autoT); if (autoMQ.matches) reset(); }
+    }, { threshold: 0.35 }).observe(list);
+  }
+  autoMQ.addEventListener("change", () => { clearTimeout(autoT); reset(); autoStart(); });
   list.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") reset(); });
   list.addEventListener("focusout", (e) => { if (!list.contains(e.relatedTarget)) reset(); });
 

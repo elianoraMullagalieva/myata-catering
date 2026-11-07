@@ -3846,3 +3846,18 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
 .st-card__media { aspect-ratio: 304 / 398; }
 .st__viewport { height: calc(var(--st-w) * 398 / 304 + clamp(28px, 1.3rem + 0.5vw, 44px)); }
 @media (max-width: 767px) { .st-card__media { aspect-ratio: 304 / 398; } }
+
+/* дегустация на планшете: компактнее по высоте, строки на всю ширину с крупной карточкой фото,
+   форма шире и с воздухом вокруг */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tst { --peek-w: clamp(110px, 15vw, 150px); }
+  .tst__intro { padding: 56px var(--t-pad) 36px; gap: 12px; }
+  .tst__row { grid-template-columns: minmax(0, 0.9fr) calc(var(--peek-w) * 1.25) minmax(0, 1.2fr); padding-top: 16px; padding-bottom: 16px; }
+  .tst__desc { font-size: 15px; }
+  .tst__bar { padding: 24px var(--t-pad) 32px; }
+  .tst__right { padding: 56px var(--t-pad) 64px; }
+  .tst-ticket { width: min(100%, 640px); --notch: 13px; }
+  .tst-ticket__top, .tst-ticket__stub { padding-inline: 40px; }
+  .tst-ticket__top { padding-top: 40px; }
+  .tst-ticket__stub { padding-bottom: 40px; gap: 14px; }
+}
