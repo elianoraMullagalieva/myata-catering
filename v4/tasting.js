@@ -50,8 +50,11 @@
       const nameEnd = Math.max(...[...rng.getClientRects()].map((b) => b.right));
       x = (nameEnd + dr.left) / 2;
     }
+    // первый показ — карточка сразу встаёт у строки (без перелёта из угла блока), дальше переезжает плавно
+    if (first) peek.style.transition = "none";
     peek.style.setProperty("--x", `${x - box.left}px`);
     peek.style.setProperty("--y", `${y}px`);
+    if (first) { void peek.offsetWidth; peek.style.transition = ""; }
 
     // кадр: на первом показе — сразу, дальше новый въезжает снизу, старый уходит вверх
     const src = row.dataset.img;

@@ -2,7 +2,9 @@
 <html lang="ru" class="no-js">
 <head>
   <meta charset="utf-8">
-  <script>document.documentElement.classList.replace("no-js", "js");</script>
+  <script>document.documentElement.classList.replace("no-js", "js");
+  // страховка: прелоадер не дольше 3 с от начала загрузки, даже если скрипты и фото ещё в пути
+  setTimeout(function () { document.documentElement.classList.add("is-loaded"); }, 3000);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>МЯТА — Catering&amp;Events</title>
   <meta name="description" content="Кейтеринг, который сделает мероприятие особенным. События любого формата — от камерных торжеств до масштабных мероприятий.">
@@ -10,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261106130559">
-  <link rel="stylesheet" href="styles.css?v=20261106130559">
+  <link rel="stylesheet" href="../styles.css?v=20261107185412">
+  <link rel="stylesheet" href="styles.css?v=20261107185412">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -645,13 +647,13 @@
     </div>
   </footer>
 
-  <script src="sections.js?v=20261106130559" defer></script>
-  <script src="cases.js?v=20261106130559" defer></script>
-  <script src="cases-slider.js?v=20261106130559" defer></script>
-  <script src="tasting.js?v=20261106130559" defer></script>
-  <script src="forms.js?v=20261106130559" defer></script>
-  <script src="header.js?v=20261106130559" defer></script>
-  <script src="blocks.js?v=20261106130559" defer></script>
-  <script src="main.js?v=20261106130559" defer></script>
+  <script src="sections.js?v=20261107185412" defer></script>
+  <script src="cases.js?v=20261107185412" defer></script>
+  <script src="cases-slider.js?v=20261107185412" defer></script>
+  <script src="tasting.js?v=20261107185412" defer></script>
+  <script src="forms.js?v=20261107185412" defer></script>
+  <script src="header.js?v=20261107185412" defer></script>
+  <script src="blocks.js?v=20261107185412" defer></script>
+  <script src="main.js?v=20261107185412" defer></script>
 </body>
 </html>

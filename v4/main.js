@@ -179,7 +179,7 @@
     return im.decode ? im.decode().catch(() => {}) : loaded(im);
   });
   Promise.all([
-    Promise.race([Promise.all([imageReady, fontsReady, ...pageImages, ...extra]), wait(4500)]),
+    Promise.race([Promise.all([imageReady, fontsReady, ...pageImages, ...extra]), wait(Math.max(0, 3000 - performance.now()))]), // не дольше 3 с от начала загрузки
     wait(Math.max(0, minShow - performance.now())),
   ]).then(() => {
     void root.offsetWidth;

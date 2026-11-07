@@ -3490,3 +3490,8 @@ html.tst-locked .stick { transform: translate3d(0, -160%, 0) !important; }
   .dish { width: auto; }
   .mn-cat__sum { padding-left: var(--mn-num); }
 }
+
+/* открытый кейс: шапка и квадратик бургера уходят целиком (без выглядывающего края),
+   на телефоне фон окна плотный — текст блока под ним не просвечивает */
+body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); opacity: 0; visibility: hidden; }
+@media (max-width: 1023px) { .cpop__backdrop { background: rgba(8, 8, 8, 0.97); } }
