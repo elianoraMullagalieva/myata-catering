@@ -3579,3 +3579,68 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
 }
 .why__photo img { height: 100%; }
 @media (max-width: 1023px) { .why__photo img { height: auto; } }
+
+/* ---------- видео: бесконечная лента (stories.js) ----------
+   кадры 3:4, чуть уже прежних; положение и масштаб ставит скрипт, без переходов — нет дрожания */
+.st { --st-w: calc(clamp(220px, 9rem + 12vw, 520px) * 0.94); --st-gap: clamp(12px, 0.5rem + 0.6vw, 28px); }
+.st__viewport {
+  position: relative;
+  overflow: hidden;
+  height: calc(var(--st-w) * 4 / 3 + clamp(30px, 1.4rem + 0.6vw, 48px));
+  scroll-snap-type: none;
+  touch-action: pan-y;
+  cursor: grab;
+  outline: none;
+}
+.st__viewport.is-dragging { cursor: grabbing; }
+.st__track { position: absolute; inset: 0; display: block; width: auto; padding: 0; }
+.st-card { position: absolute; left: 0; bottom: 0; width: var(--st-w); transform: none; transition: none; will-change: transform; }
+.st-card__media { aspect-ratio: 3 / 4; transform: scale(var(--s, 1)); transition: none; }
+.st-card__cap { margin-inline: calc((1 - var(--s, 1)) * 50%); transition: none; }
+.st-card__btn { -webkit-user-drag: none; user-select: none; }
+.st-card__media img { pointer-events: none; }
+/* стрелки как в «Услугах»: две квадратные справа, счётчик слева — по краям контейнера */
+.st__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(18px, 0.8rem + 0.6vw, 32px);
+  padding-inline: var(--edge);
+}
+.st__arrows { display: flex; gap: 10px; }
+.st__count { text-align: left; min-width: 0; }
+@media (max-width: 767px) {
+  .st { --st-w: 70vw; --st-gap: 16vw; }
+  .st-card__media { transform: none; }
+}
+.st { --ink2: #1c1714; }
+.st__track { column-gap: var(--st-gap); }
+
+/* ---------- видео: пропорции и композиция как в макете ----------
+   два крупных кадра по центру, к краям мельче; заголовок крупнее и ближе к ленте;
+   стрелки — квадратные, сбоку от заголовка; отступ сверху под закреплённую шапку */
+.st {
+  --st-w: clamp(200px, 21.1vw, 600px);
+  --st-gap: clamp(12px, 0.4rem + 0.8vw, 32px);
+  padding-top: clamp(96px, 4rem + 3vw, 180px);
+  padding-bottom: clamp(56px, 2rem + 3vw, 150px);
+}
+.st-card__media { aspect-ratio: 304 / 419; border-radius: clamp(6px, 0.3rem + 0.2vw, 12px); }
+.st__viewport { height: calc(var(--st-w) * 419 / 304 + clamp(28px, 1.3rem + 0.5vw, 44px)); }
+.st-card__cap { font-size: clamp(12px, 0.6rem + 0.15vw, 16px); margin-top: clamp(8px, 0.4rem + 0.2vw, 14px); }
+.st-card__name { font-weight: 400; }
+.st-card__play { width: clamp(40px, 2rem + 0.6vw, 60px); height: clamp(40px, 2rem + 0.6vw, 60px); margin: calc(clamp(40px, 2rem + 0.6vw, 60px) / -2) 0 0 calc(clamp(40px, 2rem + 0.6vw, 60px) / -2); opacity: 0.7; }
+.st__head { position: relative; margin-top: clamp(40px, 1.5rem + 2.4vw, 110px); gap: clamp(10px, 0.5rem + 0.3vw, 18px); }
+.st__title { font-size: clamp(30px, 1rem + 3.33vw, 104px); line-height: 1.04; letter-spacing: -0.05em; }
+.st__lead { font-size: clamp(14px, 0.8rem + 0.2vw, 20px); max-width: 38em; }
+.st__head .st__arrows { position: absolute; right: var(--edge); top: 50%; transform: translateY(-50%); }
+@media (max-width: 1279px) {
+  .st__head .st__arrows { position: static; transform: none; order: 3; margin-top: 8px; }
+}
+@media (max-width: 767px) {
+  .st { --st-w: 70vw; --st-gap: 16vw; padding-top: 88px; }
+  .st-card__media { aspect-ratio: 304 / 419; }
+}
+.st__head .st__arrows { top: auto; bottom: 0; transform: none; } /* стрелки — на уровне подводки, не спорят со знаком у заголовка */
+@media (max-width: 1279px) { .st__head .st__arrows { bottom: auto; } }

@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261107190928">
-  <link rel="stylesheet" href="styles.css?v=20261107190928">
+  <link rel="stylesheet" href="../styles.css?v=20261107191918">
+  <link rel="stylesheet" href="styles.css?v=20261107191918">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -443,7 +443,7 @@
 
   <!-- 7. Видео: вертикальные ролики-сторис; на телефоне — по одному, листаются свайпом и стрелками -->
   <section class="st" id="stories" aria-labelledby="st-title" data-st>
-    <div class="st__viewport" data-st-viewport>
+    <div class="st__viewport" data-st-viewport tabindex="0" aria-label="Лента видео, листается стрелками">
       <ul class="st__track" data-st-track>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="0" aria-label="Смотреть видео: Свадьба">
           <span class="st-card__media"><img src="assets/stories/wedding.png" alt="" width="820" height="1024" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="assets/buffet-video.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
@@ -467,12 +467,11 @@
         </button></li>
       </ul>
     </div>
-    <div class="st__nav">
-      <button type="button" class="st__arrow" data-st-prev aria-label="Предыдущее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <span class="st__count" data-st-count aria-live="polite">01 / 05</span>
-      <button type="button" class="st__arrow" data-st-next aria-label="Следующее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
     <div class="st__head">
+      <div class="st__arrows" aria-label="Листать видео">
+        <button type="button" class="svc__arrow" data-st-prev aria-label="Предыдущее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="svc__arrow svc__arrow--next" data-st-next aria-label="Следующее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       <h2 class="st__title" id="st-title">Искусство создавать <em>впечатления</em><span class="st__mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span></h2>
       <p class="st__lead">Каждое событие&nbsp;— особенная история, в&nbsp;которой гастрономия, эстетика и&nbsp;атмосфера становятся единым целым</p>
     </div>
@@ -646,13 +645,14 @@
     </div>
   </footer>
 
-  <script src="sections.js?v=20261107190928" defer></script>
-  <script src="cases.js?v=20261107190928" defer></script>
-  <script src="cases-slider.js?v=20261107190928" defer></script>
-  <script src="tasting.js?v=20261107190928" defer></script>
-  <script src="forms.js?v=20261107190928" defer></script>
-  <script src="header.js?v=20261107190928" defer></script>
-  <script src="blocks.js?v=20261107190928" defer></script>
-  <script src="main.js?v=20261107190928" defer></script>
+  <script src="sections.js?v=20261107191918" defer></script>
+  <script src="cases.js?v=20261107191918" defer></script>
+  <script src="cases-slider.js?v=20261107191918" defer></script>
+  <script src="tasting.js?v=20261107191918" defer></script>
+  <script src="forms.js?v=20261107191918" defer></script>
+  <script src="header.js?v=20261107191918" defer></script>
+  <script src="stories.js?v=20261107191918" defer></script>
+  <script src="blocks.js?v=20261107191918" defer></script>
+  <script src="main.js?v=20261107191918" defer></script>
 </body>
 </html>

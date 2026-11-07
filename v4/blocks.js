@@ -38,7 +38,8 @@
   });
 
   /* ---------- 2. Лента видео ---------- */
-  const st = document.querySelector("[data-st]");
+  // лента видео теперь живёт в stories.js (бесконечная, без прокрутки браузера)
+  const st = null;
   if (st) {
     const vp = st.querySelector("[data-st-viewport]");
     const cards = [...st.querySelectorAll(".st-card")];
