@@ -3644,3 +3644,9 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
 }
 .st__head .st__arrows { top: auto; bottom: 0; transform: none; } /* стрелки — на уровне подводки, не спорят со знаком у заголовка */
 @media (max-width: 1279px) { .st__head .st__arrows { bottom: auto; } }
+
+/* видео: стрелки по центру над заголовком; кадры на 5% ниже */
+.st__head .st__arrows { position: static; transform: none; order: -1; margin: 0 0 clamp(6px, 0.3rem + 0.4vw, 18px); }
+.st-card__media { aspect-ratio: 304 / 398; }
+.st__viewport { height: calc(var(--st-w) * 398 / 304 + clamp(28px, 1.3rem + 0.5vw, 44px)); }
+@media (max-width: 767px) { .st-card__media { aspect-ratio: 304 / 398; } }
