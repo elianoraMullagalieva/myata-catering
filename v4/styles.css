@@ -3543,3 +3543,39 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
 @media (max-width: 767px) {
   .why__photo img { aspect-ratio: 4 / 3; }
 }
+
+/* услуги: следующая карточка выглядывает заметно (~треть ширины) на любом экране, а не узкой полоской */
+.svc { --per: 3.5; }
+@media (max-width: 767px)                          { .svc { --per: 1.2; } }
+@media (min-width: 768px)  and (max-width: 1279px) { .svc { --per: 2.4; } }
+@media (min-width: 1680px) and (max-width: 2239px) { .svc { --per: 3.5; } }
+@media (min-width: 2240px)                         { .svc { --per: 4.5; } }
+
+/* дегустация: снова фото за формой (вместо абстрактного градиента), лёгкое затемнение как в макете */
+.tst__right { background: #241c18; }
+.tst__right::after { background: rgba(16, 12, 10, 0.32); opacity: 1; mix-blend-mode: normal; }
+.tst__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* «Почему мы?»: заголовок ближе к фото, подпись — внизу на самом фото нашим шрифтом прописными,
+   пункты свободнее, без черт над первым и под последним */
+.why__head { margin-bottom: clamp(20px, 0.8rem + 1.2vw, 56px); }
+.why__photo img { inset: 0; }
+.why__photo figcaption {
+  left: clamp(16px, 0.8rem + 0.6vw, 32px);
+  right: clamp(16px, 0.8rem + 0.6vw, 32px);
+  bottom: clamp(16px, 0.8rem + 0.6vw, 32px);
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+.why__photo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; border-radius: 0 0 4px 4px; background: linear-gradient(to top, rgba(10, 7, 6, 0.55), rgba(10, 7, 6, 0)); pointer-events: none; }
+.why__list { border-top: 0; }
+.why-item:last-child { border-bottom: 0; }
+.why-item__head { padding: clamp(24px, 1rem + 1vw, 46px) 0; }
+.why-item:first-child .why-item__head { padding-top: 0; }
+@media (max-width: 1023px) {
+  .why__photo { position: relative; }
+  .why__photo figcaption { position: absolute; margin: 0; }
+}
+.why__photo img { height: 100%; }
+@media (max-width: 1023px) { .why__photo img { height: auto; } }
