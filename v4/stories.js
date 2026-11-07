@@ -210,8 +210,7 @@
   const relayout = () => { measure(); target = p = snap(p); render(); };
   window.addEventListener("resize", relayout, { passive: true });
   phone.addEventListener("change", relayout);
-  measure();
-  render();
+  relayout(); // старт: на телефоне — ровно один ролик по центру, на компьютере — пара
 
   /* ---------- полноэкранный просмотр ---------- */
   const stp = document.querySelector("[data-stp]");
