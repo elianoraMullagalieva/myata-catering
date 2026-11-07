@@ -42,23 +42,24 @@
   let w = 0, g = 0, half = 0;
   // масштаб ролика по расстоянию от центра (в карточках)
   // как в макете: два центральных кадра крупные, следующие на 15% меньше, крайние ещё меньше
+  // одно главное видео в центре, по два с каждой стороны — мельче и бледнее (как в образце)
   const scaleAt = (a) => {
-    if (phone.matches) return 1;
-    if (a <= 0.5) return 1;
-    if (a <= 1.5) return 1 - 0.15 * smooth(a - 0.5);
-    if (a <= 2.5) return 0.85 - 0.13 * smooth(a - 1.5);
-    return 0.72;
+    const k1 = phone.matches ? 0.74 : 0.78, k2 = phone.matches ? 0.56 : 0.6;
+    if (a <= 1) return 1 - (1 - k1) * smooth(a);
+    if (a <= 2) return k1 - (k1 - k2) * smooth(a - 1);
+    return k2;
   };
+  const alphaAt = (a) => (a <= 1 ? 1 - 0.35 * smooth(a) : a <= 2 ? 0.65 - 0.3 * smooth(a - 1) : Math.max(0, 0.35 - 0.35 * smooth(Math.min(1, a - 2))));
   const smooth = (t) => t * t * (3 - 2 * t);
   // на компьютере центр экрана — между двумя кадрами (позиции …,1.5, 2.5…), на телефоне — по центру кадра
-  const snap = (x) => (phone.matches ? Math.round(x) : Math.floor(x) + 0.5);
+  const snap = (x) => Math.round(x); // в центре всегда одно видео
   function measure() {
     w = cards[0].offsetWidth;
     g = parseFloat(getComputedStyle(track).columnGap) || 16; // зазор в px (в CSS он может быть в vw)
     half = vp.clientWidth / 2;
   }
   /* ---------- состояние ---------- */
-  let p = N + 1.5; // текущая позиция (дробный индекс у центра): старт — между «Фуршет на террасе» и «Корпоратив»
+  let p = N + 1; // текущая позиция (дробный индекс у центра): старт — между «Фуршет на террасе» и «Корпоратив»
   let target = p;
   let vel = 0;
   let drag = null;
@@ -102,6 +103,9 @@
       c.style.visibility = "";
       c.style.transform = `translate3d(${(half + xx - w / 2).toFixed(2)}px, 0, 0)`;
       c.style.setProperty("--s", sc[k].toFixed(4));
+      const aa = Math.abs(xx) / (w + g);
+      c.style.opacity = alphaAt(aa).toFixed(3);
+      c.classList.toggle("is-center", aa < 0.5);
       if (Math.abs(xx) < bestD) { bestD = Math.abs(xx); best = k; }
     }
     if (countEl) { const idx = ((Math.round(p) % N) + N) % N; countEl.textContent = `${pad2(idx + 1)} / ${pad2(N)}`; }
@@ -207,6 +211,19 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(([en]) => { inView = en.isIntersecting; play(); }, { threshold: 0.25 }).observe(vp);
   }
+  // лента сама плавно сдвигается; пауза при наведении, перетаскивании, в плеере и вне экрана
+  const AUTO_MS = 4500;
+  let hoverSt = false, holdUntil = 0;
+  st.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hoverSt = true; });
+  st.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") hoverSt = false; });
+  ["pointerdown", "wheel", "keydown"].forEach((ev) => vp.addEventListener(ev, () => { holdUntil = performance.now() + 8000; }, { passive: true }));
+  st.querySelectorAll("[data-st-prev], [data-st-next]").forEach((b) => b.addEventListener("click", () => { holdUntil = performance.now() + 8000; }));
+  if (!reduce) setInterval(() => {
+    const stpEl = document.querySelector("[data-stp]");
+    if (!inView || hoverSt || drag || document.hidden || performance.now() < holdUntil || (stpEl && !stpEl.hidden)) return;
+    go(1);
+  }, AUTO_MS);
+
   const relayout = () => { measure(); target = p = snap(p); render(); };
   window.addEventListener("resize", relayout, { passive: true });
   phone.addEventListener("change", relayout);

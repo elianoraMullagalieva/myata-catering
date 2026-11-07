@@ -3889,3 +3889,21 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
   .why-item__desc { padding-bottom: clamp(10px, 1.6vh, 28px); font-size: clamp(14px, 0.7rem + 0.2vw, 19px); }
   .why__btn { margin-top: clamp(16px, 2.4vh, 44px); min-height: clamp(52px, 6.4vh, 84px); }
 }
+
+/* ---------- видео v5: одно главное в центре, по два мельче и бледнее по бокам ----------
+   заголовок и подводка над галереей, стрелки под ней; лента сама плавно сдвигается (stories.js) */
+.st { --st-w: clamp(210px, 21vw, 600px); --st-gap: clamp(10px, 0.3rem + 0.7vw, 28px); padding-top: clamp(96px, 4rem + 3vw, 170px); }
+.st__head { margin: 0 0 clamp(28px, 1rem + 2.2vw, 80px); }
+.st__head .st__arrows { display: none; }
+.st__viewport { height: calc(var(--st-w) * 398 / 304 + clamp(28px, 1.3rem + 0.5vw, 44px)); }
+.st-card { top: 0; bottom: auto; transition: opacity 0.2s linear; }
+.st-card__media { transform-origin: 50% 50%; }
+.st-card__cap { margin-inline: 0; opacity: 0; transition: opacity 0.4s var(--ease); }
+.st-card.is-center .st-card__cap { opacity: 1; }
+.st-card:not(.is-center) .st-card__play { opacity: 0; }
+.st__nav { display: flex; justify-content: center; padding-inline: var(--edge); margin-top: clamp(16px, 0.8rem + 0.8vw, 40px); }
+.st__nav .st__arrows { display: flex; gap: 10px; }
+@media (max-width: 767px) {
+  .st { --st-w: 62vw; --st-gap: 3vw; padding-top: 88px; }
+}
+@media (max-width: 767px) { .st-card__media { transform: scale(var(--s, 1)); } }
