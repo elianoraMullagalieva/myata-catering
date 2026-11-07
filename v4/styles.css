@@ -3495,3 +3495,12 @@ html.tst-locked .stick { transform: translate3d(0, -160%, 0) !important; }
    на телефоне фон окна плотный — текст блока под ним не просвечивает */
 body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); opacity: 0; visibility: hidden; }
 @media (max-width: 1023px) { .cpop__backdrop { background: rgba(8, 8, 8, 0.97); } }
+
+/* видео: ролики на 18% ниже (вся лента с заголовком влезает в экран), заголовок ближе к ленте,
+   кнопка «плей» видна сразу, при наведении — ярче */
+.st { --st-w: calc(clamp(220px, 9rem + 12vw, 520px) * 0.82); }
+.st__head { margin-top: clamp(24px, 0.6rem + 1.4vw, 64px); }
+.st__nav { margin-top: clamp(16px, 0.8rem + 0.5vw, 30px); }
+.st-card__play { opacity: 0.85; transform: none; background: rgba(0, 0, 0, 0.18); }
+@media (hover: hover) { .st-card__btn:hover .st-card__play { opacity: 1; transform: scale(1.06); } }
+@media (max-width: 767px) { .st { --st-w: 64vw; } }
