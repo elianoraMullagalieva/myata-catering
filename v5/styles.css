@@ -4596,8 +4596,8 @@ picture { display: contents; }
   aspect-ratio: 412.337 / 116.639;
   transform: translate(-50%, -50%);
   background: linear-gradient(115deg, #f2ede6 0%, #ffffff 18%, #cfe0c3 34%, #f6efe4 50%, #a9c49a 66%, #ffffff 82%, #f2ede6 100%) 0 50% / 300% 100%;
-  -webkit-mask: url("assets/contacts/logo-mark.svg") center / contain no-repeat;
-  mask: url("assets/contacts/logo-mark.svg") center / contain no-repeat;
+  -webkit-mask: url("assets/contacts/logo-full.svg") center / contain no-repeat;
+  mask: url("assets/contacts/logo-full.svg") center / contain no-repeat;
   animation: ct5-flow 14s ease-in-out infinite alternate;
 }
 @keyframes ct5-flow { to { background-position: 100% 50%; } }
@@ -4992,3 +4992,12 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
 .ct5__liquid { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
 .ct5__visual.has-liquid .ct5__liquid { opacity: 1; }
 .ct5__logo { z-index: 1; }
+
+/* контакты: знак с подписью «catering & events», как в логотипе из макета */
+.ct5__logo {
+  aspect-ratio: 426 / 206;
+  width: min(80%, 780px);
+  -webkit-mask-image: url("assets/contacts/logo-full.svg");
+  mask-image: url("assets/contacts/logo-full.svg");
+}
+@media (max-width: 767px) { .ct5__logo { width: 84%; } }
