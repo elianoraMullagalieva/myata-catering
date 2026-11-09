@@ -59,7 +59,7 @@
       const what = ORDER[name];
       if (what) {
         return {
-          title: `Заказать<br> <em>${what}</em>`,
+          title: `Заказать ${what}`,
           sub: "Оставьте контакты&nbsp;— обсудим формат, подберём меню и&nbsp;рассчитаем стоимость под ваше мероприятие.",
           btn: "Заказать",
           topic: name,

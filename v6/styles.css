@@ -5156,3 +5156,53 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
 }
 /* фото с лёгким приближением/параллаксом не выходит за свою рамку — градиент под подписью совпадает с краями */
 @media (min-width: 1024px) { .why__photo, .tm__photo { overflow: hidden; border-radius: 4px; } }
+/* v6 · поп-ап заявки: без «перфорации» (пунктир и вырезы) — цельная карточка */
+.lead__top, .lead__stub { -webkit-mask: none; mask: none; }
+.lead__stub::before { content: none; }
+.lead__stub { padding-top: clamp(4px, 0.2rem + 0.3vw, 14px); }
+
+/* v6 · дегустация: вернули живой абстрактный фон из v2/v3 вместо фото (цвета — --c1…--c5 выше) */
+.tst-bg {
+  --mx: 0;
+  --my: 0;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--c2) 55%, transparent), transparent 60%),
+    var(--bg-base);
+}
+.tst-bg i {
+  position: absolute;
+  width: var(--s);
+  aspect-ratio: 1;
+  left: var(--l);
+  top: var(--t);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c) 0%, color-mix(in srgb, var(--c) 45%, transparent) 45%, transparent 100%);
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  translate: calc(var(--mx) * var(--k) * 1px) calc(var(--my) * var(--k) * 1px);
+  will-change: transform;
+  animation: tst-blob var(--dur) ease-in-out infinite alternate;
+  animation-delay: var(--del);
+}
+.tst-bg i:nth-child(1) { --c: var(--c1); --s: 78%; --l: 22%; --t: 26%; --k: 70;  --dur: 17s; --del: -3s; }
+.tst-bg i:nth-child(2) { --c: var(--c3); --s: 64%; --l: 82%; --t: 74%; --k: -60; --dur: 21s; --del: -9s; }
+.tst-bg i:nth-child(3) { --c: var(--c4); --s: 58%; --l: 78%; --t: 18%; --k: 45;  --dur: 19s; --del: -6s; }
+.tst-bg i:nth-child(4) { --c: var(--c5); --s: 40%; --l: 30%; --t: 86%; --k: -40; --dur: 23s; --del: -12s; opacity: 0.6; }
+.tst-bg i:nth-child(5) { --c: var(--c2); --s: 90%; --l: 50%; --t: 55%; --k: 25;  --dur: 27s; --del: -1s; mix-blend-mode: normal; opacity: 0.7; }
+@keyframes tst-blob {
+  0%   { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  33%  { transform: translate3d(14%, -10%, 0) scale(1.15) rotate(40deg); }
+  66%  { transform: translate3d(-12%, 12%, 0) scale(0.9) rotate(-30deg); }
+  100% { transform: translate3d(8%, 6%, 0) scale(1.08) rotate(20deg); }
+}
+@media (prefers-reduced-motion: reduce) { .tst-bg i { animation: none; } }
+.tst__right { background: var(--bg-base); }
+.tst__right::after {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+}

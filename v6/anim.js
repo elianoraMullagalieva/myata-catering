@@ -152,4 +152,23 @@
       btn.classList.add("is-magnet");
     });
   }
+  /* ---------- 5. фон дегустации: пятна чуть тянутся за курсором ---------- */
+  const tbg = document.querySelector("[data-tst-bg]");
+  if (tbg && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const area = tbg.parentElement;
+    let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.06; y += (ty - y) * 0.06;
+      tbg.style.setProperty("--mx", x.toFixed(3));
+      tbg.style.setProperty("--my", y.toFixed(3));
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
+    };
+    area.addEventListener("pointermove", (e) => {
+      const r = area.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width - 0.5;
+      ty = (e.clientY - r.top) / r.height - 0.5;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+    area.addEventListener("pointerleave", () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(tick); });
+  }
 })();
