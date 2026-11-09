@@ -5237,3 +5237,6 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   .why .acc-panel__in > * { opacity: 0; translate: 0 -6px; transition: opacity 0.35s ease, translate 0.5s var(--ease-out-soft, ease); }
   .why .why-item.is-open .acc-panel__in > * { opacity: 1; translate: 0 0; transition-delay: 0.14s; }
 }
+
+/* «Почему мы?»: заголовок пункта не сдвигается ни при наведении, ни при раскрытии */
+.why .why-item__head:hover .why-item__title, .why .why-item.is-open .why-item__title { transform: none; translate: none; }
