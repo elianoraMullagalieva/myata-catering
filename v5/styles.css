@@ -4983,25 +4983,12 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
 .svc-card--cta .svc-card__cta .svc-btn { margin-top: auto; }
 .svc-card--cta .svc-card__cta .svc-card__text { margin-bottom: clamp(16px, 0.8rem + 0.6vw, 28px); }
 
-/* контакты: интерактивный лист и знак (только мышь) */
-.ct5__photo--sharp { opacity: 0; }
-@media (hover: hover) and (pointer: fine) {
-  .ct5__photo { transition: filter 0.7s var(--ease), opacity 0.6s var(--ease); }
-  .ct5__visual.is-live .ct5__photo:not(.ct5__photo--sharp) { filter: blur(6px) brightness(0.72) saturate(0.9); }
-  .ct5__photo--sharp {
-    -webkit-mask-image: radial-gradient(circle clamp(140px, 16vw, 320px) at var(--x, 50%) var(--y, 50%), #000 0%, #000 38%, transparent 100%);
-    mask-image: radial-gradient(circle clamp(140px, 16vw, 320px) at var(--x, 50%) var(--y, 50%), #000 0%, #000 38%, transparent 100%);
-  }
-  .ct5__visual.is-live .ct5__photo--sharp { opacity: 1; }
-  .ct5__logo { transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))); }
-  .ct5__visual.is-live .ct5__logo {
-    animation: none;
-    background-position: var(--gx, 50%) 50%;
-    transition: background-position 0.3s linear;
-  }
-}
-
 /* знак «МЯТА» не двигается за курсором — только медленно переливается; за мышью ходит лишь «луч» по фото */
 @media (hover: hover) and (pointer: fine) {
   .ct5__logo, .ct5__visual.is-live .ct5__logo { transform: translate(-50%, -50%); animation: ct5-flow 14s ease-in-out infinite alternate; transition: none; }
 }
+
+/* контакты: «живая вода» (liquid.js, OGL Flowmap) — холст поверх фото, знак сверху */
+.ct5__liquid { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+.ct5__visual.has-liquid .ct5__liquid { opacity: 1; }
+.ct5__logo { z-index: 1; }
