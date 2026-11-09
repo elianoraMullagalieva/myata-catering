@@ -4401,14 +4401,22 @@ picture { display: contents; }
 .ct5 ul { list-style: none; }
 .ct5__visual { position: relative; overflow: hidden; background: #1b1d17; }
 .ct5__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+/* крупный знак «МЯТА»: внутри медленно переливается светлый градиент (маска по форме логотипа) */
 .ct5__logo {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(64%, 640px);
-  height: auto;
-  color: #fff;
+  width: min(78%, 760px);
+  aspect-ratio: 412.337 / 116.639;
   transform: translate(-50%, -50%);
+  background: linear-gradient(115deg, #f2ede6 0%, #ffffff 18%, #cfe0c3 34%, #f6efe4 50%, #a9c49a 66%, #ffffff 82%, #f2ede6 100%) 0 50% / 300% 100%;
+  -webkit-mask: url("assets/contacts/logo-mark.svg") center / contain no-repeat;
+  mask: url("assets/contacts/logo-mark.svg") center / contain no-repeat;
+  animation: ct5-flow 14s ease-in-out infinite alternate;
+}
+@keyframes ct5-flow { to { background-position: 100% 50%; } }
+@media (prefers-reduced-motion: reduce) {
+  .ct5__logo { animation: none; }
 }
 .ct5__info {
   display: flex;
@@ -4449,7 +4457,7 @@ picture { display: contents; }
 }
 @media (max-width: 767px) {
   .ct5__visual { aspect-ratio: 4 / 3; }
-  .ct5__logo { width: 72%; }
+  .ct5__logo { width: 82%; }
 }
 /* ======================================================================
    13. ПОДВАЛ (Figma 1025:50) — плюс тихая деталь: крупный логотип, уходящий за нижний край
@@ -4485,17 +4493,6 @@ picture { display: contents; }
   .ft5__btn:hover { background: #fff; }
   .ft5__btn:hover .svc-arrow { transform: translateX(4px); }
 }
-.ft5__up {
-  display: grid; place-items: center;
-  width: clamp(52px, 2.6rem + 1vw, 80px); height: clamp(52px, 2.6rem + 1vw, 80px);
-  border: 1px solid rgba(242, 237, 230, 0.3);
-  transition: border-color 0.3s, background-color 0.3s;
-}
-.ft5__up svg { width: 9px; height: 20px; transition: transform 0.5s var(--ease-expo); }
-@media (hover: hover) {
-  .ft5__up:hover { border-color: #f2ede6; }
-  .ft5__up:hover svg { transform: translateY(-4px); }
-}
 .ft5__bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 40px; padding-top: clamp(20px, 0.8rem + 0.6vw, 36px); }
 .ft5__docs { display: grid; grid-template-columns: auto auto; gap: 10px clamp(24px, 1rem + 2vw, 80px); }
 .ft5__docs a,
@@ -4503,8 +4500,6 @@ picture { display: contents; }
 .ft5__docs a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(242, 237, 230, 0.3); transition: color 0.3s; }
 .ft5__docs a:hover { color: #f2ede6; }
 /* огромный логотип: едва заметный, обрезан нижним краем — подвал заканчивается «подписью» бренда */
-.ft5__mark { margin: clamp(32px, 1rem + 3vw, 120px) calc(-0.6 * var(--gutter)) 0; height: clamp(110px, 17vw, 520px); overflow: hidden; color: #f2ede6; opacity: 0.07; }
-.ft5__mark img { display: block; width: 100%; height: auto; }
 @media (max-width: 1023px) {
   .ft5__top { flex-direction: column; align-items: stretch; }
   .ft5__actions .ft5__btn { flex: 1; justify-content: space-between; }
@@ -4513,5 +4508,76 @@ picture { display: contents; }
 @media (max-width: 767px) {
   .ft5__nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
   .ft5__docs { grid-template-columns: 1fr; }
-  .ft5__mark { height: 34vw; }
 }
+/* ======================================================================
+   14. ПОП-АП «ОСТАВИТЬ ЗАЯВКУ» — тот же билет, что у дегустации: белые половинки,
+   полукруглые вырезы и пунктир отрыва, поля, чипы и кнопка из формы дегустации
+   ====================================================================== */
+.lead {
+  --t-ink: #1c1714;
+  --t-mute: #6e645b;
+  --t-text: #3b3632;
+  --t-line: rgba(28, 23, 20, 0.18);
+  --ink2: #1c1714;
+  --notch: clamp(9px, 0.4rem + 0.2vw, 15px);
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  overflow-y: auto;
+  font-family: var(--font-display);
+  color: var(--t-ink);
+}
+.lead[hidden] { display: none; }
+.lead [hidden] { display: none !important; }
+.lead__backdrop { position: fixed; inset: 0; background: rgba(22, 18, 16, 0.85); opacity: 0; transition: opacity 0.35s var(--ease); }
+.lead__ticket {
+  position: relative;
+  width: min(100%, clamp(340px, 16rem + 16vw, 680px));
+  margin: auto;
+  filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.35));
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.98);
+  transition: opacity 0.35s var(--ease), transform 0.55s var(--ease-expo);
+}
+.lead.is-open .lead__backdrop,
+.lead.is-open .lead__ticket { opacity: 1; }
+.lead.is-open .lead__ticket { transform: none; }
+.lead__top,
+.lead__stub { background: #fff; padding-inline: clamp(22px, 1rem + 1vw, 52px); }
+.lead__top {
+  padding-top: clamp(28px, 1rem + 1vw, 52px);
+  padding-bottom: clamp(20px, 0.8rem + 0.5vw, 34px);
+  padding-right: clamp(56px, 2rem + 1vw, 80px);
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.lead__stub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 0.5rem + 0.25vw, 18px);
+  padding-top: clamp(22px, 1rem + 0.5vw, 40px);
+  padding-bottom: clamp(24px, 1rem + 0.6vw, 44px);
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.lead__stub::before { content: ""; position: absolute; top: 0; left: calc(var(--notch) + 12px); right: calc(var(--notch) + 12px); border-top: 1px dashed rgba(28, 23, 20, 0.3); }
+.lead__title { margin: 0; }
+.lead__top .tst-ticket__sub { margin: clamp(10px, 0.5rem + 0.3vw, 16px) 0 0; max-width: 34em; }
+.lead__opt { font-weight: 400; color: var(--t-mute); }
+.lead__chips { display: grid; grid-template-columns: repeat(4, 1fr); }
+.lead__chips .tst-chip span { justify-content: center; }
+.lead__close { position: absolute; z-index: 2; top: clamp(14px, 0.5rem + 0.6vw, 26px); right: clamp(14px, 0.5rem + 0.6vw, 26px); display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; background: none; color: var(--t-ink); cursor: pointer; }
+.lead__close svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease-expo); }
+@media (hover: hover) {
+  .lead__close:hover svg { transform: rotate(90deg); }
+}
+.lead__done .tst-ticket__sub { margin: 0; }
+.lead__ok { margin-top: 8px; }
+@media (max-width: 479px) {
+  .lead__chips { grid-template-columns: 1fr 1fr; }
+}
+body.is-locked:has(.lead.is-open) .stick { transform: translate3d(0, -140%, 0); opacity: 0; visibility: hidden; }

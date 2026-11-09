@@ -2,17 +2,21 @@
 <html lang="ru" class="no-js">
 <head>
   <meta charset="utf-8">
+
   <script>document.documentElement.classList.replace("no-js", "js");
   // страховка: прелоадер не дольше 3 с от начала загрузки, даже если скрипты и фото ещё в пути
   setTimeout(function () { document.documentElement.classList.add("is-loaded"); }, 3000);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>МЯТА — Catering&amp;Events</title>
   <meta name="description" content="Кейтеринг, который сделает мероприятие особенным. События любого формата — от камерных торжеств до масштабных мероприятий.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20261109131502">
+  <link rel="stylesheet" href="styles.css?v=20261109141931">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -64,7 +68,7 @@
             </a>
           </li>
           <li>
-            <a class="social" href="https://wa.me/70000000000" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+            <a class="social" href="https://wa.me/79261241383" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
               <svg aria-hidden="true"><use href="#i-wa"/></svg>
             </a>
           </li>
@@ -74,7 +78,7 @@
             </a>
           </li>
         </ul>
-        <a class="btn btn--outline btn--sm" href="#request">Оставить заявку</a>
+        <a class="btn btn--outline btn--sm" href="#request" data-lead>Оставить заявку</a>
       </div>
 
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="drawer" data-burger>
@@ -138,10 +142,10 @@
         <p class="drawer__hours">Ежедневно с&nbsp;09:00 до&nbsp;21:00</p>
         <div class="drawer__msgs">
           <a class="drawer__msg" href="https://t.me/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-tg"/></svg><span>Telegram</span></a>
-          <a class="drawer__msg" href="https://wa.me/70000000000" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+          <a class="drawer__msg" href="https://wa.me/79261241383" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
           <a class="drawer__msg" href="https://max.ru/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-max"/></svg><span>MAX</span></a>
         </div>
-        <a class="drawer__cta" href="#request"><span>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="drawer__cta" href="#request" data-lead><span>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
   </section>
@@ -164,14 +168,14 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/furshet.webp" type="image/webp"><img loading="lazy" src="assets/services/furshet.png" alt="" decoding="async" draggable="false" style="object-position:50% 42%"></picture>
+                <picture><source srcset="assets/services/furshet.webp" type="image/webp"><img loading="lazy" src="assets/services/furshet.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 42%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Фуршет</h3>
                 <p class="svc-card__text">Формат для свободного общения, движения<br> и&nbsp;гастрономических открытий</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price">от&nbsp;2&nbsp;500&nbsp;₽ / гость</p>
-                  <a class="svc-btn" href="#request" data-quiz-type="Фуршет">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-quiz-type="Фуршет" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
@@ -179,14 +183,14 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/banket.webp" type="image/webp"><img loading="lazy" src="assets/services/banket.png" alt="" decoding="async" draggable="false" style="object-position:50% 55%"></picture>
+                <picture><source srcset="assets/services/banket.webp" type="image/webp"><img loading="lazy" src="assets/services/banket.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 55%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Банкет</h3>
                 <p class="svc-card__text">Комфортное размещение гостей за&nbsp;столами<br> и&nbsp;индивидуальный сервис для каждого</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price">от&nbsp;4&nbsp;500&nbsp;₽ / гость</p>
-                  <a class="svc-btn" href="#request">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
@@ -194,14 +198,14 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/svadba.webp" type="image/webp"><img loading="lazy" src="assets/services/svadba.png" alt="" decoding="async" draggable="false" style="object-position:50% 31%"></picture>
+                <picture><source srcset="assets/services/svadba.webp" type="image/webp"><img loading="lazy" src="assets/services/svadba.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 31%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Свадьба</h3>
                 <p class="svc-card__text">Каждая деталь в&nbsp;ритме<br> вашей истории и&nbsp;вашего дня</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price">от&nbsp;3&nbsp;500&nbsp;₽ / гость</p>
-                  <a class="svc-btn" href="#request" data-quiz-type="Свадьба">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-quiz-type="Свадьба" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
@@ -209,14 +213,14 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/chastnye.webp" type="image/webp"><img loading="lazy" src="assets/services/chastnye.png" alt="" decoding="async" draggable="false" style="object-position:50% 35%"></picture>
+                <picture><source srcset="assets/services/chastnye.webp" type="image/webp"><img loading="lazy" src="assets/services/chastnye.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 35%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Частные события</h3>
                 <p class="svc-card__text">Дни рождения, юбилеи<br> и&nbsp;все особенные даты</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price">от&nbsp;2&nbsp;500&nbsp;₽ / гость</p>
-                  <a class="svc-btn" href="#request" data-quiz-type="Частное мероприятие">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-quiz-type="Частное мероприятие" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
@@ -224,14 +228,14 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/coffee-break.webp" type="image/webp"><img loading="lazy" src="assets/services/coffee-break.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%"></picture>
+                <picture><source srcset="assets/services/coffee-break.webp" type="image/webp"><img loading="lazy" src="assets/services/coffee-break.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 50%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Кофе-брейк</h3>
                 <p class="svc-card__text">Формат для сопровождения<br> бизнес-поводов и&nbsp;переговоров</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price">от&nbsp;800&nbsp;₽ / гость</p>
-                  <a class="svc-btn" href="#request">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
@@ -239,14 +243,14 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/backstage.webp" type="image/webp"><img loading="lazy" src="assets/services/backstage.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%"></picture>
+                <picture><source srcset="assets/services/backstage.webp" type="image/webp"><img loading="lazy" src="assets/services/backstage.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 50%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Backstage-сервис</h3>
                 <p class="svc-card__text">Питание персонала и&nbsp;технических команд,<br> обеспечение техрайдеров</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price is-long">Индивидуальный расчёт</p>
-                  <a class="svc-btn" href="#request">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
@@ -254,26 +258,26 @@
           <li class="svc-slot">
             <article class="svc-card">
               <div class="svc-card__photo">
-                <picture><source srcset="assets/services/prezentacii.webp" type="image/webp"><img loading="lazy" src="assets/services/prezentacii.png" alt="" decoding="async" draggable="false" style="object-position:50% 50%"></picture>
+                <picture><source srcset="assets/services/prezentacii.webp" type="image/webp"><img loading="lazy" src="assets/services/prezentacii.jpg" alt="" decoding="async" draggable="false" style="object-position:50% 50%"></picture>
               </div>
               <div class="svc-card__body">
                 <h3 class="svc-card__title">Презентации и&nbsp;открытия</h3>
                 <p class="svc-card__text">Концептуальный кейтеринг<br> для имиджевых мероприятий</p>
                 <div class="svc-card__foot">
                   <p class="svc-card__price is-long">Индивидуальный расчёт</p>
-                  <a class="svc-btn" href="#request" data-quiz-type="Презентация">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="svc-btn" href="#request" data-quiz-type="Презентация" data-lead="service">Подробнее<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 </div>
               </div>
             </article>
           </li>
           <li class="svc-slot">
             <article class="svc-card svc-card--cta">
-              <picture><source srcset="assets/services/cta.webp" type="image/webp"><img loading="lazy" decoding="async" class="svc-card__bg" src="assets/services/cta.png" width="1024" height="1280" alt="" aria-hidden="true"></picture>
+              <picture><source srcset="assets/services/cta.webp" type="image/webp"><img loading="lazy" decoding="async" class="svc-card__bg" src="assets/services/cta.jpg" width="1024" height="1280" alt="" aria-hidden="true"></picture>
               <span class="svc-pill">Индивидуально</span>
               <div class="svc-card__cta">
                 <h3 class="svc-card__cta-title">Не&nbsp;нашли свой формат?</h3>
                 <p class="svc-card__text">Расскажите о&nbsp;событии&nbsp;— соберём меню, подачу и&nbsp;смету под ваши задачи</p>
-                <a class="svc-btn" href="#request">Обсудить событие<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a class="svc-btn" href="#request" data-lead>Обсудить событие<svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </article>
           </li>
@@ -447,7 +451,7 @@
       <p class="why__lead">8&nbsp;причин доверить нам ваше событие</p>
     </div>
     <figure class="why__photo">
-      <picture><source srcset="assets/why/photo.webp" type="image/webp"><img src="assets/why/photo.png" alt="Официант сервирует стол" width="736" height="920" loading="lazy" decoding="async"></picture>
+      <picture><source srcset="assets/why/photo.webp" type="image/webp"><img src="assets/why/photo.jpg" alt="Официант сервирует стол" width="736" height="920" loading="lazy" decoding="async"></picture>
       <figcaption>Внимание к&nbsp;деталям&nbsp;— в&nbsp;каждом событии</figcaption>
     </figure>
     <div class="why__body">
@@ -485,7 +489,7 @@
           <div class="why-item__panel acc-panel" id="why-p8" role="region" aria-labelledby="why-h8"><div class="acc-panel__in"><p class="why-item__desc">Формируем понятную смету заранее&nbsp;— без скрытых платежей и&nbsp;неожиданных расходов</p></div></div>
         </div>
       </div>
-      <a class="dark-btn why__btn" href="#request"><span>Обсудить событие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="dark-btn why__btn" href="#request" data-lead><span>Обсудить событие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </section>
 
@@ -496,7 +500,7 @@
         <h2 class="m5__title" id="m5-title">Меню:<br> от&nbsp;классики<br> <em>до&nbsp;авангарда</em></h2>
         <p class="m5__lead">Собираем меню под формат и&nbsp;задачи<br> вашего мероприятия</p>
       </div>
-      <a class="m5__btn" href="#request"><span>Получить полное меню</span><svg class="m5__arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="m5__btn" href="#request" data-lead="menu"><span>Получить полное меню</span><svg class="m5__arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <div class="m5__cols" data-m5-cols>
       <div class="m5__col m5__col--1" data-m5-col data-dir="up" data-shift="-140" data-speed="30">
@@ -635,7 +639,7 @@
         </dl>
       </div>
       <figure class="tm__photo">
-        <picture><source srcset="assets/team/team.webp" type="image/webp"><img src="assets/team/team.png" alt="Команда руководителей кейтеринговой компании «Мята»" width="1200" height="1600" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="assets/team/team.webp" type="image/webp"><img src="assets/team/team.jpg" alt="Команда руководителей кейтеринговой компании «Мята»" width="1200" height="1600" loading="lazy" decoding="async"></picture>
         <figcaption>Команда руководителей кейтеринговой компании «Мята»</figcaption>
       </figure>
     </div>
@@ -740,8 +744,8 @@
   <!-- Контакты (Figma 1026:600): фото листа с логотипом слева, контакты справа -->
   <section class="ct5" id="contacts" aria-labelledby="ct5-title">
     <div class="ct5__visual">
-      <picture><source srcset="assets/contacts/leaf.webp" type="image/webp"><img class="ct5__photo" src="assets/contacts/leaf.png" alt="" width="960" height="1280" loading="lazy" decoding="async"></picture>
-      <img class="ct5__logo" src="assets/contacts/logo.svg" alt="Мята — catering &amp; events" width="426" height="206" loading="lazy" decoding="async">
+      <picture><source srcset="assets/contacts/leaf.webp" type="image/webp"><img class="ct5__photo" src="assets/contacts/leaf.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></picture>
+      <div class="ct5__logo" role="img" aria-label="МЯТА"></div>
     </div>
     <div class="ct5__info">
       <h2 class="ct5__title" id="ct5-title">Контакты</h2>
@@ -764,8 +768,7 @@
         <li><a href="#cases">Кейсы</a></li><li><a href="#services">Услуги</a></li><li><a href="#menu">Меню</a></li><li><a href="#about">О&nbsp;компании</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#contacts">Контакты</a></li>
       </ul></nav>
       <div class="ft5__actions">
-        <a class="ft5__up" href="#" data-ft-up aria-label="Наверх"><svg viewBox="0 0 9 20" aria-hidden="true"><path d="M4.5 19V1M.5 5l4-4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a class="ft5__btn" href="#request"><span>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="ft5__btn" href="#request" data-lead><span>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
     <div class="ft5__bottom">
@@ -777,19 +780,46 @@
       </ul>
       <p class="ft5__copy">© 2026 Кейтеринг «Мята». Все права защищены</p>
     </div>
-    <div class="ft5__mark" aria-hidden="true"><img src="assets/contacts/logo.svg" alt="" width="426" height="206" loading="lazy" decoding="async"></div>
   </footer>
 
-  <script src="sections.js?v=20261109131502" defer></script>
-  <script src="cases.js?v=20261109131502" defer></script>
-  <script src="cases-slider.js?v=20261109131502" defer></script>
-  <script src="tasting.js?v=20261109131502" defer></script>
-  <script src="forms.js?v=20261109131502" defer></script>
-  <script src="header.js?v=20261109131502" defer></script>
-  <script src="reviews.js?v=20261109131502" defer></script>
-  <script src="stories.js?v=20261109131502" defer></script>
-  <script src="blocks.js?v=20261109131502" defer></script>
-  <script src="menu5.js?v=20261109131502" defer></script>
-  <script src="main.js?v=20261109131502" defer></script>
+  <!-- Поп-ап «Оставить заявку» — открывается со всех кнопок заявки; оформление как у билета дегустации -->
+  <div class="lead" data-lead-modal role="dialog" aria-modal="true" aria-labelledby="lead-title" hidden>
+    <div class="lead__backdrop" data-lead-close></div>
+    <form class="lead__ticket" data-lead-form novalidate>
+      <button type="button" class="lead__close" data-lead-close aria-label="Закрыть"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+      <div class="lead__top">
+        <h2 class="tst-ticket__title lead__title" id="lead-title" data-lead-title>Давайте обсудим <em>ваше</em> событие</h2>
+        <p class="tst-ticket__sub" data-lead-sub>Оставьте контакты, и&nbsp;мы&nbsp;свяжемся с&nbsp;вами удобным способом, чтобы обсудить детали мероприятия.</p>
+      </div>
+      <div class="lead__stub" data-lead-body>
+        <input type="hidden" name="topic" value="">
+        <label class="tst-field"><input type="text" name="name" placeholder="Имя*" autocomplete="name" required></label>
+        <label class="tst-field"><input type="tel" name="phone" placeholder="Телефон*" autocomplete="tel" inputmode="tel" required></label>
+        <p class="tst-ticket__label">Как с&nbsp;вами связаться <span class="lead__opt">(необязательно)</span></p>
+        <div class="tst-chips lead__chips"><label class="tst-chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label><label class="tst-chip"><input type="radio" name="contact" value="MAX"><span>MAX</span></label><label class="tst-chip"><input type="radio" name="contact" value="Telegram"><span>Telegram</span></label><label class="tst-chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label></div>
+        <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required checked><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
+        <button type="submit" class="tst-submit"><span data-lead-btn>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="lead__stub lead__done" data-lead-done hidden>
+        <p class="tst-ticket__over">Заявка принята</p>
+        <p class="tst-ticket__sub">Спасибо! Свяжемся с&nbsp;вами в&nbsp;ближайшее время, чтобы обсудить детали.</p>
+        <button type="button" class="tst-submit lead__ok" data-lead-close><span>Хорошо</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </form>
+  </div>
+
+
+  <script src="sections.js?v=20261109141931" defer></script>
+  <script src="cases.js?v=20261109141931" defer></script>
+  <script src="cases-slider.js?v=20261109141931" defer></script>
+  <script src="tasting.js?v=20261109141931" defer></script>
+  <script src="forms.js?v=20261109141931" defer></script>
+  <script src="header.js?v=20261109141931" defer></script>
+  <script src="lead.js?v=20261109141931" defer></script>
+  <script src="reviews.js?v=20261109141931" defer></script>
+  <script src="stories.js?v=20261109141931" defer></script>
+  <script src="blocks.js?v=20261109141931" defer></script>
+  <script src="menu5.js?v=20261109141931" defer></script>
+  <script src="main.js?v=20261109141931" defer></script>
 </body>
 </html>
