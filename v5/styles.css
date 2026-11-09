@@ -3969,13 +3969,18 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
 .stick { background: rgba(16, 13, 12, 0.93); -webkit-backdrop-filter: none; backdrop-filter: none; }
 .svc-card__mark { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(20, 16, 14, 0.35); }
 
-/* видео: лёгкий объём «барабана» — боковые ролики чуть развёрнуты к центру.
+/* видео: лёгкое кольцо (как в red-ring) — боковые ролики развёрнуты к центру и уходят вглубь,
+   дальние чуть выше, поэтому края ряда приподнимаются; центральный кадр остаётся ровным.
    Откат: убрать класс st--ring у секции #stories в index.html */
+.st--ring .st__viewport { perspective: 1400px; perspective-origin: 50% 45%; }
+.st--ring .st__track { transform-style: preserve-3d; }
 .st--ring .st-card__media {
-  transform: translateY(var(--ty, 0px)) rotate(var(--rz, 0deg)) perspective(1500px) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
+  transform: perspective(1300px) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 @media (max-width: 767px) {
-  .st--ring .st-card__media { transform: translateY(var(--ty, 0px)) rotate(var(--rz, 0deg)) perspective(900px) rotateY(var(--ry, 0deg)) scale(var(--s, 1)); }
+  .st--ring .st__viewport { perspective: 1100px; }
+  .st--ring .st-card__media { transform: perspective(900px) rotateY(var(--ry, 0deg)) scale(var(--s, 1)); }
+
 }

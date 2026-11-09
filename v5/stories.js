@@ -53,8 +53,9 @@
   const alphaAt = (a) => (a <= 2.4 ? 1 : Math.max(0, 1 - smooth(Math.min(1, (a - 2.4) / 0.8))));
   const smooth = (t) => t * t * (3 - 2 * t);
   function RING_ON() { return st.classList.contains("st--ring"); }
-  const ARC = RING_ON() ? (phone.matches ? 0.018 : 0.024) : 0, TILT = RING_ON() ? (phone.matches ? 0.9 : 1.2) : 0;
-  const RING = st.classList.contains("st--ring") ? (phone.matches ? 7 : 9) : 0; // градусов на одну карточку
+  // кольцо: ролики уходят вглубь к краям (z), сцена чуть наклонена — края сами приподнимаются по перспективе
+  const LIFT = 0.5, PERSP = 1400, DEPTH = RING_ON() ? (phone.matches ? 0.1 : 0.14) : 0;
+  const RING = st.classList.contains("st--ring") ? (phone.matches ? 8 : 11) : 0; // градусов на одну карточку
   // на компьютере центр экрана — между двумя кадрами (позиции …,1.5, 2.5…), на телефоне — по центру кадра
   const snap = (x) => Math.round(x); // в центре всегда одно видео
   function measure() {
@@ -105,14 +106,14 @@
       const xx = pos[k];
       if (Math.abs(xx) - w > half + 40) { c.style.visibility = "hidden"; continue; }
       c.style.visibility = "";
-      c.style.transform = `translate3d(${(half + xx - w / 2).toFixed(2)}px, 0, 0)`;
+      const u0 = xx / (w + g), a0 = Math.min(Math.abs(u0), 2.6);
+      const z = -a0 * a0 * w * DEPTH;
+      const xz = xx * (PERSP - z) / PERSP; // уход вглубь сжимает ряд к центру — раздвигаем обратно, зазоры остаются ровными
+      c.style.transform = `translate3d(${(half + xz - w / 2).toFixed(2)}px, ${(z * LIFT).toFixed(1)}px, ${z.toFixed(1)}px)`; // дальние — чуть выше: край кольца поднимается
       c.style.setProperty("--s", sc[k].toFixed(4));
       // объём «барабана»: боковые ролики слегка развёрнуты к центру (включается классом st--ring)
       const u = xx / (w + g), ua = Math.min(Math.abs(u), 2.6);
       c.style.setProperty("--ry", `${(Math.sign(u) * ua * RING).toFixed(2)}deg`);
-      // дуга: к краям ролики приподнимаются и наклоняются вдоль овала (центр ниже)
-      c.style.setProperty("--ty", `${(-ua * ua * w * ARC).toFixed(2)}px`);
-      c.style.setProperty("--rz", `${(-Math.sign(u) * ua * TILT).toFixed(2)}deg`);
       const aa = Math.abs(xx) / (w + g);
       c.style.opacity = alphaAt(aa).toFixed(3);
       c.classList.toggle("is-center", aa < 0.5);
