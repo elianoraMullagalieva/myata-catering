@@ -48,6 +48,9 @@
       video.removeAttribute("autoplay");
       video.pause();
     } else {
+      // видео грузим только сейчас — после скриптов, чтобы 4 МБ ролика не занимали канал,
+      // пока не готова раскладка первого экрана (сам файл не меняется)
+      if (!video.getAttribute("src") && video.dataset.src) { video.src = video.dataset.src; video.load(); }
       const shown = () => video.classList.add("is-playing");
       video.addEventListener("playing", shown, { once: true });
       if (!video.paused && video.readyState > 2) shown();
@@ -73,9 +76,13 @@
      всем раздаём задержки. Старт — когда готовы фото и шрифты. */
   // общий темп хореографии: 1 — исходный, меньше — быстрее
   const PACE = 0.85;
-  const setDelay = (el, s) => el && el.style.setProperty("--d", `${(s * PACE).toFixed(3)}s`);
+  // если страница уже показана страховкой (медленный интернет) — хореографию не запускаем:
+  // иначе заголовок пересобрался бы по буквам у всех на глазах и «дёрнулся»
+  const late = root.classList.contains("is-loaded");
+  const setDelay = (el, s) => !late && el && el.style.setProperty("--d", `${(s * PACE).toFixed(3)}s`);
 
   function splitChars(el) {
+    if (late) return [];
     const words = el.textContent.trim().split(/\s+/);
     el.textContent = "";
     const chars = [];
@@ -96,6 +103,7 @@
   }
 
   function splitWords(el) {
+    if (late) return [];
     // делим только текст, переносы <br> оставляем на месте — строки заметок заданы явно;
     // неразрывные пробелы остаются внутри «слова», чтобы предлоги не отрывались
     const words = [];

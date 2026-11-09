@@ -4829,3 +4829,49 @@ html { scrollbar-gutter: stable; }
 .ft5__top { padding-bottom: clamp(20px, 0.6rem + 1vw, 40px); }
 .ft5__bottom { padding-top: clamp(16px, 0.6rem + 0.5vw, 28px); }
 @media (max-width: 767px) { .ft5__leaf { width: 70vw; bottom: -6%; opacity: 0.12; } }
+
+/* ---------- отзывы: карточки шире, ссылки в одну строку, аккуратная серая аватарка,
+   стрелки по центру на уровне кнопки «Смотреть все отзывы», кнопка ближе ---------- */
+@media (min-width: 1024px) and (max-width: 1679px) { .rv { --per: 2.7; } }
+@media (min-width: 1680px) and (max-width: 2239px) { .rv { --per: 3.3; } }
+@media (min-width: 2240px)                         { .rv { --per: 4.3; } }
+.rv.is-fit .rv__nav { visibility: visible; }
+.rv-card__links { flex-wrap: nowrap; white-space: nowrap; }
+.rv-card__meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rv-card__ava { width: clamp(38px, 1.8rem + 0.4vw, 50px); height: clamp(38px, 1.8rem + 0.4vw, 50px); background: #e6e6e6; color: #c3c3c3; place-items: center; }
+.rv__foot { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-top: clamp(28px, 1rem + 2.6vw, 96px); }
+.rv__foot-side { display: block; }
+.rv__nav { justify-self: center; }
+.rv__nav { position: relative; }
+.rv__count { position: absolute; left: 100%; top: 50%; transform: translateY(-50%); margin-left: clamp(12px, 0.5rem + 0.6vw, 24px); white-space: nowrap; }
+.rv__all { justify-self: end; }
+@media (max-width: 767px) {
+  .rv-card__links { flex-wrap: wrap; white-space: normal; }
+  .rv__foot { display: flex; flex-direction: column; align-items: stretch; margin-top: 28px; }
+  .rv__foot-side { display: none; }
+  .rv__nav { justify-self: auto; justify-content: flex-start; }
+  .rv__count { position: static; transform: none; }
+}
+
+/* ---------- «О компании» компактнее: блок вместе с лентой логотипов помещается в экран,
+   сверху меньше пустоты; подпись фото — стеклянная плашка во всю ширину с размытием ---------- */
+@media (min-width: 1024px) {
+  .tm { --tm-logos: clamp(80px, 3rem + 2.6vw, 150px); }
+  .tm__logos { min-height: var(--tm-logos); }
+  .tm__main { min-height: 0; height: clamp(560px, calc(100vh - var(--tm-logos)), 56vw); }
+  .tm__text { justify-content: center; padding-top: clamp(88px, 2.6rem + 1.6vw, 130px); padding-bottom: clamp(24px, 0.6rem + 1.4vw, 56px); }
+  .tm__title { font-size: clamp(32px, 1rem + 2.7vw, 96px); }
+  .tm__lead { margin-top: clamp(14px, 0.5rem + 0.7vw, 30px); }
+  .tm__stats { padding-top: clamp(22px, 0.6rem + 1.5vw, 56px); }
+  .tm-stat { padding-top: clamp(12px, 0.3rem + 0.5vw, 24px); padding-bottom: clamp(16px, 0.5rem + 0.8vw, 34px); }
+  .tm-stat__num { font-size: clamp(28px, 0.9rem + 1.9vw, 70px); }
+}
+.tm__photo figcaption {
+  padding: clamp(14px, 0.6rem + 0.5vw, 24px) var(--gutter);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  text-shadow: none;
+  letter-spacing: 0.01em;
+}

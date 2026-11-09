@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="assets/fonts/geologica-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/manrope-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261109144414">
+  <link rel="stylesheet" href="styles.css?v=20261109150610">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -31,7 +31,7 @@
     <div class="hero__bg">
       <div class="hero__media" data-hero-media>
         <!-- живой фон: тот же кадр, оживлённый (свечи и гости); фото ниже — заставка и запасной вариант -->
-        <video class="v2-video" src="assets/buffet-video.mp4" poster="assets/buffet.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+        <video class="v2-video" data-src="assets/buffet-video.mp4" poster="assets/buffet.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
         <picture>
           <!-- исходное фото без пережатия: «вариант 2.jpg», 2048×1366 -->
           <img src="assets/buffet.jpg" width="2048" height="1366" alt="Фуршетный стол МЯТА: канапе на многоярусных стойках, закуски и свечи" fetchpriority="high">
@@ -148,6 +148,20 @@
       </div>
     </div>
   </section>
+  <script>
+  /* фон первого экрана встаёт на место сразу, не дожидаясь остальных скриптов (то же, что placeMedia в main.js) */
+  (function () {
+    var hero = document.querySelector(".hero"), m = document.querySelector("[data-hero-media]");
+    if (!hero || !m) return;
+    var w = hero.clientWidth, h = hero.clientHeight, mob = w < 768, lift = mob ? h * 0.09 : 0;
+    var sc = mob ? Math.max(w / 2048, (h - lift) / 1366) : Math.max(1.019 * w / 2048, 1.139 * h / 1366);
+    var W = 2048 * sc, H = 1366 * sc;
+    var left = Math.min(0, Math.max(w - W, w / 2 - 0.5 * W));
+    var top = mob ? lift : Math.min(0, Math.max(h - H, -0.005 * h));
+    m.style.inset = "0 auto auto 0"; m.style.width = W + "px"; m.style.height = H + "px";
+    m.style.transform = "translate3d(" + left + "px," + top + "px,0)"; m.classList.add("is-placed");
+  })();
+  </script>
 
   <section class="svc" id="services" aria-labelledby="svc-title" data-reveal data-arrows="a">
     <div class="svc__head">
@@ -295,7 +309,7 @@
       <h2 class="qz__title" id="qz-title">Рассчитаем кейтеринг<br> для <em>вашего мероприятия</em></h2>
       <p class="qz__lead">Оставьте параметры мероприятия&nbsp;— подготовим предварительный расчёт и&nbsp;предложим подходящий формат</p>
       <figure class="qz__photo">
-        <img src="assets/quiz-alina.jpg" alt="Алина Юсупова, главный супервайзер, у фуршетного стола" decoding="async">
+        <img loading="lazy" decoding="async" src="assets/quiz-alina.jpg" alt="Алина Юсупова, главный супервайзер, у фуршетного стола" decoding="async">
         <figcaption class="qz__badge">
           <span class="qz__badge-mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span>
           <span class="qz__badge-box"><b>Алина Юсупова</b><span>главный супервайзер</span></span>
@@ -670,7 +684,7 @@
       <ul class="rv__track" role="list">
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
-            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Анна Смирнова</p><p class="rv-card__meta"><span data-rv-type>Корпоратив</span> · <span data-rv-date>15 октября 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Организовывали корпоратив на 120 человек. Команда «Мяты» взяла на себя всё: от разработки меню до сервиса на площадке. Особенно впечатлили подача блюд и внимательность официантов. Гости остались в восторге, а мы смогли просто наслаждаться вечером!</p>
@@ -681,7 +695,7 @@
         </li>
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
-            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Мария Волкова</p><p class="rv-card__meta"><span data-rv-type>Свадьба</span> · <span data-rv-date>28 сентября 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Спасибо команде «Мята» за нашу свадьбу! Всё было невероятно красиво и вкусно. Учли абсолютно все пожелания, предложили интересные решения по меню и оформлению фуршетной зоны. Отдельное спасибо за то, что в день свадьбы нам не пришлось ни о чём беспокоиться.</p>
@@ -692,7 +706,7 @@
         </li>
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
-            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Дмитрий Орлов</p><p class="rv-card__meta"><span data-rv-type>Частное мероприятие</span> · <span data-rv-date>12 августа 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Заказывали выездной кейтеринг на день рождения за городом. Всё привезли вовремя, красиво организовали пространство и подготовили отличное меню. Очень понравилось, что команда работала практически незаметно, но у гостей всегда было всё необходимое.</p>
@@ -703,7 +717,7 @@
         </li>
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
-            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Елена Кузнецова</p><p class="rv-card__meta"><span data-rv-type>Кофе-брейк</span> · <span data-rv-date>3 июля 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Заказывали кофе-брейки на двухдневную конференцию для 80 участников. Всё прошло чётко по таймингу: свежая выпечка, полезные перекусы и отличный кофе. Команда быстро подстраивалась под изменения программы, а участники потом отдельно благодарили за еду.</p>
@@ -715,6 +729,7 @@
       </ul>
     </div>
     <div class="rv__foot">
+      <span class="rv__foot-side" aria-hidden="true"></span>
       <div class="rv__nav">
         <button type="button" class="svc__arrow" data-rv-prev aria-label="Предыдущий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button type="button" class="svc__arrow svc__arrow--next" data-rv-next aria-label="Следующий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -819,17 +834,17 @@
   </div>
 
 
-  <script src="sections.js?v=20261109144414" defer></script>
-  <script src="cases.js?v=20261109144414" defer></script>
-  <script src="cases-slider.js?v=20261109144414" defer></script>
-  <script src="tasting.js?v=20261109144414" defer></script>
-  <script src="forms.js?v=20261109144414" defer></script>
-  <script src="header.js?v=20261109144414" defer></script>
-  <script src="lead.js?v=20261109144414" defer></script>
-  <script src="reviews.js?v=20261109144414" defer></script>
-  <script src="stories.js?v=20261109144414" defer></script>
-  <script src="blocks.js?v=20261109144414" defer></script>
-  <script src="menu5.js?v=20261109144414" defer></script>
-  <script src="main.js?v=20261109144414" defer></script>
+  <script src="sections.js?v=20261109150610" defer></script>
+  <script src="cases.js?v=20261109150610" defer></script>
+  <script src="cases-slider.js?v=20261109150610" defer></script>
+  <script src="tasting.js?v=20261109150610" defer></script>
+  <script src="forms.js?v=20261109150610" defer></script>
+  <script src="header.js?v=20261109150610" defer></script>
+  <script src="lead.js?v=20261109150610" defer></script>
+  <script src="reviews.js?v=20261109150610" defer></script>
+  <script src="stories.js?v=20261109150610" defer></script>
+  <script src="blocks.js?v=20261109150610" defer></script>
+  <script src="menu5.js?v=20261109150610" defer></script>
+  <script src="main.js?v=20261109150610" defer></script>
 </body>
 </html>
