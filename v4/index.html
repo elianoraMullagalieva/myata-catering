@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261107201253">
-  <link rel="stylesheet" href="styles.css?v=20261107201253">
+  <link rel="stylesheet" href="../styles.css?v=20261109190447">
+  <link rel="stylesheet" href="styles.css?v=20261109190447">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -414,15 +414,12 @@
     </div>
 
     <div class="tst__right">
-      <img class="tst__photo" src="assets/tasting/photo.jpg" alt="Канапе и тарталетки на дегустации" width="736" height="1104" loading="lazy" decoding="async">
-      <div class="tst-backdrop" data-tst-backdrop hidden></div>
+      <picture><source srcset="assets/tasting/bg.webp" type="image/webp"><img class="tst__photo" src="assets/tasting/bg.jpg" alt="Канапе, тартар и пирожные с жемчугом и пером на столе" width="1632" height="1948" loading="lazy" decoding="async"></picture>
       <form class="tst-ticket" data-tst-form novalidate>
-        <button type="button" class="tst-close" data-tst-close aria-label="Закрыть форму"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
         <div class="tst-ticket__top">
           <h3 class="tst-ticket__title">Записаться<br> на&nbsp;<em>бесплатную</em> дегустацию</h3>
           <p class="tst-ticket__sub">Перезвоним, уточним дату и&nbsp;меню</p>
           <ul class="tst-ticket__pills"><li>5–7 блюд</li><li>Выезд к&nbsp;вам</li><li>0&nbsp;₽</li></ul>
-          <button type="button" class="tst-open" data-tst-open><span>Записаться на&nbsp;дегустацию</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
         <div class="tst-ticket__stub" data-tst-body>
           <p class="tst-ticket__over">Забронировать дегустацию</p>
@@ -430,7 +427,7 @@
           <label class="tst-field"><input type="tel" name="phone" placeholder="Телефон*" autocomplete="tel" inputmode="tel" required></label>
           <p class="tst-ticket__label">Удобный способ связи</p>
           <div class="tst-chips"><label class="tst-chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label><label class="tst-chip"><input type="radio" name="contact" value="Telegram" checked><span>Telegram</span></label><label class="tst-chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label><label class="tst-chip"><input type="radio" name="contact" value="MAX"><span>MAX</span></label></div>
-          <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required checked><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
+          <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
           <button type="submit" class="tst-submit"><span>Записаться на&nbsp;дегустацию</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
         <div class="tst-ticket__stub tst-ticket__done" data-tst-done hidden>
@@ -491,13 +488,13 @@
   </div>
 
   <!-- 8. Почему мы: фото + аккордеон из восьми причин -->
-  <section class="why" id="about" aria-labelledby="why-title">
+  <section class="why" id="why" aria-labelledby="why-title">
     <div class="why__head">
       <h2 class="why__title" id="why-title">Почему <em>мы?</em></h2>
       <p class="why__lead">8&nbsp;причин доверить нам ваше событие</p>
     </div>
     <figure class="why__photo">
-      <img src="assets/why/photo.png" alt="Официант сервирует стол" width="736" height="920" loading="lazy" decoding="async">
+      <picture><source srcset="assets/why/photo.webp" type="image/webp"><img src="assets/why/photo.jpg" alt="Официант сервирует стол" width="736" height="920" loading="lazy" decoding="async"></picture>
       <figcaption>Внимание к&nbsp;деталям&nbsp;— в&nbsp;каждом событии</figcaption>
     </figure>
     <div class="why__body">
@@ -535,124 +532,280 @@
           <div class="why-item__panel acc-panel" id="why-p8" role="region" aria-labelledby="why-h8"><div class="acc-panel__in"><p class="why-item__desc">Формируем понятную смету заранее&nbsp;— без скрытых платежей и&nbsp;неожиданных расходов</p></div></div>
         </div>
       </div>
-      <a class="dark-btn why__btn" href="#request"><span>Обсудить событие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="dark-btn why__btn" href="#request" data-lead><span>Обсудить событие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </section>
 
   <!-- 9. Меню: слева фото с заголовком и метками категорий (нажатие открывает категорию), справа — аккордеон с блюдами -->
-  <section class="mn" id="menu" aria-labelledby="mn-title">
-    <div class="mn-hero">
-      <img class="mn-hero__photo" src="assets/menu/chef.png" alt="Шеф заканчивает подачу блюда" width="736" height="981" loading="lazy" decoding="async">
-      <div class="mn-hero__text">
-        <h2 class="mn__title" id="mn-title">Меню:<br> от&nbsp;классики<br> <em>до&nbsp;авангарда</em></h2>
-        <p class="mn__lead">Собираем меню под формат и&nbsp;задачи вашего мероприятия</p>
+  <section class="m5" id="menu" aria-labelledby="m5-title" data-m5>
+    <div class="m5__text">
+      <div class="m5__head">
+        <h2 class="m5__title" id="m5-title">Меню:<br> от&nbsp;классики<br> <em>до&nbsp;авангарда</em></h2>
+        <p class="m5__lead">Собираем меню под формат и&nbsp;задачи<br> вашего мероприятия</p>
       </div>
-      <div class="mn-hero__tags"><button type="button" class="mn-hero__tag mn-hero__tag--1" data-mn-go="0"><span>[01]</span>Морепродукты</button><button type="button" class="mn-hero__tag mn-hero__tag--2" data-mn-go="1"><span>[02]</span>Мясные закуски</button><button type="button" class="mn-hero__tag mn-hero__tag--3" data-mn-go="2"><span>[03]</span>Канапе и&nbsp;миниатюры</button><button type="button" class="mn-hero__tag mn-hero__tag--4" data-mn-go="3"><span>[04]</span>Веррины</button></div>
+      <a class="m5__btn" href="#request" data-lead="menu"><span>Получить полное меню</span><svg class="m5__arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
-    <div class="mn__body">
-      <div class="mn__list" data-acc data-acc-single>
-        <div class="mn-cat is-open" data-acc-item>
-          <h3 class="mn-cat__h"><button type="button" class="mn-cat__head" data-acc-head aria-expanded="true" aria-controls="mn-p1" id="mn-h1">
-            <span class="mn-cat__num">[01]</span><span class="mn-cat__title">Морепродукты</span><span class="mn-cat__count">3&nbsp;поз.</span><span class="mn-cat__chev" aria-hidden="true"><svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </button></h3>
-          <p class="mn-cat__sum">Креветки Cocktail <i aria-hidden="true">·</i> Канапе с&nbsp;креветкой <i aria-hidden="true">·</i> Золотые макаронс</p>
-          <div class="mn-cat__panel acc-panel" id="mn-p1" role="region" aria-labelledby="mn-h1"><div class="acc-panel__in">
-            <div class="mn-cat__rail" data-mn-rail>
-              <ul class="mn-cat__dishes" data-mn-track>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="" width="736" height="736" loading="lazy" decoding="async"></span><span class="dish__name">Креветки Cocktail</span><span class="dish__sub">с&nbsp;цитрусовым акцентом</span></li>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/shrimp-canape.jpg" alt="" width="896" height="895" loading="lazy" decoding="async"></span><span class="dish__name">Канапе с&nbsp;тигровой креветкой</span><span class="dish__sub">и&nbsp;сливочным муссом</span></li>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/macarons.jpg" alt="" width="736" height="736" loading="lazy" decoding="async"></span><span class="dish__name">Золотые макаронс</span><span class="dish__sub">с&nbsp;креветками и&nbsp;нежным кремом</span></li>
-              </ul>
-            </div>
-          </div></div>
-        </div>
-        <div class="mn-cat" data-acc-item>
-          <h3 class="mn-cat__h"><button type="button" class="mn-cat__head" data-acc-head aria-expanded="false" aria-controls="mn-p2" id="mn-h2">
-            <span class="mn-cat__num">[02]</span><span class="mn-cat__title">Мясные закуски</span><span class="mn-cat__count">2&nbsp;поз.</span><span class="mn-cat__chev" aria-hidden="true"><svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </button></h3>
-          <p class="mn-cat__sum">Медальоны из&nbsp;говядины <i aria-hidden="true">·</i> Итальянское антипасти</p>
-          <div class="mn-cat__panel acc-panel" id="mn-p2" role="region" aria-labelledby="mn-h2"><div class="acc-panel__in">
-            <div class="mn-cat__rail" data-mn-rail>
-              <ul class="mn-cat__dishes" data-mn-track>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/beef-medallions.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"></span><span class="dish__name">Медальоны из&nbsp;говядины</span><span class="dish__sub">на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/antipasti.jpg" alt="" width="1143" height="1143" loading="lazy" decoding="async"></span><span class="dish__name">Итальянское антипасти</span><span class="dish__sub">с&nbsp;благородными сырами и&nbsp;салями</span></li>
-              </ul>
-            </div>
-          </div></div>
-        </div>
-        <div class="mn-cat" data-acc-item>
-          <h3 class="mn-cat__h"><button type="button" class="mn-cat__head" data-acc-head aria-expanded="false" aria-controls="mn-p3" id="mn-h3">
-            <span class="mn-cat__num">[03]</span><span class="mn-cat__title">Канапе и&nbsp;миниатюры</span><span class="mn-cat__count">4&nbsp;поз.</span><span class="mn-cat__chev" aria-hidden="true"><svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </button></h3>
-          <p class="mn-cat__sum">Мини-капрезе <i aria-hidden="true">·</i> Арбузные канапе <i aria-hidden="true">·</i> Рубиновые рулетики <i aria-hidden="true">·</i> Авторские миниатюры</p>
-          <div class="mn-cat__panel acc-panel" id="mn-p3" role="region" aria-labelledby="mn-h3"><div class="acc-panel__in">
-            <div class="mn-cat__rail" data-mn-rail>
-              <ul class="mn-cat__dishes" data-mn-track>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/mini-caprese.jpg" alt="" width="500" height="500" loading="lazy" decoding="async"></span><span class="dish__name">Мини-капрезе</span><span class="dish__sub">с&nbsp;моцареллой, черри и&nbsp;песто</span></li>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="" width="631" height="630" loading="lazy" decoding="async"></span><span class="dish__name">Арбузные канапе</span><span class="dish__sub">с&nbsp;фетой, мятой и&nbsp;бальзамиком</span></li>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/ruby-rolls.jpg" alt="" width="468" height="468" loading="lazy" decoding="async"></span><span class="dish__name">Рубиновые рулетики</span><span class="dish__sub">с&nbsp;нежной сырной начинкой</span></li>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/author-miniatures.jpg" alt="" width="736" height="736" loading="lazy" decoding="async"></span><span class="dish__name">Авторские миниатюры</span><span class="dish__sub">коллекция фуршетных миниатюр</span></li>
-              </ul>
-            </div>
-          </div></div>
-        </div>
-        <div class="mn-cat" data-acc-item>
-          <h3 class="mn-cat__h"><button type="button" class="mn-cat__head" data-acc-head aria-expanded="false" aria-controls="mn-p4" id="mn-h4">
-            <span class="mn-cat__num">[04]</span><span class="mn-cat__title">Веррины</span><span class="mn-cat__count">1&nbsp;поз.</span><span class="mn-cat__chev" aria-hidden="true"><svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </button></h3>
-          <p class="mn-cat__sum">Веррины с&nbsp;деликатесами</p>
-          <div class="mn-cat__panel acc-panel" id="mn-p4" role="region" aria-labelledby="mn-h4"><div class="acc-panel__in">
-            <div class="mn-cat__rail" data-mn-rail>
-              <ul class="mn-cat__dishes" data-mn-track>
-              <li class="dish"><span class="dish__photo"><img src="assets/menu/dishes/verrines.jpg" alt="" width="736" height="736" loading="lazy" decoding="async"></span><span class="dish__name">Веррины с&nbsp;итальянскими деликатесами</span><span class="dish__sub">с&nbsp;сыром и&nbsp;виноградом</span></li>
-              </ul>
-            </div>
-          </div></div>
+    <div class="m5__cols" data-m5-cols>
+      <div class="m5__col m5__col--1" data-m5-col data-dir="up" data-shift="-140" data-speed="30">
+        <div class="m5__track" data-m5-track>
+          <ul class="m5__set" role="list">
+            <li class="m5-card"><img src="assets/menu/dishes/ruby-rolls.jpg" alt="Рубиновые рулетики с нежной сырной начинкой" width="468" height="468" loading="lazy" decoding="async"><span class="m5-card__name">Рубиновые рулетики с&nbsp;нежной сырной начинкой</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/mini-caprese.jpg" alt="Мини-капрезе с моцареллой, черри и ароматным песто" width="500" height="500" loading="lazy" decoding="async"><span class="m5-card__name">Мини-капрезе с&nbsp;моцареллой, черри и&nbsp;ароматным песто</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/beef-medallions.jpg" alt="Медальоны из говядины на шпажке с пряным соусом" width="600" height="600" loading="lazy" decoding="async"><span class="m5-card__name">Медальоны из&nbsp;говядины на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
+          </ul>
         </div>
       </div>
-      <a class="dark-btn mn__btn" href="#request"><span>Получить полное меню</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="m5__col m5__col--2" data-m5-col data-dir="down" data-shift="-40" data-speed="26">
+        <div class="m5__track" data-m5-track>
+          <ul class="m5__set" role="list">
+            <li class="m5-card"><img src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/shrimp-canape.jpg" alt="Канапе с тигровой креветкой и сливочным муссом" width="896" height="895" loading="lazy" decoding="async"><span class="m5-card__name">Канапе с&nbsp;тигровой креветкой и&nbsp;сливочным муссом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/antipasti.jpg" alt="Итальянское антипасти с благородными сырами и салями" width="1143" height="1143" loading="lazy" decoding="async"><span class="m5-card__name">Итальянское антипасти с&nbsp;благородными сырами и&nbsp;салями</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="m5__col m5__col--3" data-m5-col data-dir="up" data-shift="-230" data-speed="34">
+        <div class="m5__track" data-m5-track>
+          <ul class="m5__set" role="list">
+            <li class="m5-card"><img src="assets/menu/dishes/verrines.jpg" alt="Веррины с итальянскими деликатесами, сыром и виноградом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Веррины с&nbsp;итальянскими деликатесами, сыром и&nbsp;виноградом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/ruby-rolls.jpg" alt="Рубиновые рулетики с нежной сырной начинкой" width="468" height="468" loading="lazy" decoding="async"><span class="m5-card__name">Рубиновые рулетики с&nbsp;нежной сырной начинкой</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/mini-caprese.jpg" alt="Мини-капрезе с моцареллой, черри и ароматным песто" width="500" height="500" loading="lazy" decoding="async"><span class="m5-card__name">Мини-капрезе с&nbsp;моцареллой, черри и&nbsp;ароматным песто</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="m5__col m5__col--4" data-m5-col data-dir="down" data-shift="-90" data-speed="28">
+        <div class="m5__track" data-m5-track>
+          <ul class="m5__set" role="list">
+            <li class="m5-card"><img src="assets/menu/dishes/beef-medallions.jpg" alt="Медальоны из говядины на шпажке с пряным соусом" width="600" height="600" loading="lazy" decoding="async"><span class="m5-card__name">Медальоны из&nbsp;говядины на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/shrimp-canape.jpg" alt="Канапе с тигровой креветкой и сливочным муссом" width="896" height="895" loading="lazy" decoding="async"><span class="m5-card__name">Канапе с&nbsp;тигровой креветкой и&nbsp;сливочным муссом</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="m5__col m5__col--5" data-m5-col data-dir="up" data-shift="-180" data-speed="31" aria-hidden="true">
+        <div class="m5__track" data-m5-track>
+          <ul class="m5__set" role="list">
+            <li class="m5-card"><img src="assets/menu/dishes/antipasti.jpg" alt="Итальянское антипасти с благородными сырами и салями" width="1143" height="1143" loading="lazy" decoding="async"><span class="m5-card__name">Итальянское антипасти с&nbsp;благородными сырами и&nbsp;салями</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/verrines.jpg" alt="Веррины с итальянскими деликатесами, сыром и виноградом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Веррины с&nbsp;итальянскими деликатесами, сыром и&nbsp;виноградом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="m5__col m5__col--6" data-m5-col data-dir="down" data-shift="-20" data-speed="27" aria-hidden="true">
+        <div class="m5__track" data-m5-track>
+          <ul class="m5__set" role="list">
+            <li class="m5-card"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
+            <li class="m5-card"><img src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tm" id="about" aria-labelledby="tm-title">
+    <div class="tm__main">
+      <div class="tm__text">
+        <h2 class="tm__title" id="tm-title">За&nbsp;каждым мероприятием<br> стоит <em>команда</em></h2>
+        <p class="tm__lead">Наша задача&nbsp;— сделать так, чтобы вы стали гостем, а&nbsp;не&nbsp;организатором вашего события</p>
+        <dl class="tm__stats">
+          <div class="tm-stat"><dt><span class="tm-stat__num">20+</span><span class="tm-stat__unit">лет</span></dt><dd>Создаём гастрономические события</dd></div>
+          <div class="tm-stat"><dt><span class="tm-stat__num">1&nbsp;000+</span><span class="tm-stat__unit">мероприятий</span></dt><dd>Организовали и&nbsp;провели</dd></div>
+          <div class="tm-stat"><dt><span class="tm-stat__num">100&nbsp;000+</span><span class="tm-stat__unit">гостей</span></dt><dd>Разделили с&nbsp;нами<br> особенные моменты</dd></div>
+          <div class="tm-stat"><dt><span class="tm-stat__num">50+</span><span class="tm-stat__unit">профессионалов</span></dt><dd>В&nbsp;нашей команде</dd></div>
+        </dl>
+      </div>
+      <figure class="tm__photo">
+        <picture><source srcset="assets/team/team.webp" type="image/webp"><img src="assets/team/team.jpg" alt="Команда руководителей кейтеринговой компании «Мята»" width="1200" height="1600" loading="lazy" decoding="async"></picture>
+        <figcaption>Команда руководителей кейтеринговой компании «Мята»</figcaption>
+      </figure>
+    </div>
+    <div class="tm__logos">
+      <p class="tm__logos-label">Нам доверяют частные клиенты и&nbsp;известные компании</p>
+      <div class="tm__marquee" data-tm-marquee>
+        <ul class="tm__logo-list" role="list">
+          <li><img src="assets/logos/avito.png" alt="Avito" width="84" height="23" style="--h:23" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/ozon.png" alt="OZON" width="90" height="20" style="--h:20" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/mts.png" alt="МТС" width="63" height="16" style="--h:16" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/wildberries.png" alt="Wildberries" width="126" height="19" style="--h:19" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/headhunter-mark.png" alt="hh.ru" width="24" height="25" style="--h:25" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/alfa.png" alt="Альфа-Банк" width="96" height="29" style="--h:29" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/vk.png" alt="ВКонтакте" width="137" height="24" style="--h:24" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/sber.png" alt="Сбер" width="91" height="26" style="--h:26" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/tbank.png" alt="Т-Банк" width="89" height="27" style="--h:27" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv" id="reviews" aria-labelledby="rv-title" data-rv>
+    <div class="rv__head">
+      <h2 class="rv__title" id="rv-title">Отзывы клиентов о&nbsp;кейтеринге <em>«Мята»</em></h2>
+      <p class="rv__lead">События проходят&nbsp;—<br> впечатления остаются!</p>
+    </div>
+    <div class="rv__viewport" data-rv-viewport tabindex="0" aria-label="Отзывы клиентов">
+      <ul class="rv__track" role="list">
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
+            <div><p class="rv-card__name">Анна Смирнова</p><p class="rv-card__meta"><span data-rv-type>Корпоратив</span> · <span data-rv-date>15 октября 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Организовывали корпоратив на 120 человек. Команда «Мяты» взяла на себя всё: от разработки меню до сервиса на площадке. Особенно впечатлили подача блюд и внимательность официантов. Гости остались в восторге, а мы смогли просто наслаждаться вечером!</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
+            <div><p class="rv-card__name">Мария Волкова</p><p class="rv-card__meta"><span data-rv-type>Свадьба</span> · <span data-rv-date>28 сентября 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Спасибо команде «Мята» за нашу свадьбу! Всё было невероятно красиво и вкусно. Учли абсолютно все пожелания, предложили интересные решения по меню и оформлению фуршетной зоны. Отдельное спасибо за то, что в день свадьбы нам не пришлось ни о чём беспокоиться.</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
+            <div><p class="rv-card__name">Дмитрий Орлов</p><p class="rv-card__meta"><span data-rv-type>Частное мероприятие</span> · <span data-rv-date>12 августа 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Заказывали выездной кейтеринг на день рождения за городом. Всё привезли вовремя, красиво организовали пространство и подготовили отличное меню. Очень понравилось, что команда работала практически незаметно, но у гостей всегда было всё необходимое.</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="19" r="8.5" fill="currentColor"/><ellipse cx="24" cy="47" rx="17" ry="14" fill="currentColor"/></svg></span>
+            <div><p class="rv-card__name">Елена Кузнецова</p><p class="rv-card__meta"><span data-rv-type>Кофе-брейк</span> · <span data-rv-date>3 июля 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Заказывали кофе-брейки на двухдневную конференцию для 80 участников. Всё прошло чётко по таймингу: свежая выпечка, полезные перекусы и отличный кофе. Команда быстро подстраивалась под изменения программы, а участники потом отдельно благодарили за еду.</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="rv__foot">
+      <span class="rv__foot-side" aria-hidden="true"></span>
+      <div class="rv__nav">
+        <button type="button" class="svc__arrow" data-rv-prev aria-label="Предыдущий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <span class="rv__count" data-rv-count>01 / 04</span>
+        <button type="button" class="svc__arrow svc__arrow--next" data-rv-next aria-label="Следующий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <button type="button" class="dark-btn rv__all" data-rv-all><span>Смотреть все отзывы</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+
+    <div class="rvm" data-rvm role="dialog" aria-modal="true" aria-label="Отзыв полностью" hidden>
+      <div class="rvm__backdrop" data-rvm-close></div>
+      <div class="rvm__box">
+        <button type="button" class="rvm__close" data-rvm-close aria-label="Закрыть"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M1 1l16 16M17 1L1 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+        <span class="rvm__quote" aria-hidden="true">“</span>
+        <div class="rvm__body">
+          <p class="rvm__meta"><span data-rvm-date></span></p>
+          <p class="rvm__text" data-rvm-text></p>
+          <a class="rv-link rvm__orig" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="rvm__foot">
+            <div class="rvm__person"><div><p class="rvm__name" data-rvm-name></p><p class="rvm__type" data-rvm-type2></p></div></div>
+            <div class="rvm__nav">
+              <button type="button" class="svc__arrow" data-rvm-prev aria-label="Предыдущий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button type="button" class="svc__arrow svc__arrow--next" data-rvm-next aria-label="Следующий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- 6. Контакты -->
-  <section class="ct" id="contacts" aria-labelledby="ct-title">
-    <h2 class="ct__title" id="ct-title">Обсудим <em>ваше мероприятие</em></h2>
-    <dl class="ct__list">
-      <div class="ct__item"><dt>Телефон</dt><dd><a href="tel:+70000000000">+7 (000) 000-00-00</a></dd></div>
-      <div class="ct__item"><dt>Почта</dt><dd><a href="mailto:hello@company.ru">hello@company.ru</a></dd></div>
-      <div class="ct__item"><dt>Время работы</dt><dd>Ежедневно с&nbsp;09:00 до&nbsp;21:00</dd></div>
-      <div class="ct__item"><dt>Мессенджеры</dt><dd><ul class="ct__socials"><li><a class="ct-social" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg aria-hidden="true"><use href="#i-tg"/></svg></a></li><li><a class="ct-social" href="https://wa.me/70000000000" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a></li><li><a class="ct-social" href="https://max.ru/" target="_blank" rel="noopener" aria-label="Написать в MAX"><svg aria-hidden="true"><use href="#i-max"/></svg></a></li></ul></dd></div>
-    </dl>
+  <section class="ct5" id="contacts" aria-labelledby="ct5-title">
+    <div class="ct5__visual" data-ct5-visual>
+      <picture><source srcset="assets/contacts/leaf.webp" type="image/webp"><img class="ct5__photo" src="assets/contacts/leaf.jpg" alt="" width="960" height="1280" loading="lazy" decoding="async"></picture>
+      <div class="ct5__logo" role="img" aria-label="МЯТА"></div>
+    </div>
+    <div class="ct5__info">
+      <h2 class="ct5__title" id="ct5-title">Контакты</h2>
+      <dl class="ct5__list">
+        <div class="ct5__row ct5__row--lead"><dd><a href="tel:+79261241383">+7 (926) 124-13-83</a></dd><dt>Телефон</dt></div>
+        <div class="ct5__row"><dd><a href="mailto:hello@myata-catering.ru">hello@myata-catering.ru</a></dd><dt>Почта</dt></div>
+        <div class="ct5__row"><dd>Ежедневно с&nbsp;09:00 до&nbsp;21:00</dd><dt>Время работы</dt></div>
+        <div class="ct5__row"><dd><ul class="ct5__socials">
+          <li><a class="ct5-social" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg aria-hidden="true"><use href="#i-tg"/></svg></a></li>
+          <li><a class="ct5-social" href="https://wa.me/79261241383" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a></li>
+          <li><a class="ct5-social" href="https://max.ru/" target="_blank" rel="noopener" aria-label="Написать в MAX"><svg aria-hidden="true"><use href="#i-max"/></svg></a></li>
+        </ul></dd><dt>Мессенджеры</dt></div>
+      </dl>
+    </div>
   </section>
 
-  <!-- 7. Подвал -->
-  <footer class="ft">
-    <div class="ft__top">
-      <a class="ft__logo" href="./" aria-label="МЯТА — на главную"><img src="../assets/logo.svg" width="83" height="24" alt="МЯТА"><span>Catering&amp;Events</span></a>
-      <nav class="ft__nav" aria-label="Меню в подвале"><ul><li><a href="#services">Услуги</a></li><li><a href="#cases">Кейсы</a></li><li><a href="#menu">Меню</a></li><li><a href="#about">О компании</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#contacts">Контакты</a></li></ul></nav>
-      <div class="ft__call">
-        <a class="ft__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
-        <a class="ft__btn" href="#request"><span>Перезвонить мне</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <footer class="ft5">
+    <div class="ft5__top">
+      <nav class="ft5__nav" aria-label="Меню в подвале"><ul>
+        <li><a href="#cases">Кейсы</a></li><li><a href="#services">Услуги</a></li><li><a href="#menu">Меню</a></li><li><a href="#about">О&nbsp;компании</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#contacts">Контакты</a></li>
+      </ul></nav>
+      <div class="ft5__actions">
+        <a class="ft5__btn" href="#request" data-lead><span>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
-    <div class="ft__bottom">
-      <p class="ft__copy">© 2026 МЯТА Catering&amp;Events</p>
-      <ul class="ft__docs">
+    <div class="ft5__bottom">
+      <ul class="ft5__docs">
         <li><a href="#">Политика конфиденциальности</a></li>
+        <li><a href="#">Политика обработки файлов cookie</a></li>
         <li><a href="#">Согласие на обработку персональных данных</a></li>
-        <li><a href="#">Пользовательское соглашение</a></li>
+        <li><a href="#">Согласие на предоставление персональных данных партнёрам</a></li>
       </ul>
+      <p class="ft5__copy">© 2026 Кейтеринг «Мята». Все права защищены</p>
     </div>
   </footer>
 
-  <script src="sections.js?v=20261107201253" defer></script>
-  <script src="cases.js?v=20261107201253" defer></script>
-  <script src="cases-slider.js?v=20261107201253" defer></script>
-  <script src="tasting.js?v=20261107201253" defer></script>
-  <script src="forms.js?v=20261107201253" defer></script>
-  <script src="header.js?v=20261107201253" defer></script>
-  <script src="stories.js?v=20261107201253" defer></script>
-  <script src="blocks.js?v=20261107201253" defer></script>
-  <script src="main.js?v=20261107201253" defer></script>
+  <div class="lead" data-lead-modal role="dialog" aria-modal="true" aria-labelledby="lead-title" hidden>
+    <div class="lead__backdrop" data-lead-close></div>
+    <form class="lead__ticket" data-lead-form novalidate>
+      <button type="button" class="lead__close" data-lead-close aria-label="Закрыть"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+      <div class="lead__top">
+        <h2 class="tst-ticket__title lead__title" id="lead-title" data-lead-title>Давайте обсудим<br> <em>ваше</em> событие</h2>
+        <p class="tst-ticket__sub" data-lead-sub>Оставьте контакты, и&nbsp;мы&nbsp;свяжемся с&nbsp;вами удобным способом, чтобы обсудить детали мероприятия.</p>
+      </div>
+      <div class="lead__stub" data-lead-body>
+        <input type="hidden" name="topic" value="">
+        <label class="tst-field"><input type="text" name="name" placeholder="Имя*" autocomplete="name" required></label>
+        <label class="tst-field"><input type="tel" name="phone" placeholder="Телефон*" autocomplete="tel" inputmode="tel" required></label>
+        <p class="tst-ticket__label">Как с&nbsp;вами связаться <span class="lead__opt">(необязательно)</span></p>
+        <div class="tst-chips lead__chips"><label class="tst-chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label><label class="tst-chip"><input type="radio" name="contact" value="MAX"><span>MAX</span></label><label class="tst-chip"><input type="radio" name="contact" value="Telegram"><span>Telegram</span></label><label class="tst-chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label></div>
+        <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
+        <button type="submit" class="tst-submit"><span data-lead-btn>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="lead__stub lead__done" data-lead-done hidden>
+        <p class="tst-ticket__over">Заявка принята</p>
+        <p class="tst-ticket__sub">Спасибо! Свяжемся с&nbsp;вами в&nbsp;ближайшее время, чтобы обсудить детали.</p>
+        <button type="button" class="tst-submit lead__ok" data-lead-close><span>Хорошо</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </form>
+  </div>
+
+  <script src="sections.js?v=20261109190447" defer></script>
+  <script src="cases.js?v=20261109190447" defer></script>
+  <script src="cases-slider.js?v=20261109190447" defer></script>
+  <script src="tasting.js?v=20261109190447" defer></script>
+  <script src="forms.js?v=20261109190447" defer></script>
+  <script src="header.js?v=20261109190447" defer></script>
+  <script src="liquid.js?v=20261109190447" defer></script>
+  <script src="lead.js?v=20261109190447" defer></script>
+  <script src="reviews.js?v=20261109190447" defer></script>
+  <script src="menu5.js?v=20261109190447" defer></script>
+  <script src="stories.js?v=20261109190447" defer></script>
+  <script src="blocks.js?v=20261109190447" defer></script>
+  <script src="main.js?v=20261109190447" defer></script>
 </body>
 </html>
