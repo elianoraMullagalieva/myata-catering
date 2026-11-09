@@ -5077,3 +5077,6 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   .tm__logos { padding-bottom: 28px; }
   .rv { padding-top: 48px; }
 }
+/* видео на ~6% меньше */
+.st { --st-w: clamp(216px, 20.7vw, 526px); }
+@media (max-width: 767px) { .st { --st-w: 58vw; } }
