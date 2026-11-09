@@ -4875,3 +4875,14 @@ html { scrollbar-gutter: stable; }
   text-shadow: none;
   letter-spacing: 0.01em;
 }
+
+/* правки: «О компании» на 20px ниже, заголовок выше; плашка — полупрозрачная почти чёрная;
+   аватарка в отзывах на 10% меньше; подвал без листика; контакты + подвал ровно в экран */
+@media (min-width: 1024px) {
+  .tm__main { height: clamp(540px, calc(100vh - var(--tm-logos) - 20px), 56vw); }
+  .tm__text { padding-bottom: calc(clamp(24px, 0.6rem + 1.4vw, 56px) + 20px); }
+}
+.tm__photo figcaption { background: rgba(12, 10, 9, 0.45); border-top-color: rgba(255, 255, 255, 0.08); }
+.rv-card__ava { width: clamp(34px, 1.62rem + 0.36vw, 45px); height: clamp(34px, 1.62rem + 0.36vw, 45px); }
+.ft5::before { content: none; }
+@media (min-width: 1024px) { .ct5 { height: max(460px, calc(100vh - var(--ft-h, 240px))); } }

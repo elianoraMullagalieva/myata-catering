@@ -5,6 +5,15 @@
 (() => {
   "use strict";
 
+  // контакты + подвал = ровно экран: высоту подвала меряем, чтобы под шапкой не оставалась полоска
+  const ft = document.querySelector(".ft5");
+  if (ft) {
+    const setFt = () => document.documentElement.style.setProperty("--ft-h", `${ft.offsetHeight}px`);
+    setFt();
+    if ("ResizeObserver" in window) new ResizeObserver(setFt).observe(ft);
+    else window.addEventListener("resize", setFt);
+  }
+
   const modal = document.querySelector("[data-lead-modal]");
   if (!modal) return;
   const form = modal.querySelector("[data-lead-form]");
