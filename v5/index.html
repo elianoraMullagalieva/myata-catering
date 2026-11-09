@@ -13,10 +13,9 @@
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#0a0a0a">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="styles.css?v=20261109141931">
+  <link rel="preload" href="assets/fonts/geologica-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=20261109144414">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -336,7 +335,7 @@
         </div>
         <p class="qz__label">Удобный способ связи</p>
         <div class="qz-grid qz-grid--2"><label class="qz-opt"><input type="checkbox" name="contact" value="Звонок"><span>Звонок</span><i aria-hidden="true"></i></label><label class="qz-opt"><input type="checkbox" name="contact" value="Telegram"><span>Telegram</span><i aria-hidden="true"></i></label><label class="qz-opt"><input type="checkbox" name="contact" value="WhatsApp"><span>WhatsApp</span><i aria-hidden="true"></i></label><label class="qz-opt"><input type="checkbox" name="contact" value="MAX"><span>MAX</span><i aria-hidden="true"></i></label></div>
-        <label class="qz-consent"><input type="checkbox" name="consent" required checked><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю своё согласие на&nbsp;обработку моих персональных данных, а&nbsp;также согласие на&nbsp;их&nbsp;предоставление партнёрам</span></label>
+        <label class="qz-consent"><input type="checkbox" name="consent" required><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю своё согласие на&nbsp;обработку моих персональных данных, а&nbsp;также согласие на&nbsp;их&nbsp;предоставление партнёрам</span></label>
         <div class="qz-nav"><button type="button" class="qz-back" data-qz-back><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>Назад</button><button type="submit" class="qz-next" data-qz-next disabled><span>Рассчитать мероприятие</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       </div>
 
@@ -433,7 +432,7 @@
           <label class="tst-field"><input type="tel" name="phone" placeholder="Телефон*" autocomplete="tel" inputmode="tel" required></label>
           <p class="tst-ticket__label">Удобный способ связи</p>
           <div class="tst-chips"><label class="tst-chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label><label class="tst-chip"><input type="radio" name="contact" value="Telegram" checked><span>Telegram</span></label><label class="tst-chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label><label class="tst-chip"><input type="radio" name="contact" value="MAX"><span>MAX</span></label></div>
-          <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required checked><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
+          <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
           <button type="submit" class="tst-submit"><span>Записаться на&nbsp;дегустацию</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
         <div class="tst-ticket__stub tst-ticket__done" data-tst-done hidden>
@@ -671,6 +670,7 @@
       <ul class="rv__track" role="list">
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Анна Смирнова</p><p class="rv-card__meta"><span data-rv-type>Корпоратив</span> · <span data-rv-date>15 октября 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Организовывали корпоратив на 120 человек. Команда «Мяты» взяла на себя всё: от разработки меню до сервиса на площадке. Особенно впечатлили подача блюд и внимательность официантов. Гости остались в восторге, а мы смогли просто наслаждаться вечером!</p>
@@ -681,6 +681,7 @@
         </li>
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Мария Волкова</p><p class="rv-card__meta"><span data-rv-type>Свадьба</span> · <span data-rv-date>28 сентября 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Спасибо команде «Мята» за нашу свадьбу! Всё было невероятно красиво и вкусно. Учли абсолютно все пожелания, предложили интересные решения по меню и оформлению фуршетной зоны. Отдельное спасибо за то, что в день свадьбы нам не пришлось ни о чём беспокоиться.</p>
@@ -691,6 +692,7 @@
         </li>
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Дмитрий Орлов</p><p class="rv-card__meta"><span data-rv-type>Частное мероприятие</span> · <span data-rv-date>12 августа 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Заказывали выездной кейтеринг на день рождения за городом. Всё привезли вовремя, красиво организовали пространство и подготовили отличное меню. Очень понравилось, что команда работала практически незаметно, но у гостей всегда было всё необходимое.</p>
@@ -701,6 +703,7 @@
         </li>
         <li class="rv-card" data-rv-card>
           <div class="rv-card__person">
+            <span class="rv-card__ava" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="18.5" r="8" fill="currentColor"/><path d="M8.5 41.5c1.6-8.2 8-13 15.5-13s13.9 4.8 15.5 13" fill="currentColor"/></svg></span>
             <div><p class="rv-card__name">Елена Кузнецова</p><p class="rv-card__meta"><span data-rv-type>Кофе-брейк</span> · <span data-rv-date>3 июля 2026</span></p></div>
           </div>
           <p class="rv-card__text" data-rv-text>Заказывали кофе-брейки на двухдневную конференцию для 80 участников. Всё прошло чётко по таймингу: свежая выпечка, полезные перекусы и отличный кофе. Команда быстро подстраивалась под изменения программы, а участники потом отдельно благодарили за еду.</p>
@@ -756,6 +759,7 @@
         <div class="ct5__row"><dd><ul class="ct5__socials">
           <li><a class="ct5-social" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg aria-hidden="true"><use href="#i-tg"/></svg></a></li>
           <li><a class="ct5-social" href="https://wa.me/79261241383" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a></li>
+          <li><a class="ct5-social" href="https://max.ru/" target="_blank" rel="noopener" aria-label="Написать в MAX"><svg aria-hidden="true"><use href="#i-max"/></svg></a></li>
         </ul></dd><dt>Мессенджеры</dt></div>
       </dl>
     </div>
@@ -763,6 +767,12 @@
 
   <!-- Подвал (Figma 1025:50) + крупный логотип, уходящий за нижний край -->
   <footer class="ft5">
+    <svg class="ft5__leaf" viewBox="0 0 400 260" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+      <path d="M18 238C60 120 170 34 382 22c-24 120-118 214-300 222-24 1-46-2-64-6z"/>
+      <path d="M18 238C120 180 240 110 382 22"/>
+      <path d="M92 196c-6-34-2-62 10-88M150 160c-4-34 4-66 22-94M206 126c0-30 10-56 30-80M260 94c4-24 14-42 30-58M318 58c4-12 10-20 18-28"/>
+      <path d="M92 196c30 6 62 2 92-14M150 160c32 8 66 6 98-8M206 126c30 6 62 4 92-8M260 94c26 4 52 2 76-6"/>
+    </svg>
     <div class="ft5__top">
       <nav class="ft5__nav" aria-label="Меню в подвале"><ul>
         <li><a href="#cases">Кейсы</a></li><li><a href="#services">Услуги</a></li><li><a href="#menu">Меню</a></li><li><a href="#about">О&nbsp;компании</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#contacts">Контакты</a></li>
@@ -797,7 +807,7 @@
         <label class="tst-field"><input type="tel" name="phone" placeholder="Телефон*" autocomplete="tel" inputmode="tel" required></label>
         <p class="tst-ticket__label">Как с&nbsp;вами связаться <span class="lead__opt">(необязательно)</span></p>
         <div class="tst-chips lead__chips"><label class="tst-chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label><label class="tst-chip"><input type="radio" name="contact" value="MAX"><span>MAX</span></label><label class="tst-chip"><input type="radio" name="contact" value="Telegram"><span>Telegram</span></label><label class="tst-chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label></div>
-        <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required checked><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
+        <label class="qz-consent tst-consent"><input type="checkbox" name="consent" required><i aria-hidden="true"></i><span>Я&nbsp;ознакомлен(-на) и&nbsp;согласен(-на) с&nbsp;<a href="#" class="qz-link">«Политикой конфиденциальности»</a>, даю согласие на&nbsp;обработку персональных данных и&nbsp;их&nbsp;предоставление партнёрам</span></label>
         <button type="submit" class="tst-submit"><span data-lead-btn>Оставить заявку</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       <div class="lead__stub lead__done" data-lead-done hidden>
@@ -809,17 +819,17 @@
   </div>
 
 
-  <script src="sections.js?v=20261109141931" defer></script>
-  <script src="cases.js?v=20261109141931" defer></script>
-  <script src="cases-slider.js?v=20261109141931" defer></script>
-  <script src="tasting.js?v=20261109141931" defer></script>
-  <script src="forms.js?v=20261109141931" defer></script>
-  <script src="header.js?v=20261109141931" defer></script>
-  <script src="lead.js?v=20261109141931" defer></script>
-  <script src="reviews.js?v=20261109141931" defer></script>
-  <script src="stories.js?v=20261109141931" defer></script>
-  <script src="blocks.js?v=20261109141931" defer></script>
-  <script src="menu5.js?v=20261109141931" defer></script>
-  <script src="main.js?v=20261109141931" defer></script>
+  <script src="sections.js?v=20261109144414" defer></script>
+  <script src="cases.js?v=20261109144414" defer></script>
+  <script src="cases-slider.js?v=20261109144414" defer></script>
+  <script src="tasting.js?v=20261109144414" defer></script>
+  <script src="forms.js?v=20261109144414" defer></script>
+  <script src="header.js?v=20261109144414" defer></script>
+  <script src="lead.js?v=20261109144414" defer></script>
+  <script src="reviews.js?v=20261109144414" defer></script>
+  <script src="stories.js?v=20261109144414" defer></script>
+  <script src="blocks.js?v=20261109144414" defer></script>
+  <script src="menu5.js?v=20261109144414" defer></script>
+  <script src="main.js?v=20261109144414" defer></script>
 </body>
 </html>

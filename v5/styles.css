@@ -1,3 +1,189 @@
+/* шрифты лежат на сайте (не тянем с Google — быстрее и надёжнее из России) */
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geologica';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/geologica-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/golos-text-400-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/golos-text-400-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/golos-text-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/golos-text-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/manrope-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/playfair-display-400-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/playfair-display-400-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/playfair-display-400-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* МЯТА — hero. Макет: Figma 1440×859 (узел 50:394) */
 :root {
   --bg: #0a0a0a;
@@ -4581,3 +4767,65 @@ picture { display: contents; }
   .lead__chips { grid-template-columns: 1fr 1fr; }
 }
 body.is-locked:has(.lead.is-open) .stick { transform: translate3d(0, -140%, 0); opacity: 0; visibility: hidden; }
+
+/* «Заявка принята» — больше воздуха: легче читается и выглядит спокойнее */
+.tst-ticket__done, .lead__done { gap: clamp(14px, 0.7rem + 0.4vw, 24px); padding-top: clamp(30px, 1.2rem + 0.9vw, 52px); padding-bottom: clamp(34px, 1.4rem + 1vw, 60px); }
+.tst-ticket__done .tst-ticket__sub, .lead__done .tst-ticket__sub { line-height: 1.6; }
+.lead__ok { margin-top: clamp(8px, 0.4rem + 0.3vw, 16px); }
+
+/* открытие окна без подлагивания: ширина страницы не меняется при блокировке прокрутки,
+   билет — отдельный слой (тень не пересчитывается на каждом кадре) */
+html { scrollbar-gutter: stable; }
+.lead__ticket { will-change: transform, opacity; transform: translate3d(0, 24px, 0); }
+.lead.is-open .lead__ticket { transform: translate3d(0, 0, 0); }
+.lead__backdrop { will-change: opacity; }
+
+/* услуги: карточки чуть крупнее — последняя видимая выглядывает примерно на 70%, а не помещается целиком */
+@media (min-width: 1024px) and (max-width: 1679px) { .svc { --per: 3.5; } }
+@media (min-width: 1680px) and (max-width: 2239px) { .svc { --per: 3.55; } }
+@media (min-width: 2240px) and (max-width: 2999px) { .svc { --per: 4.5; } }
+
+/* контраст соседних блоков: «Искусство создавать впечатления» — белый, «О компании» — светло-серый */
+.st { background: #fff; }
+
+/* ---------- отзывы: больше воздуха, аватар-силуэт вместо фото ---------- */
+.rv { --rv-gap: clamp(16px, 0.6rem + 1vw, 36px); }
+.rv-card { gap: clamp(18px, 0.8rem + 0.6vw, 30px); padding: clamp(26px, 1rem + 1.7vw, 64px); border-radius: 8px; }
+.rv-card__person { gap: 14px; }
+.rv-card__ava {
+  display: grid; place-items: end center; flex: none;
+  width: clamp(44px, 2rem + 0.6vw, 60px); height: clamp(44px, 2rem + 0.6vw, 60px);
+  overflow: hidden; border-radius: 50%;
+  background: #e4ded6; color: #c2b9ae;
+}
+.rv-card__ava svg { width: 100%; height: 100%; }
+.rv-card__meta { margin-top: 6px !important; }
+.rv-card__text { line-height: 1.65; -webkit-line-clamp: 6; color: #2a2420; }
+.rv-card__links { padding-top: clamp(4px, 0.2rem + 0.3vw, 12px); }
+
+/* ---------- контакты компактнее: вместе с подвалом помещаются в один экран ---------- */
+.ct5 { min-height: 0; height: clamp(460px, calc(100vh - 300px), 820px); }
+.ct5__info { justify-content: center; padding-top: clamp(80px, 2rem + 2.6vw, 130px); padding-bottom: clamp(32px, 0.8rem + 1.6vw, 64px); }
+.ct5__title { font-size: clamp(30px, 1rem + 2.2vw, 84px); margin-bottom: clamp(18px, 0.6rem + 1.2vw, 44px) !important; }
+.ct5__row { gap: clamp(4px, 0.2rem + 0.2vw, 10px); padding: clamp(12px, 0.4rem + 0.6vw, 26px) 0; }
+.ct5__row dd { font-size: clamp(18px, 0.7rem + 0.85vw, 36px); }
+.ct5__row--lead dd { font-size: clamp(22px, 0.8rem + 1.2vw, 46px); }
+.ct5__socials { gap: 10px; }
+.ct5-social { width: clamp(36px, 1.6rem + 0.5vw, 50px); height: clamp(36px, 1.6rem + 0.5vw, 50px); }
+@media (max-width: 1023px) { .ct5 { height: auto; } .ct5__info { padding-top: clamp(40px, 7vw, 64px); } }
+
+/* ---------- подвал: компактнее + лёгкий декор — тонкий контурный лист и мягкое мятное свечение ---------- */
+.ft5 { padding-top: clamp(28px, 0.8rem + 1.6vw, 64px); padding-bottom: clamp(24px, 0.8rem + 1.2vw, 48px); isolation: isolate; }
+.ft5::before {
+  content: ""; position: absolute; z-index: -1; right: -10%; top: -60%; width: 60%; aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(160, 196, 150, 0.12), rgba(160, 196, 150, 0));
+  pointer-events: none;
+}
+.ft5__leaf {
+  position: absolute; z-index: -1; right: clamp(-40px, -2vw, 0px); bottom: -18%;
+  width: clamp(260px, 14rem + 16vw, 640px); height: auto;
+  color: #a9c49a; opacity: 0.14; transform: rotate(-8deg); pointer-events: none;
+}
+.ft5__top { padding-bottom: clamp(20px, 0.6rem + 1vw, 40px); }
+.ft5__bottom { padding-top: clamp(16px, 0.6rem + 0.5vw, 28px); }
+@media (max-width: 767px) { .ft5__leaf { width: 70vw; bottom: -6%; opacity: 0.12; } }

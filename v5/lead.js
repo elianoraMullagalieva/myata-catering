@@ -14,6 +14,7 @@
   const subEl = modal.querySelector("[data-lead-sub]");
   const btnEl = modal.querySelector("[data-lead-btn]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
 
   const BASE = {
     title: "Давайте обсудим <em>ваше</em> событие",
@@ -73,7 +74,10 @@
     document.body.classList.add("is-locked");
     requestAnimationFrame(() => {
       modal.classList.add("is-open");
-      form.elements.name.focus({ preventScroll: true });
+      // фокус — после анимации и только с мышью: подсказки автозаполнения и клавиатура
+      // на телефоне не должны появляться посреди открытия окна
+      if (fine.matches) setTimeout(() => form.elements.name.focus({ preventScroll: true }), reduce ? 0 : 420);
+      else modal.querySelector(".lead__close").focus({ preventScroll: true });
     });
   }
   function close() {
@@ -131,6 +135,5 @@
     body.hidden = true;
     done.hidden = false;
     form.reset();
-    consent.checked = true;
   });
 })();
