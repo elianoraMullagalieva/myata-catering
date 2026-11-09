@@ -5206,19 +5206,22 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   opacity: 0.09;
   mix-blend-mode: overlay;
 }
-/* v6 · пятна мягче (размытые края, без «пятна-круга») и заметнее отзываются на курсор */
+/* v6 · пятна: мягкие края; за курсором едва смещаются, при наведении плавно расходятся в стороны и расплываются */
+@property --sp { syntax: "<number>"; inherits: true; initial-value: 0; }
+.tst-bg { --sp: 0; transition: --sp 1.8s var(--ease-out-soft, ease); }
 .tst-bg i {
   background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 80%, transparent) 0%, color-mix(in srgb, var(--c) 38%, transparent) 38%, color-mix(in srgb, var(--c) 12%, transparent) 66%, transparent 100%);
-  opacity: 0.72;
-  translate: calc(var(--mx) * var(--k) * 2.2px) calc(var(--my) * var(--k) * 2.2px);
-  transition: opacity 1.2s var(--ease-out-soft, ease);
+  opacity: calc(0.72 - var(--sp) * 0.12);
+  translate: calc(var(--mx) * var(--k) * 0.35px + var(--dx) * var(--sp) * 1px) calc(var(--my) * var(--k) * 0.35px + var(--dy) * var(--sp) * 1px);
+  scale: calc(1 + var(--sp) * 0.16);
 }
-.tst-bg i:nth-child(4) { opacity: 0.5; }
-.tst-bg i:nth-child(5) { opacity: 0.6; }
+.tst-bg i:nth-child(1) { --dx: -46; --dy: -30; }
+.tst-bg i:nth-child(2) { --dx: 44;  --dy: 36; }
+.tst-bg i:nth-child(3) { --dx: 40;  --dy: -40; }
+.tst-bg i:nth-child(4) { --dx: -34; --dy: 42; opacity: calc(0.5 - var(--sp) * 0.08); }
+.tst-bg i:nth-child(5) { --dx: 0;   --dy: 0;  opacity: calc(0.6 - var(--sp) * 0.1); }
 @media (hover: hover) and (pointer: fine) {
-  .tst-bg { transition: scale 1.6s var(--ease-out-soft, ease); }
-  .tst__right:hover .tst-bg { scale: 1.05; }
-  .tst__right:hover .tst-bg i { opacity: 0.85; }
-  .tst__right:hover .tst-bg i:nth-child(4) { opacity: 0.62; }
-  .tst__right:hover .tst-bg i:nth-child(5) { opacity: 0.66; }
+  .tst__right:hover .tst-bg { --sp: 1; }
 }
+/* v6 · скорость: маска логотипа в контактах не грузится вместе с первым экраном */
+.ct5:not(.is-near) .ct5__logo { -webkit-mask-image: none; mask-image: none; opacity: 0; }

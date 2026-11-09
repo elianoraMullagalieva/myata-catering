@@ -57,7 +57,7 @@
   const coverOf = (c) => c.cover || photosOf(c)[0];
 
   const imgHtml = (p, attrs = "") =>
-    `<img src="${esc(p.src)}" alt="" draggable="false" decoding="async" ${attrs}${p.pos ? ` style="object-position:${esc(p.pos)}"` : ""}>`;
+    `<img src="${esc(p.src)}" alt="" draggable="false" loading="lazy" decoding="async" ${attrs}${p.pos ? ` style="object-position:${esc(p.pos)}"` : ""}>`;
 
   function cardHtml(c, i, copy) {
     const tags = (c.tags || []).map((t) => `<span class="case-card__tag">${esc(t)}</span>`).join("");

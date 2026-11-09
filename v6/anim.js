@@ -7,6 +7,15 @@
    Всё отключается при «уменьшить движение». Без JS контент виден сразу (класс ставится только здесь). */
 (() => {
   "use strict";
+  // крупный логотип в контактах (маска ~100 КБ) подгружаем, только когда до блока остаётся пара экранов
+  const ct = document.querySelector(".ct5");
+  if (ct) {
+    if (!("IntersectionObserver" in window)) ct.classList.add("is-near");
+    else {
+      const near = new IntersectionObserver(([en]) => { if (en.isIntersecting) { ct.classList.add("is-near"); near.disconnect(); } }, { rootMargin: "1600px 0px" });
+      near.observe(ct);
+    }
+  }
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce || !("IntersectionObserver" in window)) return;
   const root = document.documentElement;
@@ -158,7 +167,7 @@
     const area = tbg.parentElement;
     let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
     const tick = () => {
-      x += (tx - x) * 0.06; y += (ty - y) * 0.06;
+      x += (tx - x) * 0.035; y += (ty - y) * 0.035;
       tbg.style.setProperty("--mx", x.toFixed(3));
       tbg.style.setProperty("--my", y.toFixed(3));
       raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
