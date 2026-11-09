@@ -5001,3 +5001,11 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
   mask-image: url("assets/contacts/logo-full.svg");
 }
 @media (max-width: 767px) { .ct5__logo { width: 84%; } }
+
+/* лента логотипов: подпись крупнее; на планшете и телефоне — по центру и с воздухом */
+.tm__logos-label { font-size: clamp(14px, 0.75rem + 0.25vw, 20px); color: rgba(28, 23, 20, 0.62); }
+@media (max-width: 1023px) {
+  .tm__logos { gap: 20px; padding-top: 36px; padding-bottom: 36px; }
+  .tm__logos-label { max-width: 22em; margin: 0 auto; text-align: center; font-size: 16px; line-height: 1.4; text-wrap: balance; }
+}
+@media (max-width: 767px) { .tm__photo figcaption { font-size: 12.5px; padding-inline: 12px; text-wrap: balance; } }
