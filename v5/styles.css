@@ -4948,3 +4948,32 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
 /* кнопки кейсов — с острыми углами, как все кнопки сайта (стрелки и подсказка «Листайте») */
 .cases__arrow { border-radius: 0; width: clamp(48px, 2rem + 0.8vw, 64px); height: clamp(40px, 1.6rem + 0.6vw, 52px); }
 .cases-swipe { border-radius: 0; }
+
+/* дегустация на телефоне: форма видна сразу целиком — белый билет почти во всю ширину поверх фото
+   (вариант 1 из правок Всеволода, без всплывающего окна) */
+@media (max-width: 767px) {
+  .tst__right { padding: 44px 14px 52px; }
+  .tst-ticket:not(.is-sheet) { filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.3)); }
+  .tst-ticket:not(.is-sheet) .tst-ticket__stub:not([hidden]) { display: flex; }
+  .tst-ticket:not(.is-sheet) .tst-ticket__top {
+    background: #fff;
+    color: var(--t-ink);
+    padding: 30px 22px 22px;
+    -webkit-mask: radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+    mask: radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+  }
+  .tst-ticket:not(.is-sheet) .tst-ticket__stub { padding: 26px 22px 30px; }
+  .tst-ticket:not(.is-sheet) .tst-ticket__title { font-size: 28px; }
+  .tst-ticket:not(.is-sheet) .tst-ticket__sub { color: var(--t-mute); }
+  .tst-ticket:not(.is-sheet) .tst-ticket__pills li { border-color: rgba(28, 23, 20, 0.25); background: transparent; color: var(--t-ink); }
+  .tst-chips { grid-template-columns: 1fr 1fr; }
+}
+
+/* отзывы на телефоне: стрелки ← 01 / 04 → по центру, больше воздуха до кнопки */
+@media (max-width: 767px) {
+  .rv__foot { gap: 28px; margin-top: 36px; }
+  .rv__nav { justify-content: center; }
+}
+/* подвал: кнопка «Оставить заявку» — белая */
+.ft5__btn { background: #fff; }
+@media (hover: hover) { .ft5__btn:hover { background: #f2ede6; } }

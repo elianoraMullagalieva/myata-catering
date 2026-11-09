@@ -1,6 +1,5 @@
 /* МЯТА — общее для форм:
    1) маска телефона +7 (___) ___-__-__ во всех полях type="tel" (квиз и дегустация);
-   2) дегустация на телефоне: кнопка «Записаться на дегустацию» открывает форму во всплывающем окне;
    3) абстрактный фон за формой дегустации чуть тянется за курсором. */
 (() => {
   "use strict";
@@ -100,51 +99,4 @@
     // после сброса формы (успешная отправка) — снова пусто
     if (input.form) input.form.addEventListener("reset", () => { d = ""; });
   });
-
-  /* ---------- 2. Дегустация на телефоне: форма во всплывающем окне ---------- */
-  const tst = document.querySelector(".tst");
-  const ticket = tst && tst.querySelector("[data-tst-form]");
-  const openBtn = tst && tst.querySelector("[data-tst-open]");
-  const closeBtn = tst && tst.querySelector("[data-tst-close]");
-  const backdrop = tst && tst.querySelector("[data-tst-backdrop]");
-  const mobile = window.matchMedia("(max-width: 767px)");
-
-  if (ticket && openBtn && closeBtn && backdrop) {
-    let timer = 0;
-    let lastFocus = null;
-    const isOpen = () => ticket.classList.contains("is-open");
-
-    function open() {
-      clearTimeout(timer);
-      lastFocus = document.activeElement;
-      backdrop.hidden = false;
-      ticket.classList.add("is-sheet");
-      void ticket.offsetWidth;
-      ticket.classList.add("is-open");
-      backdrop.classList.add("is-on");
-      document.documentElement.classList.add("tst-locked");
-      ticket.setAttribute("role", "dialog");
-      ticket.setAttribute("aria-modal", "true");
-      ticket.setAttribute("aria-label", "Запись на дегустацию");
-      closeBtn.focus({ preventScroll: true });
-    }
-    function close(instant) {
-      if (!isOpen() && !ticket.classList.contains("is-sheet")) return;
-      ticket.classList.remove("is-open");
-      backdrop.classList.remove("is-on");
-      document.documentElement.classList.remove("tst-locked");
-      ticket.removeAttribute("role");
-      ticket.removeAttribute("aria-modal");
-      ticket.removeAttribute("aria-label");
-      const done = () => { ticket.classList.remove("is-sheet"); backdrop.hidden = true; };
-      if (instant) done(); else timer = setTimeout(done, 450);
-      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
-    }
-
-    openBtn.addEventListener("click", open);
-    closeBtn.addEventListener("click", () => close());
-    backdrop.addEventListener("click", () => close());
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) close(); });
-    mobile.addEventListener("change", (e) => { if (!e.matches) close(true); });
-  }
 })();
