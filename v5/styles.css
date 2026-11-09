@@ -4933,3 +4933,18 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
 .lead__ok { margin-top: clamp(24px, 1rem + 0.8vw, 40px); }
 .lead__done .tst-ticket__over, .tst-ticket__done .tst-ticket__over { margin: 0 !important; }
 .lead__done .tst-ticket__sub, .tst-ticket__done .tst-ticket__sub { margin-bottom: 0 !important; }
+
+/* «О компании»: ещё компактнее сверху (~25px), между подводкой и цифрами +15px */
+@media (min-width: 1024px) {
+  .tm__main { height: clamp(500px, calc(100vh - var(--tm-logos) - 65px), 56vw); }
+  .tm__text { padding-top: calc(clamp(88px, 2.6rem + 1.6vw, 130px) - 45px); }
+  .tm__stats { padding-top: calc(clamp(22px, 0.6rem + 1.5vw, 56px) + 15px); }
+}
+/* отзывы: стрелки и кнопка ниже, счётчик между стрелками */
+.rv__foot { margin-top: calc(clamp(28px, 1rem + 2.6vw, 96px) + 25px); }
+.rv__count { position: static; transform: none; margin: 0 clamp(10px, 0.4rem + 0.5vw, 20px); }
+@media (max-width: 767px) { .rv__foot { margin-top: 32px; } }
+
+/* кнопки кейсов — с острыми углами, как все кнопки сайта (стрелки и подсказка «Листайте») */
+.cases__arrow { border-radius: 0; width: clamp(48px, 2rem + 0.8vw, 64px); height: clamp(40px, 1.6rem + 0.6vw, 52px); }
+.cases-swipe { border-radius: 0; }
