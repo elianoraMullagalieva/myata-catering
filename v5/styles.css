@@ -3954,9 +3954,9 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
     );
   }
 }
-@media (min-width: 1680px) and (max-width: 2239px) { .svc { --per: 4.75; } }
-@media (min-width: 2240px) and (max-width: 2999px) { .svc { --per: 5.75; } }
-@media (min-width: 3000px)                         { .svc { --per: 7.5; } }
+@media (min-width: 1680px) and (max-width: 2239px) { .svc { --per: 3.85; } }
+@media (min-width: 2240px) and (max-width: 2999px) { .svc { --per: 4.75; } }
+@media (min-width: 3000px)                         { .svc { --per: 6.5; } }
 
 /* меню: заголовок, подводка и кнопка одной группой по центру высоты (под шапкой) */
 @media (min-width: 1024px) {
@@ -3972,10 +3972,10 @@ body.is-locked:has(.cpop.is-open) .stick { transform: translate3d(0, -140%, 0); 
 /* видео: лёгкий объём «барабана» — боковые ролики чуть развёрнуты к центру.
    Откат: убрать класс st--ring у секции #stories в index.html */
 .st--ring .st-card__media {
-  transform: perspective(1500px) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
+  transform: translateY(var(--ty, 0px)) rotate(var(--rz, 0deg)) perspective(1500px) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 @media (max-width: 767px) {
-  .st--ring .st-card__media { transform: perspective(900px) rotateY(var(--ry, 0deg)) scale(var(--s, 1)); }
+  .st--ring .st-card__media { transform: translateY(var(--ty, 0px)) rotate(var(--rz, 0deg)) perspective(900px) rotateY(var(--ry, 0deg)) scale(var(--s, 1)); }
 }
