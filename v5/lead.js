@@ -15,7 +15,7 @@
   }
 
   // контакты: «луч света» по листу — вокруг курсора фото чёткое, остальное мягко размыто;
-  // знак «МЯТА» чуть смещается за курсором, градиент внутри букв перетекает к нему
+  // знак «МЯТА» стоит на месте и сам медленно переливается
   const vis = document.querySelector("[data-ct5-visual]");
   if (vis && window.matchMedia("(hover: hover) and (pointer: fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     let tx = 0.5, ty = 0.5, x = 0.5, y = 0.5, raf = 0;
@@ -24,9 +24,6 @@
       const r = vis.getBoundingClientRect();
       vis.style.setProperty("--x", `${(x * r.width).toFixed(1)}px`);
       vis.style.setProperty("--y", `${(y * r.height).toFixed(1)}px`);
-      vis.style.setProperty("--dx", `${((x - 0.5) * 22).toFixed(2)}px`);
-      vis.style.setProperty("--dy", `${((y - 0.5) * 16).toFixed(2)}px`);
-      vis.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`);
       raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
     };
     const go = () => { if (!raf) raf = requestAnimationFrame(tick); };

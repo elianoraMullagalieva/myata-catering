@@ -5000,3 +5000,8 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
     transition: background-position 0.3s linear;
   }
 }
+
+/* знак «МЯТА» не двигается за курсором — только медленно переливается; за мышью ходит лишь «луч» по фото */
+@media (hover: hover) and (pointer: fine) {
+  .ct5__logo, .ct5__visual.is-live .ct5__logo { transform: translate(-50%, -50%); animation: ct5-flow 14s ease-in-out infinite alternate; transition: none; }
+}
