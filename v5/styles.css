@@ -4902,3 +4902,34 @@ html { scrollbar-gutter: stable; }
 /* фото команды не реагирует на курсор: иначе браузер (напр. Яндекс) показывает над картинкой
    свою панель, и стеклянная плашка размывает её в белое пятно */
 .tm__photo img, .tm__photo picture { pointer-events: none; -webkit-user-drag: none; user-select: none; }
+
+/* картинки не реагируют на курсор — браузер (Яндекс) не вешает поверх свою панель с кнопками;
+   клики и листание идут по карточкам и кнопкам. Плеер роликов не трогаем: там клик по видео нужен */
+img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; }
+
+/* ---------- формы-билеты (окно заявки и дегустация): ровные переносы и больше воздуха ---------- */
+.tst-ticket__title, .tst-ticket__sub { text-wrap: balance; }
+.lead__ticket { width: min(100%, clamp(360px, 18rem + 15vw, 720px)); }
+.lead__top, .lead__stub { padding-inline: clamp(28px, 1.2rem + 1.6vw, 64px); }
+.lead__top { padding-top: clamp(38px, 1.5rem + 1.4vw, 68px); padding-bottom: clamp(26px, 1rem + 0.9vw, 44px); padding-right: clamp(64px, 2.4rem + 1.4vw, 96px); }
+.lead__stub { gap: clamp(12px, 0.6rem + 0.3vw, 20px); padding-top: clamp(30px, 1.2rem + 0.9vw, 50px); padding-bottom: clamp(34px, 1.4rem + 1vw, 60px); }
+.lead__stub .tst-ticket__label { margin-top: clamp(6px, 0.3rem + 0.3vw, 14px); }
+.lead__stub .tst-chips { margin-bottom: clamp(6px, 0.3rem + 0.3vw, 14px); }
+.lead__stub .tst-consent { margin: clamp(2px, 0.2rem + 0.2vw, 8px) 0 clamp(10px, 0.5rem + 0.4vw, 20px); }
+.tst-ticket__stub .tst-chips { margin-bottom: clamp(4px, 0.2rem + 0.3vw, 12px); }
+.tst-ticket__stub .tst-consent { margin: clamp(2px, 0.2rem + 0.2vw, 8px) 0 clamp(8px, 0.4rem + 0.3vw, 16px); }
+
+/* «Заявка принята» — заметный заголовок, сгруппирован с пояснением, без одиноких слов в строке */
+.lead__done, .tst-ticket__done { gap: 0; }
+.lead__done .tst-ticket__over, .tst-ticket__done .tst-ticket__over {
+  font-size: clamp(22px, 0.9rem + 0.8vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  line-height: 1.1;
+  color: var(--t-ink);
+}
+.lead__done .tst-ticket__sub, .tst-ticket__done .tst-ticket__sub { margin-top: clamp(10px, 0.5rem + 0.3vw, 16px) !important; max-width: 30em; text-wrap: balance; }
+.lead__ok { margin-top: clamp(24px, 1rem + 0.8vw, 40px); }
+.lead__done .tst-ticket__over, .tst-ticket__done .tst-ticket__over { margin: 0 !important; }
+.lead__done .tst-ticket__sub, .tst-ticket__done .tst-ticket__sub { margin-bottom: 0 !important; }

@@ -26,7 +26,7 @@
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
 
   const BASE = {
-    title: "Давайте обсудим <em>ваше</em> событие",
+    title: "Давайте обсудим<br> <em>ваше</em> событие",
     sub: "Оставьте контакты, и&nbsp;мы&nbsp;свяжемся с&nbsp;вами удобным способом, чтобы обсудить детали мероприятия.",
     btn: "Оставить заявку",
     topic: "Заявка",
@@ -46,7 +46,7 @@
     const kind = trigger.dataset.lead;
     if (kind === "menu") {
       return {
-        title: "Получите <em>полное</em> меню",
+        title: "Получите<br> <em>полное</em> меню",
         sub: "Оставьте контакты&nbsp;— пришлём меню с&nbsp;ценами удобным способом и&nbsp;поможем подобрать блюда под ваше событие.",
         btn: "Получить меню",
         topic: "Полное меню",
@@ -58,7 +58,7 @@
       const about = ABOUT[name];
       if (about) {
         return {
-          title: `Расскажем подробнее <em>о&nbsp;${about}</em>`,
+          title: `Расскажем подробнее<br> <em>о&nbsp;${about}</em>`,
           sub: "Оставьте контакты&nbsp;— обсудим формат, подберём меню и&nbsp;рассчитаем стоимость под ваше мероприятие.",
           btn: "Узнать подробнее",
           topic: name,
