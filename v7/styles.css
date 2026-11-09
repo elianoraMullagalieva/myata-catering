@@ -5230,3 +5230,12 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
 .tst-lens.is-on { opacity: 1; }
 .has-lens .tst-bg { display: none; }
 .has-lens::after { opacity: 0.05; }
+
+/* «Почему мы?» на компьютере: пункт раскрывается при наведении — текст мягко проявляется, заголовок чуть отъезжает */
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .why .acc-panel { transition: grid-template-rows 0.7s var(--ease-out-soft, ease); }
+  .why .acc-panel__in > * { opacity: 0; translate: 0 -6px; transition: opacity 0.35s ease, translate 0.5s var(--ease-out-soft, ease); }
+  .why .why-item.is-open .acc-panel__in > * { opacity: 1; translate: 0 0; transition-delay: 0.14s; }
+  .why .why-item__title { transition: translate 0.6s var(--ease-out-soft, ease); }
+  .why .why-item.is-open .why-item__title { translate: 8px 0; }
+}

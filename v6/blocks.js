@@ -29,5 +29,27 @@
         item.dispatchEvent(new CustomEvent("acc:open", { bubbles: true }));
       });
     });
+
+    // на компьютере пункт раскрывается при наведении мыши (без прокрутки страницы).
+    // Реагируем только на настоящее движение мыши, а не на сдвиг строк при раскрытии соседа,
+    // и с небольшой задержкой — чтобы при быстром проведении курсора пункты не мелькали
+    if (single && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      let timer = 0, target = null;
+      items.forEach((item) => {
+        item.addEventListener("pointermove", (e) => {
+          if (e.pointerType !== "mouse" || (!e.movementX && !e.movementY)) return;
+          if (item.classList.contains("is-open") || target === item) return;
+          target = item;
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            if (target !== item) return;
+            items.forEach((it) => it !== item && setOpen(it, false));
+            setOpen(item, true);
+            item.dispatchEvent(new CustomEvent("acc:open", { bubbles: true }));
+          }, 140);
+        });
+        item.addEventListener("pointerleave", () => { if (target === item) { target = null; clearTimeout(timer); } });
+      });
+    }
   });
 })();
