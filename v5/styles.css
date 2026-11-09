@@ -4898,3 +4898,7 @@ html { scrollbar-gutter: stable; }
   backdrop-filter: blur(16px) saturate(1.15);
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
+
+/* фото команды не реагирует на курсор: иначе браузер (напр. Яндекс) показывает над картинкой
+   свою панель, и стеклянная плашка размывает её в белое пятно */
+.tm__photo img, .tm__photo picture { pointer-events: none; -webkit-user-drag: none; user-select: none; }
