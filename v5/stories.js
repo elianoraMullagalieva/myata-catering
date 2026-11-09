@@ -52,6 +52,7 @@
   // все видимые ролики яркие, без выбеливания; плавно исчезают только уходящие за край
   const alphaAt = (a) => (a <= 2.4 ? 1 : Math.max(0, 1 - smooth(Math.min(1, (a - 2.4) / 0.8))));
   const smooth = (t) => t * t * (3 - 2 * t);
+  const RING = st.classList.contains("st--ring") ? (phone.matches ? 7 : 9) : 0; // градусов на одну карточку
   // на компьютере центр экрана — между двумя кадрами (позиции …,1.5, 2.5…), на телефоне — по центру кадра
   const snap = (x) => Math.round(x); // в центре всегда одно видео
   function measure() {
@@ -104,6 +105,9 @@
       c.style.visibility = "";
       c.style.transform = `translate3d(${(half + xx - w / 2).toFixed(2)}px, 0, 0)`;
       c.style.setProperty("--s", sc[k].toFixed(4));
+      // объём «барабана»: боковые ролики слегка развёрнуты к центру (включается классом st--ring)
+      const u = xx / (w + g), ua = Math.min(Math.abs(u), 2.6);
+      c.style.setProperty("--ry", `${(Math.sign(u) * ua * RING).toFixed(2)}deg`);
       const aa = Math.abs(xx) / (w + g);
       c.style.opacity = alphaAt(aa).toFixed(3);
       c.classList.toggle("is-center", aa < 0.5);
