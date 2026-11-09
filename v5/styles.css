@@ -4989,8 +4989,6 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
 }
 
 /* контакты: «живая вода» (liquid.js, OGL Flowmap) — холст поверх фото, знак сверху */
-.ct5__liquid { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
-.ct5__visual.has-liquid .ct5__liquid { opacity: 1; }
 .ct5__logo { z-index: 1; }
 
 /* контакты: знак с подписью «catering & events», как в логотипе из макета */
@@ -5009,3 +5007,8 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
   .tm__logos-label { max-width: 22em; margin: 0 auto; text-align: center; font-size: 16px; line-height: 1.4; text-wrap: balance; }
 }
 @media (max-width: 767px) { .tm__photo figcaption { font-size: 12.5px; padding-inline: 12px; text-wrap: balance; } }
+
+/* «живая вода» (liquid.js): холст поверх фото — в контактах и за формой дегустации */
+.liquid-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+.has-liquid > .liquid-canvas { opacity: 1; }
+.tst__right .liquid-canvas { z-index: 0; }

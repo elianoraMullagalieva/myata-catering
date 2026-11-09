@@ -1,34 +1,41 @@
-/* МЯТА — «живая вода» на фото листа в контактах (как на osply.co).
-   WebGL на библиотеке OGL (vendor/ogl.mjs, лежит на сайте): широкая мягкая линза под курсором — лист чуть
-   выпукло увеличивается, линии плавно изгибаются и с инерцией тянутся за мышью. Знак «МЯТА» не двигается.
+/* МЯТА — «живая вода» на фото: контакты (лист) и дегустация (фон за формой).
+   WebGL на библиотеке OGL (vendor/ogl.mjs, лежит на сайте): широкая мягкая линза под курсором — фото чуть
+   выпукло увеличивается, линии плавно изгибаются и с инерцией тянутся за мышью. Знаки и формы сверху не двигаются.
    Только для мыши; библиотека грузится, когда блок близко к экрану. Без WebGL остаётся обычное фото. */
 (() => {
   "use strict";
-  const box = document.querySelector("[data-ct5-visual]");
-  if (!box) return;
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const img = box.querySelector(".ct5__photo");
-  if (!img) return;
+  let lib = null;
+  const getLib = () => lib || (lib = import("./vendor/ogl.mjs"));
+  // [контейнер, картинка, вертикальный фокус кадра]
+  const targets = [
+    [document.querySelector("[data-ct5-visual]"), ".ct5__photo", 0.45],
+    [document.querySelector(".tst__right"), ".tst__photo", 0.5],
+  ];
+  targets.forEach(([box, sel, fy]) => {
+    if (!box) return;
+    const img = box.querySelector(sel);
+    if (!img) return;
+    let started = false;
+    const io = new IntersectionObserver((es) => {
+      if (es[0].isIntersecting && !started) { started = true; io.disconnect(); start(box, img, fy).catch(() => {}); }
+    }, { rootMargin: "400px 0px" });
+    io.observe(box);
+  });
 
-  let started = false;
-  const io = new IntersectionObserver((es) => {
-    if (es[0].isIntersecting && !started) { started = true; io.disconnect(); start().catch(() => {}); }
-  }, { rootMargin: "400px 0px" });
-  io.observe(box);
-
-  async function start() {
+  async function start(box, img, fy) {
     let O;
-    try { O = await import("./vendor/ogl.mjs"); } catch (e) { return; }
+    try { O = await getLib(); } catch (e) { return; }
     const { Renderer, Program, Mesh, Triangle, Texture } = O;
 
     const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio || 1, 2), alpha: true });
     const gl = renderer.gl;
     if (!gl) return;
     const canvas = gl.canvas;
-    canvas.className = "ct5__liquid";
+    canvas.className = "liquid-canvas";
     canvas.setAttribute("aria-hidden", "true");
-    box.insertBefore(canvas, box.querySelector(".ct5__logo"));
+    img.closest("picture") ? img.closest("picture").after(canvas) : img.after(canvas);
 
     const texture = new Texture(gl, { minFilter: gl.LINEAR, magFilter: gl.LINEAR, generateMipmaps: false });
     const U = {
@@ -38,6 +45,7 @@
       uMouse: { value: [0.5, 0.5] },
       uVel: { value: [0, 0] },
       uHover: { value: 0 },
+      uFy: { value: 1 - fy },
     };
     const program = new Program(gl, {
       vertex: /* glsl */ `
@@ -46,7 +54,7 @@
       fragment: /* glsl */ `
         precision highp float;
         uniform sampler2D tImage; uniform vec2 uCover; uniform float uAspect;
-        uniform vec2 uMouse; uniform vec2 uVel; uniform float uHover;
+        uniform vec2 uMouse; uniform vec2 uVel; uniform float uHover; uniform float uFy;
         varying vec2 vUv;
         void main() {
           vec2 p = vUv;
@@ -57,7 +65,7 @@
           vec2 q = p - (p - uMouse) * g * 0.085 * uHover;
           // инерция: поверхность тянется за движением мыши и пружинисто догоняет
           q -= uVel * g;
-          vec2 uv = (q - vec2(0.5, 0.55)) * uCover + vec2(0.5, 0.55);
+          vec2 uv = (q - vec2(0.5, uFy)) * uCover + vec2(0.5, uFy);
           gl_FragColor = vec4(texture2D(tImage, uv).rgb, 1.0);
         }`,
       uniforms: U,
