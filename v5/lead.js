@@ -14,6 +14,30 @@
     else window.addEventListener("resize", setFt);
   }
 
+  // контакты: «луч света» по листу — вокруг курсора фото чёткое, остальное мягко размыто;
+  // знак «МЯТА» чуть смещается за курсором, градиент внутри букв перетекает к нему
+  const vis = document.querySelector("[data-ct5-visual]");
+  if (vis && window.matchMedia("(hover: hover) and (pointer: fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let tx = 0.5, ty = 0.5, x = 0.5, y = 0.5, raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.12; y += (ty - y) * 0.12;
+      const r = vis.getBoundingClientRect();
+      vis.style.setProperty("--x", `${(x * r.width).toFixed(1)}px`);
+      vis.style.setProperty("--y", `${(y * r.height).toFixed(1)}px`);
+      vis.style.setProperty("--dx", `${((x - 0.5) * 22).toFixed(2)}px`);
+      vis.style.setProperty("--dy", `${((y - 0.5) * 16).toFixed(2)}px`);
+      vis.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`);
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
+    };
+    const go = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    vis.addEventListener("pointerenter", () => vis.classList.add("is-live"));
+    vis.addEventListener("pointermove", (e) => {
+      const r = vis.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width; ty = (e.clientY - r.top) / r.height; go();
+    });
+    vis.addEventListener("pointerleave", () => { vis.classList.remove("is-live"); tx = 0.5; ty = 0.5; go(); });
+  }
+
   const modal = document.querySelector("[data-lead-modal]");
   if (!modal) return;
   const form = modal.querySelector("[data-lead-form]");
