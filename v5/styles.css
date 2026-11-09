@@ -4886,3 +4886,15 @@ html { scrollbar-gutter: stable; }
 .rv-card__ava { width: clamp(34px, 1.62rem + 0.36vw, 45px); height: clamp(34px, 1.62rem + 0.36vw, 45px); }
 .ft5::before { content: none; }
 @media (min-width: 1024px) { .ct5 { height: max(460px, calc(100vh - var(--ft-h, 240px))); } }
+
+/* «О компании»: ещё на 20px ниже за счёт верха; плашка — стекло, затемнение всего 5% */
+@media (min-width: 1024px) {
+  .tm__main { height: clamp(520px, calc(100vh - var(--tm-logos) - 40px), 56vw); }
+  .tm__text { padding-top: calc(clamp(88px, 2.6rem + 1.6vw, 130px) - 20px); }
+}
+.tm__photo figcaption {
+  background: rgba(0, 0, 0, 0.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  backdrop-filter: blur(16px) saturate(1.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
