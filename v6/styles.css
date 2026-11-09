@@ -5080,3 +5080,77 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
 /* видео на ~6% меньше */
 .st { --st-w: clamp(216px, 20.7vw, 526px); }
 @media (max-width: 767px) { .st { --st-w: 58vw; } }
+
+/* ======================================================================
+   v6 — «оркестр» анимаций (anim.js): появление волной с перехлёстом, шторки фото, плавные окна
+   ====================================================================== */
+:root { --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1); --ease-in-soft: cubic-bezier(0.55, 0, 0.75, 0.2); }
+/* выплывает снизу; у текстов — ещё и из лёгкого размытия */
+.anim-ready [data-a="rise"] {
+  opacity: 0;
+  translate: 0 34px;
+  transition: opacity 0.9s var(--ease-out-soft) var(--ad, 0s), translate 1.25s var(--ease-out-soft) var(--ad, 0s), filter 1s var(--ease-out-soft) var(--ad, 0s);
+}
+.anim-ready :is(.tst__title, .tst__lead, .why__title, .why__lead, .m5__title, .m5__lead, .st__title, .st__lead, .tm__title, .tm__lead, .rv__title, .rv__lead, .ct5__title)[data-a="rise"] { filter: blur(8px); }
+.anim-ready [data-a="rise"].is-in { opacity: 1; translate: 0 0; filter: none; }
+/* проявляется (ленты, которые и так движутся) */
+.anim-ready [data-a="fade"] { opacity: 0; transition: opacity 1.4s var(--ease-out-soft) var(--ad, 0s); }
+.anim-ready [data-a="fade"].is-in { opacity: 1; }
+/* шторка снизу вверх; фото внутри чуть отъезжает из приближения */
+.anim-ready [data-a="clip"] { clip-path: inset(100% 0 0 0); transition: clip-path 1.45s cubic-bezier(0.77, 0, 0.18, 1) var(--ad, 0s); }
+.anim-ready [data-a="clip"].is-in { clip-path: inset(0 0 0 0); }
+.anim-ready :is(.why__photo, .tm__photo)[data-a="clip"] img { scale: 1.16; transition: scale 2.2s var(--ease-out-soft) var(--ad, 0s); }
+.anim-ready :is(.why__photo, .tm__photo)[data-a="clip"].is-in img { scale: 1.06; }
+/* крупные фото плывут при прокрутке (запас по краям — scale) */
+.why__photo img, .tm__photo img { translate: 0 var(--py, 0px); scale: 1.06; }
+@media (max-width: 1023px) { .why__photo img, .tm__photo img { translate: none; scale: 1; } }
+
+/* кнопки-магниты: слегка тянутся к курсору */
+.is-magnet { transform: translate3d(var(--mx, 0px), var(--my, 0px), 0); }
+/* карточки отзывов оживают под мышью */
+@media (hover: hover) {
+  .rv-card { transition: translate 0.6s var(--ease-out-soft), box-shadow 0.6s var(--ease-out-soft), background-color 0.4s; }
+  .rv-card:hover { translate: 0 -6px; box-shadow: 0 22px 44px rgba(28, 23, 20, 0.08); background: #f5f4f2; }
+  .tm-stat { transition: translate 0.6s var(--ease-out-soft); }
+  .tm-stat:hover { translate: 0 -3px; }
+  .ft5__nav a, .ct5__row a { transition: color 0.3s, opacity 0.3s; }
+}
+
+/* ---------- окна: открываются плавно и дорого, закрываются быстрее ---------- */
+.rvo__backdrop, .rvm__backdrop, .lead__backdrop { transition: opacity 0.55s var(--ease-out-soft), backdrop-filter 0.55s; }
+.rvo__box, .rvm__box, .lead__ticket {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translate3d(0, 40px, 0) scale(0.955);
+  transition: opacity 0.5s var(--ease-out-soft), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s var(--ease-out-soft);
+}
+.rvo.is-open .rvo__box, .rvm.is-open .rvm__box, .lead.is-open .lead__ticket { opacity: 1; filter: none; transform: none; }
+.lead__ticket { filter: blur(10px) drop-shadow(0 24px 60px rgba(0, 0, 0, 0.35)); }
+.lead.is-open .lead__ticket { filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.35)); }
+/* закрытие — короче и мягче */
+.rvo:not(.is-open) .rvo__box, .rvm:not(.is-open) .rvm__box, .lead:not(.is-open) .lead__ticket { transition-duration: 0.28s, 0.35s, 0.3s; transition-timing-function: var(--ease-in-soft); }
+/* скриншот отзыва раскрывается шторкой, подпись — следом */
+.rvo__img { pointer-events: none; clip-path: inset(0 0 100% 0 round 10px); transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.18, 1) 0.12s; }
+.rvo.is-open .rvo__img { clip-path: inset(0 0 0 0 round 10px); }
+.rvo__cap { opacity: 0; translate: 0 10px; transition: opacity 0.6s var(--ease-out-soft) 0.45s, translate 0.8s var(--ease-out-soft) 0.45s; }
+.rvo.is-open .rvo__cap { opacity: 1; translate: 0 0; }
+.rvo__close { opacity: 0; transition: opacity 0.5s 0.35s; }
+.rvo.is-open .rvo__close { opacity: 1; }
+/* содержимое окна отзыва — короткая волна */
+.rvm.is-open .rvm__body > * { animation: rvm-wave 0.9s var(--ease-out-soft) both; }
+.rvm.is-open .rvm__body > *:nth-child(2) { animation-delay: 0.08s; }
+.rvm.is-open .rvm__body > *:nth-child(3) { animation-delay: 0.16s; }
+.rvm.is-open .rvm__body > *:nth-child(4) { animation-delay: 0.24s; }
+@keyframes rvm-wave { from { opacity: 0; translate: 0 14px; } }
+/* поля окна заявки — тоже волной */
+.lead.is-open .lead__stub > * { animation: rvm-wave 0.9s var(--ease-out-soft) both; }
+.lead.is-open .lead__stub > *:nth-child(2) { animation-delay: 0.1s; }
+.lead.is-open .lead__stub > *:nth-child(3) { animation-delay: 0.15s; }
+.lead.is-open .lead__stub > *:nth-child(4) { animation-delay: 0.2s; }
+.lead.is-open .lead__stub > *:nth-child(5) { animation-delay: 0.25s; }
+.lead.is-open .lead__stub > *:nth-child(6) { animation-delay: 0.3s; }
+.lead.is-open .lead__stub > *:nth-child(7) { animation-delay: 0.35s; }
+@media (prefers-reduced-motion: reduce) {
+  .rvo__box, .rvm__box, .lead__ticket, .rvo__img, .rvo__cap { transition: none !important; filter: none !important; clip-path: none !important; }
+  .rvm.is-open .rvm__body > *, .lead.is-open .lead__stub > * { animation: none; }
+}
