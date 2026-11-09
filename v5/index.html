@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&family=Golos+Text:wght@400&family=Manrope:wght@400;500&family=Playfair+Display:ital,wght@1,400&display=swap">
-  <link rel="stylesheet" href="../styles.css?v=20261109123656">
-  <link rel="stylesheet" href="styles.css?v=20261109123656">
+  <link rel="stylesheet" href="../styles.css?v=20261109124527">
+  <link rel="stylesheet" href="styles.css?v=20261109124527">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -442,7 +442,7 @@
   </section>
 
   <!-- 8. Почему мы: фото + аккордеон из восьми причин -->
-  <section class="why" id="about" aria-labelledby="why-title">
+  <section class="why" id="why" aria-labelledby="why-title">
     <div class="why__head">
       <h2 class="why__title" id="why-title">Почему <em>мы?</em></h2>
       <p class="why__lead">8&nbsp;причин доверить нам ваше событие</p>
@@ -564,10 +564,89 @@
   </section>
 
   <!-- 7. Видео: вертикальные ролики-сторис; на телефоне — по одному, листаются свайпом и стрелками -->
-  <section class="st st--ring" id="stories" aria-labelledby="st-title" data-st data-inline="1">
+  <section class="st" id="stories" aria-labelledby="stories-title" data-st data-inline="1">
+    <p class="st-variant">Вариант A — плоский</p>
     <div class="st__head">
       
-      <h2 class="st__title" id="st-title">Искусство создавать <em>впечатления</em><span class="st__mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span></h2>
+      <h2 class="st__title" id="stories-title">Искусство создавать <em>впечатления</em><span class="st__mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span></h2>
+      <p class="st__lead">Каждое событие&nbsp;— особенная история, в&nbsp;которой гастрономия, эстетика и&nbsp;атмосфера становятся единым целым</p>
+    </div>
+    <div class="st__viewport" data-st-viewport tabindex="0" aria-label="Лента видео, листается стрелками">
+      <ul class="st__track" data-st-track>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="0" aria-label="Смотреть видео: Свадьба">
+          <span class="st-card__media"><img src="../assets/video/1.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/1-sm.mp4" data-full="../assets/video/1.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Свадьба</span><span class="st-card__time">0:20</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="1" aria-label="Смотреть видео: Фуршет на террасе">
+          <span class="st-card__media"><img src="../assets/video/2.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/2-sm.mp4" data-full="../assets/video/2.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Фуршет на террасе</span><span class="st-card__time">0:27</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="2" aria-label="Смотреть видео: Корпоратив">
+          <span class="st-card__media"><img src="../assets/video/3.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/3-sm.mp4" data-full="../assets/video/3.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Корпоратив</span><span class="st-card__time">0:19</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="3" aria-label="Смотреть видео: Презентация">
+          <span class="st-card__media"><img src="../assets/video/4.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/4-sm.mp4" data-full="../assets/video/4.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Презентация</span><span class="st-card__time">0:31</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="4" aria-label="Смотреть видео: Фуршет">
+          <span class="st-card__media"><img src="../assets/video/5.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/5-sm.mp4" data-full="../assets/video/5.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Фуршет</span><span class="st-card__time">0:14</span></span>
+        </button></li>
+      </ul>
+    </div>
+    <div class="st__nav">
+      <div class="st__arrows" aria-label="Листать видео">
+        <button type="button" class="svc__arrow" data-st-prev aria-label="Предыдущее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="svc__arrow svc__arrow--next" data-st-next aria-label="Следующее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="st st--drum" id="stories-b" aria-labelledby="stories-b-title" data-st data-inline="1">
+    <p class="st-variant">Вариант B — барабан</p>
+    <div class="st__head">
+      
+      <h2 class="st__title" id="stories-b-title">Искусство создавать <em>впечатления</em><span class="st__mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span></h2>
+      <p class="st__lead">Каждое событие&nbsp;— особенная история, в&nbsp;которой гастрономия, эстетика и&nbsp;атмосфера становятся единым целым</p>
+    </div>
+    <div class="st__viewport" data-st-viewport tabindex="0" aria-label="Лента видео, листается стрелками">
+      <ul class="st__track" data-st-track>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="0" aria-label="Смотреть видео: Свадьба">
+          <span class="st-card__media"><img src="../assets/video/1.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/1-sm.mp4" data-full="../assets/video/1.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Свадьба</span><span class="st-card__time">0:20</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="1" aria-label="Смотреть видео: Фуршет на террасе">
+          <span class="st-card__media"><img src="../assets/video/2.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/2-sm.mp4" data-full="../assets/video/2.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Фуршет на террасе</span><span class="st-card__time">0:27</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="2" aria-label="Смотреть видео: Корпоратив">
+          <span class="st-card__media"><img src="../assets/video/3.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/3-sm.mp4" data-full="../assets/video/3.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Корпоратив</span><span class="st-card__time">0:19</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="3" aria-label="Смотреть видео: Презентация">
+          <span class="st-card__media"><img src="../assets/video/4.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/4-sm.mp4" data-full="../assets/video/4.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Презентация</span><span class="st-card__time">0:31</span></span>
+        </button></li>
+        <li class="st-card"><button type="button" class="st-card__btn" data-st-open="4" aria-label="Смотреть видео: Фуршет">
+          <span class="st-card__media"><img src="../assets/video/5.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video/5-sm.mp4" data-full="../assets/video/5.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__cap"><span class="st-card__name">Фуршет</span><span class="st-card__time">0:14</span></span>
+        </button></li>
+      </ul>
+    </div>
+    <div class="st__nav">
+      <div class="st__arrows" aria-label="Листать видео">
+        <button type="button" class="svc__arrow" data-st-prev aria-label="Предыдущее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="svc__arrow svc__arrow--next" data-st-next aria-label="Следующее видео"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="st st--ring" id="stories-c" aria-labelledby="stories-c-title" data-st data-inline="1">
+    <p class="st-variant">Вариант C — кольцо</p>
+    <div class="st__head">
+      
+      <h2 class="st__title" id="stories-c-title">Искусство создавать <em>впечатления</em><span class="st__mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span></h2>
       <p class="st__lead">Каждое событие&nbsp;— особенная история, в&nbsp;которой гастрономия, эстетика и&nbsp;атмосфера становятся единым целым</p>
     </div>
     <div class="st__viewport" data-st-viewport tabindex="0" aria-label="Лента видео, листается стрелками">
@@ -621,6 +700,126 @@
 
 
   <!-- 6. Контакты -->
+  <!-- О компании: команда, цифры, логотипы клиентов (Figma 1025:344) -->
+  <section class="tm" id="about" aria-labelledby="tm-title">
+    <div class="tm__main">
+      <div class="tm__text">
+        <h2 class="tm__title" id="tm-title">За&nbsp;каждым мероприятием стоит <em>команда</em></h2>
+        <p class="tm__lead">Наша задача&nbsp;— сделать так, чтобы вы стали гостем, а&nbsp;не&nbsp;организатором вашего события</p>
+        <dl class="tm__stats">
+          <div class="tm-stat"><dt><span class="tm-stat__num">20+</span><span class="tm-stat__unit">лет</span></dt><dd>Создаём гастрономические события</dd></div>
+          <div class="tm-stat"><dt><span class="tm-stat__num">1&nbsp;000+</span><span class="tm-stat__unit">мероприятий</span></dt><dd>Организовали и&nbsp;провели</dd></div>
+          <div class="tm-stat"><dt><span class="tm-stat__num">100&nbsp;000+</span><span class="tm-stat__unit">гостей</span></dt><dd>Разделили с&nbsp;нами особенные моменты</dd></div>
+          <div class="tm-stat"><dt><span class="tm-stat__num">50+</span><span class="tm-stat__unit">профессионалов</span></dt><dd>В&nbsp;нашей команде</dd></div>
+        </dl>
+      </div>
+      <figure class="tm__photo">
+        <img src="assets/team/team.png" alt="Команда руководителей кейтеринговой компании «Мята»" width="1200" height="1600" loading="lazy" decoding="async">
+        <figcaption>Команда руководителей кейтеринговой компании «Мята»</figcaption>
+      </figure>
+    </div>
+    <div class="tm__logos">
+      <p class="tm__logos-label">Нам доверяют частные клиенты и&nbsp;известные компании</p>
+      <div class="tm__marquee" data-tm-marquee>
+        <ul class="tm__logo-list" role="list">
+          <li><img src="assets/logos/avito.png" alt="Avito" width="84" height="23" style="--h:23" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/ozon.png" alt="OZON" width="90" height="20" style="--h:20" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/mts.png" alt="МТС" width="63" height="16" style="--h:16" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/wildberries.png" alt="Wildberries" width="126" height="19" style="--h:19" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/hh.png" alt="hh.ru" width="24" height="25" style="--h:25" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/alfa.png" alt="Альфа-Банк" width="96" height="29" style="--h:29" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/vk.png" alt="ВКонтакте" width="137" height="24" style="--h:24" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/sber.png" alt="Сбер" width="91" height="26" style="--h:26" loading="lazy" decoding="async"></li>
+          <li><img src="assets/logos/tbank.png" alt="Т-Банк" width="89" height="27" style="--h:27" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Отзывы (Figma 1025:183, полный отзыв — 1025:254) -->
+  <section class="rv" id="reviews" aria-labelledby="rv-title" data-rv>
+    <div class="rv__head">
+      <h2 class="rv__title" id="rv-title">Отзывы клиентов о&nbsp;кейтеринге <em>«Мята»</em></h2>
+      <p class="rv__lead">События проходят&nbsp;— впечатления остаются!</p>
+    </div>
+    <div class="rv__viewport" data-rv-viewport tabindex="0" aria-label="Отзывы клиентов">
+      <ul class="rv__track" role="list">
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <img class="rv-card__ava" src="assets/reviews/avatar-1.png" alt="" width="48" height="48" loading="lazy" decoding="async">
+            <div><p class="rv-card__name">Анна Смирнова</p><p class="rv-card__meta"><span data-rv-type>Корпоратив</span> · <span data-rv-date>15 октября 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Организовывали корпоратив на 120 человек. Команда «Мяты» взяла на себя всё: от разработки меню до сервиса на площадке. Особенно впечатлили подача блюд и внимательность официантов. Гости остались в восторге, а мы смогли просто наслаждаться вечером!</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <img class="rv-card__ava" src="assets/reviews/avatar-2.png" alt="" width="48" height="48" loading="lazy" decoding="async">
+            <div><p class="rv-card__name">Мария Волкова</p><p class="rv-card__meta"><span data-rv-type>Свадьба</span> · <span data-rv-date>28 сентября 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Спасибо команде «Мята» за нашу свадьбу! Всё было невероятно красиво и вкусно. Учли абсолютно все пожелания, предложили интересные решения по меню и оформлению фуршетной зоны. Отдельное спасибо за то, что в день свадьбы нам не пришлось ни о чём беспокоиться.</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <img class="rv-card__ava" src="assets/reviews/avatar-3.png" alt="" width="48" height="48" loading="lazy" decoding="async">
+            <div><p class="rv-card__name">Дмитрий Орлов</p><p class="rv-card__meta"><span data-rv-type>Частное мероприятие</span> · <span data-rv-date>12 августа 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Заказывали выездной кейтеринг на день рождения за городом. Всё привезли вовремя, красиво организовали пространство и подготовили отличное меню. Очень понравилось, что команда работала практически незаметно, но у гостей всегда было всё необходимое.</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="rv-card" data-rv-card>
+          <div class="rv-card__person">
+            <img class="rv-card__ava" src="assets/reviews/avatar-4.png" alt="" width="48" height="48" loading="lazy" decoding="async">
+            <div><p class="rv-card__name">Елена Кузнецова</p><p class="rv-card__meta"><span data-rv-type>Кофе-брейк</span> · <span data-rv-date>3 июля 2026</span></p></div>
+          </div>
+          <p class="rv-card__text" data-rv-text>Заказывали кофе-брейки на двухдневную конференцию для 80 участников. Всё прошло чётко по таймингу: свежая выпечка, полезные перекусы и отличный кофе. Команда быстро подстраивалась под изменения программы, а участники потом отдельно благодарили за еду.</p>
+          <div class="rv-card__links">
+            <button type="button" class="rv-link" data-rv-open>Читать полностью</button>
+            <a class="rv-link" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="rv__foot">
+      <div class="rv__nav">
+        <button type="button" class="svc__arrow" data-rv-prev aria-label="Предыдущий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="svc__arrow svc__arrow--next" data-rv-next aria-label="Следующий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <span class="rv__count" data-rv-count>01 / 04</span>
+      </div>
+      <button type="button" class="dark-btn rv__all" data-rv-all><span>Смотреть все отзывы</span><svg class="svc-arrow" viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+
+    <div class="rvm" data-rvm role="dialog" aria-modal="true" aria-label="Отзыв полностью" hidden>
+      <div class="rvm__backdrop" data-rvm-close></div>
+      <div class="rvm__box">
+        <button type="button" class="rvm__close" data-rvm-close aria-label="Закрыть"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M1 1l16 16M17 1L1 17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+        <span class="rvm__quote" aria-hidden="true">“</span>
+        <div class="rvm__body">
+          <p class="rvm__meta"><span class="rvm__tag" data-rvm-type></span><span data-rvm-date></span></p>
+          <p class="rvm__text" data-rvm-text></p>
+          <a class="rv-link rvm__orig" href="#" data-rv-orig>Оригинал отзыва<svg class="rv-link__ext" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 7l6-6M2.5 1H7v4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="rvm__foot">
+            <div class="rvm__person"><img class="rvm__ava" src="" alt="" width="52" height="52" data-rvm-ava><div><p class="rvm__name" data-rvm-name></p><p class="rvm__type" data-rvm-type2></p></div></div>
+            <div class="rvm__nav">
+              <button type="button" class="svc__arrow" data-rvm-prev aria-label="Предыдущий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M20 4.5H1M5 .5l-4 4 4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button type="button" class="svc__arrow svc__arrow--next" data-rvm-next aria-label="Следующий отзыв"><svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="ct" id="contacts" aria-labelledby="ct-title">
     <h2 class="ct__title" id="ct-title">Обсудим <em>ваше мероприятие</em></h2>
     <dl class="ct__list">
@@ -651,16 +850,17 @@
     </div>
   </footer>
 
-  <script src="sections.js?v=20261109123656" defer></script>
-  <script src="cases.js?v=20261109123656" defer></script>
-  <script src="cases-slider.js?v=20261109123656" defer></script>
-  <script src="tasting.js?v=20261109123656" defer></script>
-  <script src="forms.js?v=20261109123656" defer></script>
-  <script src="header.js?v=20261109123656" defer></script>
-  <script src="stories.js?v=20261109123656" defer></script>
-  <script src="blocks.js?v=20261109123656" defer></script>
-  <script src="menu5.js?v=20261109123656" defer></script>
-  <script src="m5-snap.js?v=20261109123656" defer></script>
-  <script src="main.js?v=20261109123656" defer></script>
+  <script src="sections.js?v=20261109124527" defer></script>
+  <script src="cases.js?v=20261109124527" defer></script>
+  <script src="cases-slider.js?v=20261109124527" defer></script>
+  <script src="tasting.js?v=20261109124527" defer></script>
+  <script src="forms.js?v=20261109124527" defer></script>
+  <script src="header.js?v=20261109124527" defer></script>
+  <script src="reviews.js?v=20261109124527" defer></script>
+  <script src="stories.js?v=20261109124527" defer></script>
+  <script src="blocks.js?v=20261109124527" defer></script>
+  <script src="menu5.js?v=20261109124527" defer></script>
+  <script src="m5-snap.js?v=20261109124527" defer></script>
+  <script src="main.js?v=20261109124527" defer></script>
 </body>
 </html>

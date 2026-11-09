@@ -6,9 +6,11 @@
    Играет без звука только ролик у центра; по нажатию — полноэкранный просмотр со звуком. */
 (() => {
   "use strict";
+  document.querySelectorAll("[data-st]").forEach(initSt);
+})();
 
-  const st = document.querySelector("[data-st]");
-  if (!st) return;
+function initSt(st) {
+  "use strict";
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // ролики в ленте играют сами, только когда подключены настоящие видео (data-inline="1" на секции);
@@ -53,9 +55,10 @@
   const alphaAt = (a) => (a <= 2.4 ? 1 : Math.max(0, 1 - smooth(Math.min(1, (a - 2.4) / 0.8))));
   const smooth = (t) => t * t * (3 - 2 * t);
   function RING_ON() { return st.classList.contains("st--ring"); }
+  const DRUM = st.classList.contains("st--drum");
   // кольцо: ролики уходят вглубь к краям (z), сцена чуть наклонена — края сами приподнимаются по перспективе
   const LIFT = 0.5, PERSP = 1400, DEPTH = RING_ON() ? (phone.matches ? 0.1 : 0.14) : 0;
-  const RING = st.classList.contains("st--ring") ? (phone.matches ? 8 : 11) : 0; // градусов на одну карточку
+  const RING = RING_ON() ? (phone.matches ? 8 : 11) : DRUM ? (phone.matches ? 7 : 9) : 0; // градусов на одну карточку
   // на компьютере центр экрана — между двумя кадрами (позиции …,1.5, 2.5…), на телефоне — по центру кадра
   const snap = (x) => Math.round(x); // в центре всегда одно видео
   function measure() {
@@ -247,9 +250,8 @@
   const nameEl = stp.querySelector("[data-stp-name]");
   const bars = stp.querySelector("[data-stp-bars]");
   const soundBtn = stp.querySelector("[data-stp-sound]");
-  bars.innerHTML = base.map(() => "<i><b></b></i>").join("");
-  const barEls = [...bars.querySelectorAll("b")];
-  let idx = 0, lastFocus = null, sound = true;
+  let barEls = [];
+  let idx = 0, lastFocus = null, sound = true, mine = false;
 
   function syncSound() {
     soundBtn.classList.toggle("is-on", sound);
@@ -267,10 +269,13 @@
     const pr = pv.play();
     if (pr && pr.catch) pr.catch(() => { sound = false; pv.muted = true; syncSound(); pv.play().catch(() => {}); });
   }
-  pv.addEventListener("timeupdate", () => { if (pv.duration) barEls[idx].style.setProperty("--p", (pv.currentTime / pv.duration).toFixed(3)); });
-  pv.addEventListener("ended", () => show(idx + 1));
+  pv.addEventListener("timeupdate", () => { if (mine && pv.duration) barEls[idx].style.setProperty("--p", (pv.currentTime / pv.duration).toFixed(3)); });
+  pv.addEventListener("ended", () => { if (mine) show(idx + 1); });
 
   function open(i) {
+    mine = true;
+    bars.innerHTML = base.map(() => "<i><b></b></i>").join("");
+    barEls = [...bars.querySelectorAll("b")];
     lastFocus = document.activeElement;
     stp.hidden = false;
     document.body.classList.add("is-locked");
@@ -281,6 +286,8 @@
     stp.querySelector("[data-stp-close]").focus({ preventScroll: true });
   }
   function close() {
+    if (!mine) return;
+    mine = false;
     stp.classList.remove("is-open");
     pv.pause();
     document.body.classList.remove("is-locked");
@@ -302,11 +309,12 @@
     open(k % N);
   });
   stp.querySelector("[data-stp-close]").addEventListener("click", close);
-  stp.querySelector("[data-stp-prev]").addEventListener("click", () => show(idx - 1));
-  stp.querySelector("[data-stp-next]").addEventListener("click", () => show(idx + 1));
-  soundBtn.addEventListener("click", () => { sound = !sound; pv.muted = !sound; syncSound(); });
+  stp.querySelector("[data-stp-prev]").addEventListener("click", () => { if (mine) show(idx - 1); });
+  stp.querySelector("[data-stp-next]").addEventListener("click", () => { if (mine) show(idx + 1); });
+  soundBtn.addEventListener("click", () => { if (!mine) return; sound = !sound; pv.muted = !sound; syncSound(); });
   stp.addEventListener("click", (e) => { if (e.target === stp) close(); });
   pv.addEventListener("click", (e) => {
+    if (!mine) return;
     const r = pv.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width;
     if (x < 0.3) show(idx - 1);
@@ -316,12 +324,13 @@
   let tx = 0, ty = 0;
   pv.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
   pv.addEventListener("touchend", (e) => {
+    if (!mine) return;
     const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
     if (dy > 90 && Math.abs(dy) > Math.abs(dx)) close();
     else if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) show(idx + (dx < 0 ? 1 : -1));
   }, { passive: true });
   document.addEventListener("keydown", (e) => {
-    if (stp.hidden) return;
+    if (stp.hidden || !mine) return;
     if (e.key === "Escape") close();
     else if (e.key === "ArrowRight") show(idx + 1);
     else if (e.key === "ArrowLeft") show(idx - 1);
@@ -331,4 +340,4 @@
       else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
     }
   });
-})();
+}
