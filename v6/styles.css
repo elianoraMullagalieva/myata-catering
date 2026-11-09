@@ -5154,3 +5154,5 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   .rvo__box, .rvm__box, .lead__ticket, .rvo__img, .rvo__cap { transition: none !important; filter: none !important; clip-path: none !important; }
   .rvm.is-open .rvm__body > *, .lead.is-open .lead__stub > * { animation: none; }
 }
+/* фото с лёгким приближением/параллаксом не выходит за свою рамку — градиент под подписью совпадает с краями */
+@media (min-width: 1024px) { .why__photo, .tm__photo { overflow: hidden; border-radius: 4px; } }
