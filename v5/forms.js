@@ -147,26 +147,4 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) close(); });
     mobile.addEventListener("change", (e) => { if (!e.matches) close(true); });
   }
-
-  /* ---------- 3. Фон дегустации тянется за курсором ---------- */
-  const bg = document.querySelector("[data-tst-bg]");
-  const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
-  const still = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (bg && fine.matches && !still.matches) {
-    const area = bg.parentElement;
-    let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
-    const tick = () => {
-      x += (tx - x) * 0.06; y += (ty - y) * 0.06;
-      bg.style.setProperty("--mx", x.toFixed(3));
-      bg.style.setProperty("--my", y.toFixed(3));
-      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
-    };
-    area.addEventListener("pointermove", (e) => {
-      const r = area.getBoundingClientRect();
-      tx = (e.clientX - r.left) / r.width - 0.5;
-      ty = (e.clientY - r.top) / r.height - 0.5;
-      if (!raf) raf = requestAnimationFrame(tick);
-    });
-    area.addEventListener("pointerleave", () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(tick); });
-  }
 })();

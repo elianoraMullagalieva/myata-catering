@@ -22,9 +22,14 @@ function initSt(st) {
   const vp = st.querySelector("[data-st-viewport]");
   const track = st.querySelector("[data-st-track]");
   const countEl = st.querySelector("[data-st-count]");
+  // точки-пагинация (на телефоне вместо стрелок)
+  const dotsBox = st.querySelector("[data-st-dots]");
+  let dots = null, dotIdx = -1;
   const base = [...track.children];
   const N = base.length;
   if (!N) return;
+
+  if (dotsBox) { dotsBox.innerHTML = "<i></i>".repeat(N); dots = [...dotsBox.children]; }
 
   // три копии по кругу — по бокам всегда есть ролики
   const COPIES = 3;
@@ -54,11 +59,6 @@ function initSt(st) {
   // все видимые ролики яркие, без выбеливания; плавно исчезают только уходящие за край
   const alphaAt = (a) => (a <= 2.4 ? 1 : Math.max(0, 1 - smooth(Math.min(1, (a - 2.4) / 0.8))));
   const smooth = (t) => t * t * (3 - 2 * t);
-  function RING_ON() { return st.classList.contains("st--ring"); }
-  const DRUM = st.classList.contains("st--drum");
-  // кольцо: ролики уходят вглубь к краям (z), сцена чуть наклонена — края сами приподнимаются по перспективе
-  const LIFT = 0.5, PERSP = 1400, DEPTH = RING_ON() ? (phone.matches ? 0.1 : 0.14) : 0;
-  const RING = RING_ON() ? (phone.matches ? 8 : 11) : DRUM ? (phone.matches ? 7 : 9) : 0; // градусов на одну карточку
   // на компьютере центр экрана — между двумя кадрами (позиции …,1.5, 2.5…), на телефоне — по центру кадра
   const snap = (x) => Math.round(x); // в центре всегда одно видео
   function measure() {
@@ -109,20 +109,16 @@ function initSt(st) {
       const xx = pos[k];
       if (Math.abs(xx) - w > half + 40) { c.style.visibility = "hidden"; continue; }
       c.style.visibility = "";
-      const u0 = xx / (w + g), a0 = Math.min(Math.abs(u0), 2.6);
-      const z = -a0 * a0 * w * DEPTH;
-      const xz = xx * (PERSP - z) / PERSP; // уход вглубь сжимает ряд к центру — раздвигаем обратно, зазоры остаются ровными
-      c.style.transform = `translate3d(${(half + xz - w / 2).toFixed(2)}px, ${(z * LIFT).toFixed(1)}px, ${z.toFixed(1)}px)`; // дальние — чуть выше: край кольца поднимается
+      c.style.transform = `translate3d(${(half + xx - w / 2).toFixed(2)}px, 0, 0)`;
       c.style.setProperty("--s", sc[k].toFixed(4));
-      // объём «барабана»: боковые ролики слегка развёрнуты к центру (включается классом st--ring)
-      const u = xx / (w + g), ua = Math.min(Math.abs(u), 2.6);
-      c.style.setProperty("--ry", `${(Math.sign(u) * ua * RING).toFixed(2)}deg`);
       const aa = Math.abs(xx) / (w + g);
       c.style.opacity = alphaAt(aa).toFixed(3);
       c.classList.toggle("is-center", aa < 0.5);
       if (Math.abs(xx) < bestD) { bestD = Math.abs(xx); best = k; }
     }
-    if (countEl) { const idx = ((Math.round(p) % N) + N) % N; countEl.textContent = `${pad2(idx + 1)} / ${pad2(N)}`; }
+    const idx = ((Math.round(p) % N) + N) % N;
+    if (countEl) countEl.textContent = `${pad2(idx + 1)} / ${pad2(N)}`;
+    if (dots && idx !== dotIdx) { dots.forEach((d, i) => d.classList.toggle("is-on", i === idx)); dotIdx = idx; }
     if (best !== current) { current = best; play(); }
   }
 

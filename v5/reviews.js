@@ -44,6 +44,7 @@
   const index = () => Math.round(vp.scrollLeft / Math.max(1, step()));
   function update() {
     const max = vp.scrollWidth - vp.clientWidth - 2;
+    rv.classList.toggle("is-fit", max <= 0); // все отзывы помещаются — стрелки и счётчик не нужны
     prev.disabled = vp.scrollLeft <= 2;
     next.disabled = vp.scrollLeft >= max;
     const i = Math.min(N - 1, index());
@@ -93,12 +94,10 @@
     cur = (i + N) % N;
     const c = cards[cur];
     const type = c.querySelector("[data-rv-type]").textContent;
-    f("[data-rvm-type]").textContent = type;
     f("[data-rvm-type2]").textContent = type;
     f("[data-rvm-date]").textContent = c.querySelector("[data-rv-date]").textContent;
     f("[data-rvm-text]").textContent = c.querySelector("[data-rv-text]").textContent;
     f("[data-rvm-name]").textContent = c.querySelector(".rv-card__name").textContent;
-    f("[data-rvm-ava]").src = c.querySelector(".rv-card__ava").getAttribute("src");
     f(".rvm__body").classList.remove("is-swap"); void f(".rvm__body").offsetWidth; f(".rvm__body").classList.add("is-swap");
   }
   function open(i) {
