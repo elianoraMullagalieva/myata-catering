@@ -26,7 +26,7 @@
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
 
   const BASE = {
-    title: "Давайте обсудим<br> <em>ваше</em> событие",
+    title: "Давайте обсудим<br> ваше событие",
     sub: "Оставьте контакты, и&nbsp;мы&nbsp;свяжемся с&nbsp;вами удобным способом, чтобы обсудить детали мероприятия.",
     btn: "Оставить заявку",
     topic: "Заявка",

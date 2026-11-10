@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://elianoramullagalieva.github.io/myata-catering/sitemap.xml

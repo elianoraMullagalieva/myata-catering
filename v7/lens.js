@@ -1,6 +1,6 @@
-/* МЯТА v7 — фон за формой дегустации: переливающиеся световые ленты (WebGL2) и «мозаичная линза» под курсором.
-   Поле лент считается в половинном разрешении, затем второй проход собирает мозаику: крупные плитки,
-   которые под курсором кольцами проясняются до гладкой картинки.
+/* МЯТА v7 — фон за формой дегустации: переливающиеся световые ленты (WebGL2) и мягкая линза под курсором.
+   Поле лент считается в половинном разрешении, второй проход растушёвывает его, а под курсором
+   плавно преломляет, как стекло (без плиток-квадратиков).
    Цвета — мята, изумруд и тёплый терракотовый отблеск (константы C1…C3 ниже).
    Вне экрана не рисует; при «уменьшить движение» — один неподвижный кадр; без WebGL2 остаются CSS-пятна. */
 (() => {
@@ -18,8 +18,8 @@
   const C1 = hex("#2c9f79");  // мята
   const C2 = hex("#0d5444");  // изумруд
   const C3 = hex("#a24f3e");  // тёплый отблеск (из присланного примера, приглушён)
-  const LAYERS = 74, GAIN = 0.4, TIERS = 4;
-  const TILE = 10, REACH = 280, HOVER = 0.88, SIZE = 1.53;
+  const LAYERS = 74, GAIN = 0.4;
+  const TILE = 9, REACH = 300, HOVER = 0.88, SIZE = 1.53;
 
   const VERT = `#version 300 es
 const vec2 P[3] = vec2[3](vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
@@ -70,27 +70,28 @@ precision highp float;
 uniform sampler2D uField; uniform vec2 uRes; uniform float uTime; uniform vec3 uBg;
 uniform vec2 uMouse; uniform float uOn; uniform float uReach; uniform float uTile;
 out vec4 o;
-const float TIERS = ${TIERS.toFixed(1)};
 float ign(vec2 p, float f) { p += 5.588238 * mod(f, 64.0); return fract(52.9829189 * fract(0.06711056 * p.x + 0.00583715 * p.y)); }
 vec3 scene(vec2 uv) { return texture(uField, clamp(uv, 0.0, 1.0)).rgb; }
-vec3 mosaic(vec2 frag, vec2 uv) {
-  float base = uTile; float tier = 0.0;
-  if (uOn > 1e-4) {
-    vec2 cc = (floor(frag / base) + 0.5) * base;
-    vec2 d = (cc - uMouse) / uReach;
-    float w = uOn * exp(-dot(d, d));
-    tier = floor(min(w * (TIERS + 1.0), TIERS));
+// мягкое размытие поля: 12 точек по спирали (без плиток), под курсором — плавное преломление, как через линзу
+vec3 soft(vec2 frag) {
+  vec2 d = frag - uMouse;
+  float w = uOn * exp(-dot(d, d) / (uReach * uReach));
+  vec2 p = frag - d * w * 0.22;                       // лёгкая «лупа» к центру курсора
+  float rad = uTile * (2.6 - w * 1.4);                 // под курсором чуть чётче, вокруг — растушёвано
+  vec3 s = scene(p / uRes) * 0.16;
+  float tot = 0.16;
+  for (int i = 0; i < 12; i++) {
+    float fi = float(i);
+    float r = sqrt((fi + 0.5) / 12.0) * rad;
+    float a = fi * 2.39996;
+    float k = 1.0 - (fi + 0.5) / 14.0;
+    s += scene((p + vec2(cos(a), sin(a)) * r) / uRes) * k; tot += k;
   }
-  if (tier >= TIERS) return scene(uv);
-  float cell = base / exp2(tier);
-  vec2 c = (floor(frag / cell) + 0.5) * cell;
-  vec3 s = scene((c + cell * vec2(-0.25, -0.25)) / uRes) + scene((c + cell * vec2(0.25, -0.25)) / uRes)
-         + scene((c + cell * vec2(-0.25, 0.25)) / uRes) + scene((c + cell * vec2(0.25, 0.25)) / uRes);
-  return s * 0.25;
+  return s / tot;
 }
 void main() {
   vec2 frag = gl_FragCoord.xy;
-  vec3 L = max(mosaic(frag, frag / uRes), 0.0);
+  vec3 L = max(soft(frag), 0.0);
   vec3 col = uBg + L * (1.0 - uBg);
   col += (ign(frag, floor(uTime * 24.0)) - 0.5) / 255.0;
   o = vec4(clamp(col, 0.0, 1.0), 1.0);
