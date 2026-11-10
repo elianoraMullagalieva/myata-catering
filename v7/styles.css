@@ -5315,3 +5315,26 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   .js.is-loaded .v2-title__accent-in { animation: none; }
   .tm__photo figcaption { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(12, 10, 9, 0.58); }
 }
+
+/* ===== v7: облегчённый режим для слабых Android (класс .lite ставится в <head>) =====
+   Без стеклянных размытий и долгих анимаций: появления мгновенные, бегущие ленты стоят,
+   пятна за формой дегустации неподвижны. Видео первого экрана не трогаем. */
+html.lite *,
+html.lite *::before,
+html.lite *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  animation-delay: 0s !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+html.lite [style*="filter"], html.lite .js .v2-c, html.lite .js .v2-w, html.lite [data-a] { filter: none !important; }
+html.lite .stick { background: rgba(10, 10, 10, 0.94); }
+html.lite .drawer { background: rgb(14, 13, 12); }
+html.lite .burger, html.lite .btn--glass { background: rgba(0, 0, 0, 0.32); }
+html.lite .case-card__tag { background: rgba(10, 10, 10, 0.6); }
+html.lite .tst-bg::after { display: none; }   /* зернистость поверх пятен */
+html.lite .v2-glow { display: none; }

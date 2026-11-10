@@ -6,7 +6,7 @@
 (() => {
   "use strict";
   const box = document.querySelector(".tst__right");
-  if (!box) return;
+  if (!box || window.__lite) return; // слабый Android — остаются неподвижные CSS-пятна
   const canvas = document.createElement("canvas");
   canvas.className = "tst-lens";
   canvas.setAttribute("aria-hidden", "true");

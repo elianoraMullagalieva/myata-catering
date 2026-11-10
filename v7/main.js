@@ -44,7 +44,7 @@
   // видео проявляется поверх фото, только когда реально пошло; при «меньше движения» остаётся фото
   const video = media && media.querySelector(".v2-video");
   if (video) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.__lite ? window.__realReduce : window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       video.removeAttribute("autoplay");
       video.pause();
     } else {
