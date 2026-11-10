@@ -5245,11 +5245,10 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
 :root { --err: #c62828; }
 .tst-field.is-error input,
 .qz-field.is-error input {
-  border-color: var(--err);
-  box-shadow: inset 0 0 0 1px var(--err);
-  background-color: color-mix(in srgb, var(--err) 4%, #fff);
+  border-color: color-mix(in srgb, var(--err) 75%, transparent);
+  background-color: color-mix(in srgb, var(--err) 2.5%, #fff);
 }
-.qz-consent.is-error i { border-color: var(--err); box-shadow: 0 0 0 1px var(--err); }
+.qz-consent.is-error i { border-color: color-mix(in srgb, var(--err) 75%, transparent); }
 .qz-consent.is-error span { color: var(--err); }
 .qz-consent.is-error span a { color: inherit; }
 .f-err {
