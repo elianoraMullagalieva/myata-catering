@@ -5292,3 +5292,26 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   .st__lead { display: none; }
   .st { --st-w: clamp(200px, 18vw, 600px); padding-top: clamp(56px, 9vh, 96px); }
 }
+
+/* ===== v7: плавность на телефонах и планшетах =====
+   Анимация размытия (filter: blur) на мобильных браузерах перерисовывает элемент каждый кадр —
+   отсюда «дрожь» первого экрана и рывки при прокрутке. Здесь появление остаётся (прозрачность и сдвиг),
+   а размытие, мерцание огней поверх видео и стеклянные подложки на прокручиваемых фото — убраны. */
+@media (hover: none), (max-width: 1023px) {
+  .js .v2 .hero__bg { filter: none; scale: 1; transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+  .v2-glow { display: none; }
+  .js .v2 .logo,
+  .js .v2 .nav__list li,
+  .js .v2 .header__contacts .phone,
+  .js .v2 .socials li,
+  .js .v2 .burger,
+  .js .v2-c,
+  .js .v2-w,
+  .js .v2-title__accent-in,
+  .js .fact,
+  .js .cases__bar,
+  .js .cases:not(.is-in) .case-card__in,
+  .anim-ready [data-a="rise"] { filter: none !important; }
+  .js.is-loaded .v2-title__accent-in { animation: none; }
+  .tm__photo figcaption { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(12, 10, 9, 0.58); }
+}

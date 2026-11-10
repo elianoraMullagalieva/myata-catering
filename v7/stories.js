@@ -219,7 +219,15 @@ function initSt(st) {
   }, { passive: false });
 
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(([en]) => { inView = en.isIntersecting; play(); }, { threshold: 0.25 }).observe(vp);
+    // на телефоне ролик запускается, когда прокрутка остановилась, а не на ходу
+    const touchDev = window.matchMedia("(hover: none)").matches;
+    let idleT = 0;
+    const playWhenIdle = () => {
+      clearTimeout(idleT);
+      const wait = touchDev ? 350 - (performance.now() - (window.__stScrollAt || 0)) : 0;
+      if (wait > 0) idleT = setTimeout(playWhenIdle, wait); else play();
+    };
+    new IntersectionObserver(([en]) => { inView = en.isIntersecting; if (inView) playWhenIdle(); else play(); }, { threshold: 0.25 }).observe(vp);
   }
   // лента сама плавно сдвигается; пауза при наведении, перетаскивании, в плеере и вне экрана
   const AUTO_MS = 4500;
@@ -228,14 +236,19 @@ function initSt(st) {
   st.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") hoverSt = false; });
   ["pointerdown", "wheel", "keydown"].forEach((ev) => vp.addEventListener(ev, () => { holdUntil = performance.now() + 8000; }, { passive: true }));
   st.querySelectorAll("[data-st-prev], [data-st-next]").forEach((b) => b.addEventListener("click", () => { holdUntil = performance.now() + 8000; }));
+  // пока страницу листают пальцем, лента сама не едет и ролик не стартует — прокрутка не дёргается
+  let pageScrollAt = 0;
+  window.addEventListener("scroll", () => { pageScrollAt = window.__stScrollAt = performance.now(); }, { passive: true });
   if (!reduce) setInterval(() => {
     const stpEl = document.querySelector("[data-stp]");
-    if (!inView || hoverSt || drag || document.hidden || performance.now() < holdUntil || (stpEl && !stpEl.hidden)) return;
+    if (!inView || hoverSt || drag || document.hidden || performance.now() < holdUntil || performance.now() - pageScrollAt < 1200 || (stpEl && !stpEl.hidden)) return;
     go(1);
   }, AUTO_MS);
 
   const relayout = () => { measure(); target = p = snap(p); render(); };
-  window.addEventListener("resize", relayout, { passive: true });
+  // на телефоне «resize» приходит и когда прячется/показывается панель браузера при прокрутке — пересчитываем только при смене ширины
+  let relW = window.innerWidth;
+  window.addEventListener("resize", () => { if (window.innerWidth === relW) return; relW = window.innerWidth; relayout(); }, { passive: true });
   phone.addEventListener("change", relayout);
   relayout(); // старт: на телефоне — ровно один ролик по центру, на компьютере — пара
 

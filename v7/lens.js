@@ -161,10 +161,20 @@ void main() {
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const phone = window.matchMedia("(max-width: 767px)").matches;
   const MAX_DPR = phone ? 1 : 1.5;
+  const touch = window.matchMedia("(hover: none)").matches;
+  const FIELD_DIV = touch ? 3 : 2;              // поле лент: на телефоне в трети разрешения — всё равно размыто
+  const MIN_DT = touch ? 1000 / 30 : 0;         // на телефоне хватает 30 кадров/с
+  let scrollingUntil = 0;
+  if (touch) window.addEventListener("scroll", () => { scrollingUntil = performance.now() + 220; }, { passive: true });
   let mx = 0, my = 0, on = 0, clock = 0, last = -1, raf = 0, visible = false;
 
   function frame(now) {
     raf = 0;
+    // телефон: пока палец листает страницу, фон стоит — прокрутка получает всю мощность
+    if (touch && (now < scrollingUntil || (last >= 0 && now - last < MIN_DT))) {
+      if (visible) raf = requestAnimationFrame(frame);
+      return;
+    }
     const dt = last < 0 ? 0 : Math.min(0.05, Math.max(0, (now - last) / 1000));
     last = now;
     if (!still) clock = (clock + dt) % 3600;
@@ -172,7 +182,7 @@ void main() {
     const cw = canvas.clientWidth || 1, ch = canvas.clientHeight || 1;
     const bw = Math.max(1, Math.round(cw * dpr)), bh = Math.max(1, Math.round(ch * dpr));
     if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
-    resizeField(Math.max(1, Math.round(bw / 2)), Math.max(1, Math.round(bh / 2)));
+    resizeField(Math.max(1, Math.round(bw / FIELD_DIV)), Math.max(1, Math.round(bh / FIELD_DIV)));
 
     const present = ptr.inside ? 1 : 0;
     if (present && on < 0.02) { mx = ptr.x; my = ptr.y; }
