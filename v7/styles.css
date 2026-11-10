@@ -5287,4 +5287,8 @@ body.is-locked:has(.rvo.is-open) .stick { transform: translate3d(0, -140%, 0); o
   .rv { padding-top: clamp(64px, 10vh, 110px); }
   .rv__head { margin-bottom: clamp(28px, 5vh, 48px); }
   .rv__foot { margin-top: clamp(24px, 4vh, 40px); }
+
+  /* видео «Искусство создавать впечатления»: без подзаголовка, ролики чуть меньше — стрелки на экране */
+  .st__lead { display: none; }
+  .st { --st-w: clamp(200px, 18vw, 600px); padding-top: clamp(56px, 9vh, 96px); }
 }
