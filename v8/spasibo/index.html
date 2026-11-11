@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Спасибо, заявка принята | МЯТА</title>
+  <meta name="description" content="Заявка в кейтеринг МЯТА принята. Мы свяжемся с вами в ближайшее время.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="../favicon.svg?v=3" type="image/svg+xml">
+  <link rel="icon" href="../favicon-32.png?v=3" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png?v=3">
+  <meta name="theme-color" content="#0f1513">
+  <style>
+    @font-face { font-family: "Geologica"; font-weight: 400; font-display: swap; src: url("../assets/fonts/geologica-400-cyrillic.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Geologica"; font-weight: 400; font-display: swap; src: url("../assets/fonts/geologica-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: "Golos Text"; font-weight: 400; font-display: swap; src: url("../assets/fonts/golos-text-400-cyrillic.woff2") format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Golos Text"; font-weight: 400; font-display: swap; src: url("../assets/fonts/golos-text-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+    :root { --bg: #0f1513; --ink: #f2ede6; --mute: rgba(242, 237, 230, 0.66); --line: rgba(242, 237, 230, 0.28); }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; min-height: 100svh; display: flex; flex-direction: column;
+      background: var(--bg); color: var(--ink);
+      font-family: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    /* мягкие зелёные пятна — как за формой дегустации */
+    .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .bg i { position: absolute; border-radius: 50%; filter: blur(clamp(40px, 6vw, 120px)); opacity: 0.7; }
+    .bg i:nth-child(1) { width: 60vmax; height: 60vmax; left: -18vmax; top: -22vmax; background: #0d5444; }
+    .bg i:nth-child(2) { width: 46vmax; height: 46vmax; right: -14vmax; bottom: -18vmax; background: #2c9f79; opacity: 0.45; }
+    .bg i:nth-child(3) { width: 26vmax; height: 26vmax; right: 18vw; top: 8vh; background: #a24f3e; opacity: 0.18; }
+    .wrap {
+      position: relative; z-index: 1; flex: 1;
+      width: 100%; max-width: 2400px; margin: 0 auto;
+      padding: clamp(20px, 1rem + 1.5vw, 56px) clamp(16px, 0.5rem + 3vw, 120px);
+      display: flex; flex-direction: column;
+    }
+    .logo { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; align-self: flex-start; color: var(--ink); text-decoration: none; }
+    .logo img { width: clamp(90px, 4rem + 2vw, 150px); height: auto; display: block; }
+    .logo span { font-size: clamp(11px, 0.6rem + 0.2vw, 15px); letter-spacing: 0.02em; }
+    main { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 52rem; padding-block: clamp(48px, 8vh, 140px); }
+    .mark { width: clamp(26px, 1.2rem + 0.8vw, 44px); height: auto; color: #8fd3b6; margin-bottom: clamp(20px, 1rem + 1vw, 40px); }
+    h1 { margin: 0; font-family: "Geologica", sans-serif; font-weight: 400; font-size: clamp(40px, 1.6rem + 4.2vw, 128px); line-height: 1.02; letter-spacing: -0.035em; }
+    .lead { margin: clamp(18px, 0.8rem + 1vw, 36px) 0 0; max-width: 34rem; font-size: clamp(17px, 0.9rem + 0.4vw, 26px); line-height: 1.45; color: var(--mute); }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(32px, 1.5rem + 2vw, 64px); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: space-between; gap: 32px;
+      min-height: clamp(52px, 2.6rem + 0.6vw, 66px); padding: 0 clamp(22px, 1rem + 0.6vw, 34px);
+      border: 1px solid var(--line); border-radius: 0; color: var(--ink); text-decoration: none;
+      font-size: clamp(13px, 0.72rem + 0.15vw, 16px); letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+    .btn--fill { background: var(--ink); color: #161210; border-color: var(--ink); }
+    .btn:hover { border-color: var(--ink); }
+    .btn--fill:hover { background: #fff; }
+    .btn svg { width: 20px; height: 9px; flex: none; }
+    .note { margin-top: clamp(28px, 1.2rem + 1vw, 48px); font-size: 14px; color: var(--mute); }
+    .note a { color: var(--ink); }
+    @media (max-width: 560px) { .btn { width: 100%; } }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <a class="logo" href="../" aria-label="МЯТА — на главную"><img src="../../assets/logo.svg" width="110" height="32" alt="МЯТА"><span>Catering&amp;Events</span></a>
+    <main>
+      <svg class="mark" viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg>
+      <h1>Спасибо! Заявка принята</h1>
+      <p class="lead" data-lead>Мы свяжемся с вами в ближайшее время, чтобы обсудить детали мероприятия.</p>
+      <div class="row">
+        <a class="btn btn--fill" href="../">Вернуться на сайт<svg viewBox="0 0 20 9" aria-hidden="true"><path d="M0 4.5h19M15 .5l4 4-4 4" fill="none" stroke="currentColor"/></svg></a>
+        <a class="btn" href="tel:+79261241383">+7 (926) 124-13-83</a>
+      </div>
+      <p class="note">Если вопрос срочный — позвоните или напишите на <a href="mailto:hello@myata-catering.ru">hello@myata-catering.ru</a></p>
+    </main>
+  </div>
+  <script>
+    // текст под формой: дегустация и меню — свои формулировки
+    (function () {
+      var f = (new URLSearchParams(location.search).get("form") || "").toLowerCase(), el = document.querySelector("[data-lead]");
+      if (!el) return;
+      if (f.indexOf("дегустац") > -1) el.textContent = "Перезвоним в ближайшее время, чтобы выбрать дату и меню дегустации.";
+      else if (f.indexOf("меню") > -1) el.textContent = "Скоро пришлём меню с ценами удобным для вас способом.";
+    })();
+  </script>
+</body>
+</html>

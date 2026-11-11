@@ -5338,3 +5338,8 @@ html.lite .burger, html.lite .btn--glass { background: rgba(0, 0, 0, 0.32); }
 html.lite .case-card__tag { background: rgba(10, 10, 10, 0.6); }
 html.lite .tst-bg::after { display: none; }   /* зернистость поверх пятен */
 html.lite .v2-glow { display: none; }
+
+/* ===== v7: в поп-апах заголовки без курсива (на телефоне форма дегустации открывается окном) ===== */
+@media (max-width: 767px) {
+  .tst-ticket__title em { font-family: inherit; font-style: normal; letter-spacing: inherit; }
+}
