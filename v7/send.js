@@ -8,14 +8,21 @@
   const ENDPOINT = "https://formsubmit.co/ajax/e6f29a831d2c8000de82cc15794f1c11"; // код-псевдоним адреса TO от FormSubmit (адрес не виден в коде)
   const THANKS = new URL("spasibo/", document.baseURI).href;
 
-  // метки рекламы с первой страницы визита (utm_*, yclid, gclid) — чтобы в письме было видно источник
+  // метки рекламы (utm_*, yclid, gclid) и откуда пришёл человек — помним 30 дней на этом устройстве,
+  // чтобы в заявке был источник, даже если человек вернулся позже или ушёл с первой страницы
   const KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "yclid", "gclid"];
+  const DAYS30 = 30 * 24 * 3600 * 1000;
+  const store = {
+    get(k) { try { const o = JSON.parse(localStorage.getItem(k) || "null"); return o && Date.now() - o.t < DAYS30 ? o.v : null; } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify({ v, t: Date.now() })); } catch (e) {} },
+  };
   try {
     const q = new URLSearchParams(location.search);
     const got = {};
     KEYS.forEach((k) => { if (q.get(k)) got[k] = q.get(k); });
-    if (Object.keys(got).length) sessionStorage.setItem("myata_utm", JSON.stringify(got));
-    if (!sessionStorage.getItem("myata_ref")) sessionStorage.setItem("myata_ref", document.referrer || "прямой заход");
+    if (Object.keys(got).length) store.set("myata_utm", got);          // новый рекламный переход — новые метки
+    const ref = document.referrer && !document.referrer.startsWith(location.origin) ? document.referrer : "";
+    if (ref || !store.get("myata_ref")) store.set("myata_ref", ref || "прямой заход");
   } catch (e) {}
 
   const LABEL = {
@@ -49,9 +56,9 @@
     });
     body["Страница"] = location.href.split("#")[0];
     try {
-      const utm = JSON.parse(sessionStorage.getItem("myata_utm") || "null");
+      const utm = store.get("myata_utm");
       if (utm) body["Метки"] = Object.entries(utm).map(([k, v]) => `${k}=${v}`).join("; ");
-      body["Откуда пришёл"] = sessionStorage.getItem("myata_ref") || "";
+      body["Откуда пришёл"] = store.get("myata_ref") || "";
     } catch (e) {}
 
     // keepalive — запрос долетит, даже если страница уже переходит на «Спасибо»

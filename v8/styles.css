@@ -5350,3 +5350,9 @@ html.lite .v2-glow { display: none; }
 .ct5__visual.has-lens .tst-bg { display: none; }
 .ct5__visual .tst-lens { z-index: 0; }
 .ct5__logo { z-index: 2; }
+
+
+/* ===== отзывы: настоящие фото авторов и абзацы как в оригинале ===== */
+.rv-card__ava { overflow: hidden; }
+.rv-card__ava img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+.rv-card__text, .rvm__text { white-space: pre-line; }

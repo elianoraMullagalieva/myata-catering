@@ -123,6 +123,8 @@
     f("[data-rvm-date]").textContent = c.querySelector("[data-rv-date]").textContent;
     f("[data-rvm-text]").textContent = c.querySelector("[data-rv-text]").textContent;
     f("[data-rvm-name]").textContent = c.querySelector(".rv-card__name").textContent;
+    const ava = f(".rvm__ava"), cardAva = c.querySelector(".rv-card__ava");
+    if (ava && cardAva) ava.innerHTML = cardAva.innerHTML; // фото автора и в окне отзыва
     f(".rvm__body").classList.remove("is-swap"); void f(".rvm__body").offsetWidth; f(".rvm__body").classList.add("is-swap");
   }
   function open(i) {

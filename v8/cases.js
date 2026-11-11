@@ -1,77 +1,97 @@
 /* МЯТА — кейсы для блока «Наш взгляд на уникальное событие и наши проекты».
-
-   Сейчас здесь ЗАГЛУШКИ: тексты-примеры и фото с Pinterest.
-   Чтобы поставить настоящие кейсы, достаточно поменять этот файл:
+   Чтобы поменять кейсы, достаточно этого файла:
    - title  — название мероприятия;
-   - tags   — теги: тип мероприятия (Корпоратив, Свадьба, Презентация, Частное мероприятие) и формат;
+   - tags   — теги (тип мероприятия, формат);
    - guests — количество гостей (числом);
    - price  — стоимость на гостя в рублях (числом);
-   - cover  — обложка карточки в ленте (показывается горизонтальным кадром 3:2);
-   - photos — фото галереи, которая открывается по нажатию; обложка встаёт в ней первой сама.
-   У каждого фото: src — путь от папки v2 (фото кладите в v2/assets/cases/),
+   - cover  — обложка карточки в ленте (горизонтальный кадр);
+   - photos — фото галереи по порядку; обложка встаёт в ней первой сама.
+   У каждого фото: src — путь от папки версии (фото лежат в assets/cases/<кейс>/),
    w и h — размеры фото в пикселях (по ним галерея ставит кадры без скачков),
-   pos — необязательная точка кадрирования обложки (как CSS object-position), по умолчанию центр. */
+   pos — необязательная точка кадрирования обложки (как CSS object-position). */
 
 (() => {
-  const P = {
-    canapes: { src: "assets/cases/canapes-guests.jpg", w: 736, h: 1104 },
-    waiter: { src: "assets/cases/waiter-tray.jpg", w: 750, h: 1018 },
-    tartlets: { src: "assets/cases/tartlets.jpg", w: 1200, h: 1800 },
-    crostini: { src: "assets/cases/crostini.jpg", w: 736, h: 1030 },
-    desserts: { src: "assets/cases/desserts.jpg", w: 1000, h: 1500 },
-    yakitori: { src: "assets/cases/yakitori.jpg", w: 1136, h: 1376 },
-    buffet: { src: "assets/buffet.jpg", w: 2048, h: 1366 },
-  };
-  const cover = (p, pos) => ({ ...p, pos });
-
   window.MYATA_CASES = [
     {
-      title: "Летний корпоратив компании «Атмосфера»",
-      tags: ["Корпоратив", "Фуршет"],
-      guests: 150,
-      price: 5000,
-      cover: cover(P.canapes, "50% 52%"),
-      photos: [P.canapes, P.yakitori, P.buffet, P.tartlets, P.crostini],
-    },
-    {
-      title: "Свадьба в загородной усадьбе",
-      tags: ["Свадьба", "Банкет"],
-      guests: 120,
-      price: 7500,
-      cover: cover(P.waiter, "50% 46%"),
-      photos: [P.waiter, P.desserts, P.buffet, P.canapes],
-    },
-    {
-      title: "Презентация новой коллекции ювелирного дома",
-      tags: ["Презентация", "Фуршет"],
+      title: "Фуршет на открытии выставки",
+      tags: ["Выставка", "Фуршет"],
       guests: 80,
-      price: 6000,
-      cover: cover(P.tartlets, "50% 78%"),
-      photos: [P.tartlets, P.crostini, P.waiter, P.desserts],
+      price: 2500,
+      cover: { src: "assets/cases/vystavka/cover.png", w: 1448, h: 1086 },
+      photos: [
+        { src: "assets/cases/vystavka/01.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/vystavka/02.jpg", w: 959, h: 1280 },
+        { src: "assets/cases/vystavka/03.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/vystavka/04.jpg", w: 3024, h: 4032 },
+        { src: "assets/cases/vystavka/05.jpg", w: 960, h: 1280 },
+        { src: "assets/cases/vystavka/06.jpg", w: 3024, h: 4032 },
+        { src: "assets/cases/vystavka/07.jpg", w: 3024, h: 4032 }
+      ],
     },
     {
-      title: "Юбилей в частной резиденции",
-      tags: ["Частное мероприятие", "Ужин"],
-      guests: 40,
-      price: 9000,
-      cover: cover(P.crostini, "50% 50%"),
-      photos: [P.crostini, P.buffet, P.waiter, P.yakitori],
+      title: "День рождения Алисы",
+      tags: ["День рождения"],
+      guests: 25,
+      price: 2500,
+      cover: { src: "assets/cases/den-rozhdeniya/cover.png", w: 1448, h: 1086 },
+      photos: [
+        { src: "assets/cases/den-rozhdeniya/01.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/den-rozhdeniya/02.jpg", w: 1330, h: 2365 },
+        { src: "assets/cases/den-rozhdeniya/03.jpg", w: 1330, h: 2365 },
+        { src: "assets/cases/den-rozhdeniya/04.jpg", w: 3213, h: 5712 },
+        { src: "assets/cases/den-rozhdeniya/05.jpg", w: 3213, h: 5712 },
+        { src: "assets/cases/den-rozhdeniya/06.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/den-rozhdeniya/07.jpg", w: 3213, h: 5712 }
+      ],
     },
     {
-      title: "Новогодний корпоратив IT-компании",
-      tags: ["Корпоратив", "Фуршет"],
-      guests: 450,
+      title: "Летний корпоратив «Спец Металлург»",
+      tags: ["Корпоратив"],
+      guests: 300,
       price: 4500,
-      cover: cover(P.desserts, "50% 52%"),
-      photos: [P.desserts, P.canapes, P.tartlets, P.buffet],
+      cover: { src: "assets/cases/spec-metallurg/cover.png", w: 1448, h: 1086 },
+      photos: [
+        { src: "assets/cases/spec-metallurg/01.jpg", w: 900, h: 1600 },
+        { src: "assets/cases/spec-metallurg/02.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/spec-metallurg/03.jpg", w: 900, h: 1600 },
+        { src: "assets/cases/spec-metallurg/04.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/spec-metallurg/05.jpg", w: 576, h: 1024 },
+        { src: "assets/cases/spec-metallurg/06.jpg", w: 2268, h: 4032 }
+      ],
     },
     {
-      title: "Открытие флагманского шоурума",
-      tags: ["Презентация", "Кофе-брейк"],
-      guests: 1000,
-      price: 3500,
-      cover: cover(P.yakitori, "50% 56%"),
-      photos: [P.yakitori, P.waiter, P.crostini, P.canapes],
+      title: "Свадьба Тимура и Анастасии",
+      tags: ["Свадьба"],
+      guests: 60,
+      price: 5500,
+      cover: { src: "assets/cases/svadba-timur-anastasia/cover.png", w: 1448, h: 1086 },
+      photos: [
+        { src: "assets/cases/svadba-timur-anastasia/01.jpg", w: 1330, h: 2365 },
+        { src: "assets/cases/svadba-timur-anastasia/02.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-timur-anastasia/03.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-timur-anastasia/04.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-timur-anastasia/05.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-timur-anastasia/06.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-timur-anastasia/07.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-timur-anastasia/08.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/svadba-timur-anastasia/09.jpg", w: 576, h: 1024 },
+        { src: "assets/cases/svadba-timur-anastasia/10.jpg", w: 1330, h: 2364 }
+      ],
+    },
+    {
+      title: "Свадьба Артёма и Мирославы",
+      tags: ["Свадьба"],
+      guests: 75,
+      price: 6000,
+      cover: { src: "assets/cases/svadba-artem-miroslava/cover.png", w: 1448, h: 1086 },
+      photos: [
+        { src: "assets/cases/svadba-artem-miroslava/01.jpg", w: 3024, h: 4032 },
+        { src: "assets/cases/svadba-artem-miroslava/02.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-artem-miroslava/03.jpg", w: 2268, h: 4032 },
+        { src: "assets/cases/svadba-artem-miroslava/04.jpg", w: 576, h: 1024 },
+        { src: "assets/cases/svadba-artem-miroslava/05.jpg", w: 1330, h: 2364 },
+        { src: "assets/cases/svadba-artem-miroslava/06.jpg", w: 1330, h: 2364 }
+      ],
     },
   ];
 })();
