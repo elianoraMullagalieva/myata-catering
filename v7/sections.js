@@ -265,7 +265,7 @@
       contact: val("contact"),
     };
     // отправка заявки подключится здесь (например, в Telegram-бота): window.MYATA_QUIZ_SEND(data)
-    if (typeof window.MYATA_QUIZ_SEND === "function") window.MYATA_QUIZ_SEND(data);
+    if (typeof window.MYATA_QUIZ_SEND === "function") { window.MYATA_QUIZ_SEND(data); return; } // дальше — страница «Спасибо»
     steps.forEach((s) => { s.hidden = true; s.classList.remove("is-active"); });
     segs.forEach((s) => s.classList.add("is-on"));
     done.hidden = false;

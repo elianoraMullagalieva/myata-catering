@@ -141,7 +141,7 @@
       phone: phone.value,
       contact: (form.querySelector('[name="contact"]:checked') || {}).value || "",
     };
-    if (typeof window.MYATA_QUIZ_SEND === "function") window.MYATA_QUIZ_SEND(data);
+    if (typeof window.MYATA_QUIZ_SEND === "function") { window.MYATA_QUIZ_SEND(data); return; } // дальше — страница «Спасибо»
     body.hidden = true;
     done.hidden = false;
     form.reset();

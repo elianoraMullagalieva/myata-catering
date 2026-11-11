@@ -180,7 +180,7 @@
       contact: (form.querySelector('[name="contact"]:checked') || {}).value || "",
     };
     // отправка заявки подключится здесь, так же как у квиза: window.MYATA_QUIZ_SEND(data)
-    if (typeof window.MYATA_QUIZ_SEND === "function") window.MYATA_QUIZ_SEND(data);
+    if (typeof window.MYATA_QUIZ_SEND === "function") { window.MYATA_QUIZ_SEND(data); return; } // дальше — страница «Спасибо»
     body.hidden = true;
     done.hidden = false;
   });

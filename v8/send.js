@@ -24,7 +24,23 @@
   };
   const list = (v) => (Array.isArray(v) ? v.filter(Boolean).join(", ") : v || "");
 
+  // последняя отправленная форма — на её кнопке пишем «Отправляем…»
+  let lastForm = null;
+  document.addEventListener("submit", (e) => { lastForm = e.target; }, true);
+  document.addEventListener("click", (e) => { const f = e.target.closest && e.target.closest("form"); if (f) lastForm = f; }, true);
+
   window.MYATA_QUIZ_SEND = function (data) {
+    const btn = lastForm && (lastForm.querySelector('button[type="submit"]') || [...lastForm.querySelectorAll("button")].pop());
+    if (btn) {
+      btn.disabled = true;
+      const label = btn.querySelector("span") || btn;
+      if (label.childElementCount === 0) { label.dataset.txt = label.textContent; label.textContent = "Отправляем…"; }
+      // кнопка «Назад» со страницы «Спасибо» возвращает страницу из кэша — снова делаем кнопку рабочей
+      window.addEventListener("pageshow", () => {
+        btn.disabled = false;
+        if (label.dataset.txt) label.textContent = label.dataset.txt;
+      }, { once: true });
+    }
     const formName = data.form || "Квиз: расчёт мероприятия";
     const body = { _subject: `Заявка с сайта МЯТА — ${formName}`, _template: "table", _captcha: "false" };
     Object.keys(LABEL).forEach((k) => {
