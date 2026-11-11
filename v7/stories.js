@@ -260,7 +260,7 @@ function initSt(st) {
   const bars = stp.querySelector("[data-stp-bars]");
   const soundBtn = stp.querySelector("[data-stp-sound]");
   let barEls = [];
-  let idx = 0, lastFocus = null, sound = true, mine = false;
+  let idx = 0, lastFocus = null, sound = false, mine = false; // звук у роликов выключен всегда
 
   function syncSound() {
     soundBtn.classList.toggle("is-on", sound);
@@ -320,7 +320,7 @@ function initSt(st) {
   stp.querySelector("[data-stp-close]").addEventListener("click", close);
   stp.querySelector("[data-stp-prev]").addEventListener("click", () => { if (mine) show(idx - 1); });
   stp.querySelector("[data-stp-next]").addEventListener("click", () => { if (mine) show(idx + 1); });
-  soundBtn.addEventListener("click", () => { if (!mine) return; sound = !sound; pv.muted = !sound; syncSound(); });
+  // кнопки звука нет — ролики всегда без звука
   stp.addEventListener("click", (e) => { if (e.target === stp) close(); });
   pv.addEventListener("click", (e) => {
     if (!mine) return;

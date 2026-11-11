@@ -587,6 +587,10 @@
     pop.querySelector("[data-pop-next]").addEventListener("click", () => go(nearest() + 1));
     g.addEventListener("click", (e) => { const s = e.target.closest(".cpop__slide"); if (s) go(slidesOf().indexOf(s)); });
     pop.addEventListener("click", (e) => { if (e.target.closest("[data-pop-close]")) closePopup(); });
+    // Esc закрывает окно, даже если фокус ушёл с окна (например, после клика по фото)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !pop.hidden && pop.classList.contains("is-open") && !pop.contains(document.activeElement)) { e.preventDefault(); closePopup(); }
+    });
     pop.addEventListener("keydown", (e) => {
       if (e.key === "Escape") { e.preventDefault(); closePopup(); }
       else if (e.key === "ArrowRight") { e.preventDefault(); go(nearest() + 1); }
