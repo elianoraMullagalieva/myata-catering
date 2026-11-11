@@ -4,8 +4,8 @@
    Первая заявка на новый адрес приходит письмом «Activate form» — его нужно один раз подтвердить. */
 (() => {
   "use strict";
-  const TO = "vsevolod.golovin@gmail.com";
-  const ENDPOINT = "https://formsubmit.co/ajax/" + TO;
+  // получатель: vsevolod.golovin@gmail.com (подтверждён в FormSubmit)
+  const ENDPOINT = "https://formsubmit.co/ajax/e6f29a831d2c8000de82cc15794f1c11"; // код-псевдоним адреса TO от FormSubmit (адрес не виден в коде)
   const THANKS = new URL("spasibo/", document.baseURI).href;
 
   // метки рекламы с первой страницы визита (utm_*, yclid, gclid) — чтобы в письме было видно источник
