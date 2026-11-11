@@ -139,7 +139,7 @@
       form: form.elements.topic.value,
       name: name.value.trim(),
       phone: phone.value,
-      contact: (form.querySelector('[name="contact"]:checked') || {}).value || "",
+      contact: [...form.querySelectorAll('[name="contact"]:checked')].map((i) => i.value).join(", "), // можно выбрать несколько
     };
     if (typeof window.MYATA_QUIZ_SEND === "function") { window.MYATA_QUIZ_SEND(data); return; } // дальше — страница «Спасибо»
     body.hidden = true;
