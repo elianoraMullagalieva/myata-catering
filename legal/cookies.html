@@ -11,8 +11,8 @@
 </head>
 <body>
   <header class="top">
-    <a class="logo" href="../v7/" aria-label="МЯТА — на главную"><img src="../assets/logo.svg" width="96" height="28" alt="МЯТА"></a>
-    <a class="back" href="../v7/" onclick="if (history.length > 1) { history.back(); return false; }">← Назад на сайт</a>
+    <a class="logo" href="../v7/" data-home aria-label="МЯТА — на главную"><img src="../assets/logo.svg" width="96" height="28" alt="МЯТА"></a>
+    <a class="back" href="../v7/" data-home>← Назад на сайт</a>
   </header>
   <nav class="docs" aria-label="Документы"><a href="privacy.html">Политика конфиденциальности</a><a href="cookies.html" aria-current="page">Политика cookie</a><a href="consent.html">Согласие на обработку ПДн</a><a href="partners.html">Согласие для партнёров</a></nav>
   <main class="doc">
@@ -57,5 +57,15 @@
 <p>4.1. Политика действует бессрочно, до момента принятия новой редакции или прекращения деятельности Оператором. Внесение изменений в Политику производится в случае изменения объема, способа или порядка обработки ПДн, появления новых законодательных актов и специальных нормативных документов по обработке и защите ПДн, путем внесения изменений непосредственно в Политику с последующей публикацией новой редакции и указанием даты редакции.</p>
 <p>4.2. Если у Пользователя есть вопросы или предложения касательно данной Политики, он может сообщить их Оператору путем отправки электронного письма (документа) по адресу электронной почты: hello@myata-catering.ru.</p>
   </main>
+<script>
+  /* «Назад на сайт» — в ту версию сайта, откуда открыли документ (?from=v8 или адрес предыдущей страницы) */
+  (function () {
+    var q = location.search.match(/[?&]from=(v\d+)/), r = (document.referrer || "").match(/\/myata-catering\/(v\d+)\//);
+    var v = q ? q[1] : r ? r[1] : "v7";
+    var home = "../" + v + "/";
+    document.querySelectorAll("[data-home]").forEach(function (a) { a.href = home; });
+    document.querySelectorAll(".docs a").forEach(function (a) { a.href = a.getAttribute("href").split("?")[0] + "?from=" + v; });
+  })();
+  </script>
 </body>
 </html>
