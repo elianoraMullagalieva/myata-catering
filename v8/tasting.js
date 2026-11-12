@@ -22,7 +22,11 @@
     rows.forEach((r) => { const i = new Image(); i.src = r.dataset.img; });
   };
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(([en], io) => { if (en.isIntersecting) { warm(); io.disconnect(); } }, { rootMargin: "300px" }).observe(sec);
+    const watch = () => new IntersectionObserver(([en], io) => { if (en.isIntersecting) { warm(); io.disconnect(); } }, { rootMargin: "300px" }).observe(sec);
+    // ждём конца заставки — до неё раскладка ещё не настоящая и блок «кажется» близко
+    const R = document.documentElement;
+    if (R.classList.contains("is-loaded")) watch();
+    else new MutationObserver((_, mo) => { if (R.classList.contains("is-loaded")) { mo.disconnect(); setTimeout(watch, 50); } }).observe(R, { attributes: true, attributeFilter: ["class"] });
   }
 
   function activate(row) {

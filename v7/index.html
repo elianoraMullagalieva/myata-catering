@@ -54,7 +54,7 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FoodEstablishment", "@id": "https://elianoramullagalieva.github.io/myata-catering/v7/#business", "name": "МЯТА Catering&Events", "alternateName": "МЯТА кейтеринг", "description": "Кейтеринг МЯТА: фуршеты, банкеты, свадьбы и корпоративы от 10 до 1000+ гостей в Москве и Подмосковье. Бесплатная дегустация меню до мероприятия.", "url": "https://elianoramullagalieva.github.io/myata-catering/v7/", "image": "https://elianoramullagalieva.github.io/myata-catering/v7/assets/buffet.jpg", "logo": "https://elianoramullagalieva.github.io/myata-catering/v7/apple-touch-icon.png?v=3", "telephone": "+7-926-124-13-83", "email": "hello@myata-catering.ru", "address": {"@type": "PostalAddress", "addressLocality": "Москва", "addressCountry": "RU"}, "areaServed": [{"@type": "City", "name": "Москва"}, {"@type": "AdministrativeArea", "name": "Московская область"}], "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Услуги кейтеринга", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Фуршет"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Банкет"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Свадебный кейтеринг"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Корпоративный кейтеринг"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Частные мероприятия"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Дегустация меню"}}]}}</script>
   <link rel="preload" href="assets/fonts/geologica-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/manrope-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261112144136">
+  <link rel="stylesheet" href="styles.css?v=20261112151046">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -70,7 +70,7 @@
     <div class="hero__bg">
       <div class="hero__media" data-hero-media>
         <!-- живой фон: тот же кадр, оживлённый (свечи и гости); фото ниже — заставка и запасной вариант -->
-        <video class="v2-video" data-src="assets/buffet-video.mp4" poster="assets/buffet.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+        <video class="v2-video" data-src="assets/buffet-video.mp4" data-src-light="assets/buffet-video-light.mp4" poster="assets/buffet.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
         <picture>
           <!-- исходное фото без пережатия: «вариант 2.jpg», 2048×1366 -->
           <img src="assets/buffet.jpg" width="2048" height="1366" alt="Фуршетный стол МЯТА: канапе на многоярусных стойках, закуски и свечи" fetchpriority="high">
@@ -553,60 +553,60 @@
       <div class="m5__col m5__col--1" data-m5-col data-dir="up" data-shift="-140" data-speed="30">
         <div class="m5__track" data-m5-track>
           <ul class="m5__set" role="list">
-            <li class="m5-card"><img src="assets/menu/dishes/ruby-rolls.jpg" alt="Рубиновые рулетики с нежной сырной начинкой" width="468" height="468" loading="lazy" decoding="async"><span class="m5-card__name">Рубиновые рулетики с&nbsp;нежной сырной начинкой</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/mini-caprese.jpg" alt="Мини-капрезе с моцареллой, черри и ароматным песто" width="500" height="500" loading="lazy" decoding="async"><span class="m5-card__name">Мини-капрезе с&nbsp;моцареллой, черри и&nbsp;ароматным песто</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/beef-medallions.jpg" alt="Медальоны из говядины на шпажке с пряным соусом" width="600" height="600" loading="lazy" decoding="async"><span class="m5-card__name">Медальоны из&nbsp;говядины на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/ruby-rolls.jpg" alt="Рубиновые рулетики с нежной сырной начинкой" width="468" height="468" loading="lazy" decoding="async"><span class="m5-card__name">Рубиновые рулетики с&nbsp;нежной сырной начинкой</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/mini-caprese.jpg" alt="Мини-капрезе с моцареллой, черри и ароматным песто" width="500" height="500" loading="lazy" decoding="async"><span class="m5-card__name">Мини-капрезе с&nbsp;моцареллой, черри и&nbsp;ароматным песто</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/beef-medallions.jpg" alt="Медальоны из говядины на шпажке с пряным соусом" width="600" height="600" loading="lazy" decoding="async"><span class="m5-card__name">Медальоны из&nbsp;говядины на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
           </ul>
         </div>
       </div>
       <div class="m5__col m5__col--2" data-m5-col data-dir="down" data-shift="-40" data-speed="26">
         <div class="m5__track" data-m5-track>
           <ul class="m5__set" role="list">
-            <li class="m5-card"><img src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/shrimp-canape.jpg" alt="Канапе с тигровой креветкой и сливочным муссом" width="896" height="895" loading="lazy" decoding="async"><span class="m5-card__name">Канапе с&nbsp;тигровой креветкой и&nbsp;сливочным муссом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/antipasti.jpg" alt="Итальянское антипасти с благородными сырами и салями" width="1143" height="1143" loading="lazy" decoding="async"><span class="m5-card__name">Итальянское антипасти с&nbsp;благородными сырами и&nbsp;салями</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/shrimp-canape.jpg" alt="Канапе с тигровой креветкой и сливочным муссом" width="896" height="895" loading="lazy" decoding="async"><span class="m5-card__name">Канапе с&nbsp;тигровой креветкой и&nbsp;сливочным муссом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/antipasti.jpg" alt="Итальянское антипасти с благородными сырами и салями" width="1143" height="1143" loading="lazy" decoding="async"><span class="m5-card__name">Итальянское антипасти с&nbsp;благородными сырами и&nbsp;салями</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
           </ul>
         </div>
       </div>
       <div class="m5__col m5__col--3" data-m5-col data-dir="up" data-shift="-230" data-speed="34">
         <div class="m5__track" data-m5-track>
           <ul class="m5__set" role="list">
-            <li class="m5-card"><img src="assets/menu/dishes/verrines.jpg" alt="Веррины с итальянскими деликатесами, сыром и виноградом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Веррины с&nbsp;итальянскими деликатесами, сыром и&nbsp;виноградом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/ruby-rolls.jpg" alt="Рубиновые рулетики с нежной сырной начинкой" width="468" height="468" loading="lazy" decoding="async"><span class="m5-card__name">Рубиновые рулетики с&nbsp;нежной сырной начинкой</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/mini-caprese.jpg" alt="Мини-капрезе с моцареллой, черри и ароматным песто" width="500" height="500" loading="lazy" decoding="async"><span class="m5-card__name">Мини-капрезе с&nbsp;моцареллой, черри и&nbsp;ароматным песто</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/verrines.jpg" alt="Веррины с итальянскими деликатесами, сыром и виноградом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Веррины с&nbsp;итальянскими деликатесами, сыром и&nbsp;виноградом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/ruby-rolls.jpg" alt="Рубиновые рулетики с нежной сырной начинкой" width="468" height="468" loading="lazy" decoding="async"><span class="m5-card__name">Рубиновые рулетики с&nbsp;нежной сырной начинкой</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/mini-caprese.jpg" alt="Мини-капрезе с моцареллой, черри и ароматным песто" width="500" height="500" loading="lazy" decoding="async"><span class="m5-card__name">Мини-капрезе с&nbsp;моцареллой, черри и&nbsp;ароматным песто</span></li>
           </ul>
         </div>
       </div>
       <div class="m5__col m5__col--4" data-m5-col data-dir="down" data-shift="-90" data-speed="28">
         <div class="m5__track" data-m5-track>
           <ul class="m5__set" role="list">
-            <li class="m5-card"><img src="assets/menu/dishes/beef-medallions.jpg" alt="Медальоны из говядины на шпажке с пряным соусом" width="600" height="600" loading="lazy" decoding="async"><span class="m5-card__name">Медальоны из&nbsp;говядины на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/shrimp-canape.jpg" alt="Канапе с тигровой креветкой и сливочным муссом" width="896" height="895" loading="lazy" decoding="async"><span class="m5-card__name">Канапе с&nbsp;тигровой креветкой и&nbsp;сливочным муссом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/beef-medallions.jpg" alt="Медальоны из говядины на шпажке с пряным соусом" width="600" height="600" loading="lazy" decoding="async"><span class="m5-card__name">Медальоны из&nbsp;говядины на&nbsp;шпажке с&nbsp;пряным соусом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/shrimp-canape.jpg" alt="Канапе с тигровой креветкой и сливочным муссом" width="896" height="895" loading="lazy" decoding="async"><span class="m5-card__name">Канапе с&nbsp;тигровой креветкой и&nbsp;сливочным муссом</span></li>
           </ul>
         </div>
       </div>
       <div class="m5__col m5__col--5" data-m5-col data-dir="up" data-shift="-180" data-speed="31" aria-hidden="true">
         <div class="m5__track" data-m5-track>
           <ul class="m5__set" role="list">
-            <li class="m5-card"><img src="assets/menu/dishes/antipasti.jpg" alt="Итальянское антипасти с благородными сырами и салями" width="1143" height="1143" loading="lazy" decoding="async"><span class="m5-card__name">Итальянское антипасти с&nbsp;благородными сырами и&nbsp;салями</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/verrines.jpg" alt="Веррины с итальянскими деликатесами, сыром и виноградом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Веррины с&nbsp;итальянскими деликатесами, сыром и&nbsp;виноградом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/antipasti.jpg" alt="Итальянское антипасти с благородными сырами и салями" width="1143" height="1143" loading="lazy" decoding="async"><span class="m5-card__name">Итальянское антипасти с&nbsp;благородными сырами и&nbsp;салями</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/verrines.jpg" alt="Веррины с итальянскими деликатесами, сыром и виноградом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Веррины с&nbsp;итальянскими деликатесами, сыром и&nbsp;виноградом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
           </ul>
         </div>
       </div>
       <div class="m5__col m5__col--6" data-m5-col data-dir="down" data-shift="-20" data-speed="27" aria-hidden="true">
         <div class="m5__track" data-m5-track>
           <ul class="m5__set" role="list">
-            <li class="m5-card"><img src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
-            <li class="m5-card"><img src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/watermelon-canape.jpg" alt="Арбузные канапе с фетой, мятой и бальзамическим кремом" width="631" height="630" loading="lazy" decoding="async"><span class="m5-card__name">Арбузные канапе с&nbsp;фетой, мятой и&nbsp;бальзамическим кремом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/shrimp-cocktail.jpg" alt="Креветки Cocktail с цитрусовым акцентом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Креветки Cocktail с&nbsp;цитрусовым акцентом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/macarons.jpg" alt="Золотые макаронс с креветками и нежным кремом" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Золотые макаронс с&nbsp;креветками и&nbsp;нежным кремом</span></li>
+            <li class="m5-card"><img data-lazy-src="assets/menu/dishes/author-miniatures.jpg" alt="Коллекция авторских фуршетных миниатюр" width="736" height="736" loading="lazy" decoding="async"><span class="m5-card__name">Коллекция авторских фуршетных миниатюр</span></li>
           </ul>
         </div>
       </div>
@@ -623,83 +623,83 @@
     <div class="st__viewport" data-st-viewport tabindex="0" aria-label="Лента видео, листается стрелками">
       <ul class="st__track" data-st-track>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="0" aria-label="Смотреть видео 1">
-          <span class="st-card__media"><img src="../assets/video2026/01.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/01-sm.mp4" data-full="../assets/video2026/01.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/01.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/01-sm.mp4" data-full="../assets/video2026/01.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:26</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="1" aria-label="Смотреть видео 2">
-          <span class="st-card__media"><img src="../assets/video2026/02.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/02-sm.mp4" data-full="../assets/video2026/02.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/02.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/02-sm.mp4" data-full="../assets/video2026/02.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:10</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="2" aria-label="Смотреть видео 3">
-          <span class="st-card__media"><img src="../assets/video2026/03.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/03-sm.mp4" data-full="../assets/video2026/03.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/03.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/03-sm.mp4" data-full="../assets/video2026/03.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:20</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="3" aria-label="Смотреть видео 4">
-          <span class="st-card__media"><img src="../assets/video2026/04.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/04-sm.mp4" data-full="../assets/video2026/04.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/04.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/04-sm.mp4" data-full="../assets/video2026/04.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:27</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="4" aria-label="Смотреть видео 5">
-          <span class="st-card__media"><img src="../assets/video2026/05.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/05-sm.mp4" data-full="../assets/video2026/05.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/05.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/05-sm.mp4" data-full="../assets/video2026/05.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:12</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="5" aria-label="Смотреть видео 6">
-          <span class="st-card__media"><img src="../assets/video2026/06.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/06-sm.mp4" data-full="../assets/video2026/06.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/06.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/06-sm.mp4" data-full="../assets/video2026/06.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:15</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="6" aria-label="Смотреть видео 7">
-          <span class="st-card__media"><img src="../assets/video2026/07.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/07-sm.mp4" data-full="../assets/video2026/07.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/07.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/07-sm.mp4" data-full="../assets/video2026/07.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:09</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="7" aria-label="Смотреть видео 8">
-          <span class="st-card__media"><img src="../assets/video2026/08.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/08-sm.mp4" data-full="../assets/video2026/08.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/08.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/08-sm.mp4" data-full="../assets/video2026/08.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:11</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="8" aria-label="Смотреть видео 9">
-          <span class="st-card__media"><img src="../assets/video2026/09.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/09-sm.mp4" data-full="../assets/video2026/09.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/09.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/09-sm.mp4" data-full="../assets/video2026/09.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:16</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="9" aria-label="Смотреть видео 10">
-          <span class="st-card__media"><img src="../assets/video2026/10.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/10-sm.mp4" data-full="../assets/video2026/10.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/10.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/10-sm.mp4" data-full="../assets/video2026/10.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:10</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="10" aria-label="Смотреть видео 11">
-          <span class="st-card__media"><img src="../assets/video2026/11.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/11-sm.mp4" data-full="../assets/video2026/11.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/11.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/11-sm.mp4" data-full="../assets/video2026/11.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:12</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="11" aria-label="Смотреть видео 12">
-          <span class="st-card__media"><img src="../assets/video2026/12.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/12-sm.mp4" data-full="../assets/video2026/12.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/12.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/12-sm.mp4" data-full="../assets/video2026/12.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:11</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="12" aria-label="Смотреть видео 13">
-          <span class="st-card__media"><img src="../assets/video2026/13.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/13-sm.mp4" data-full="../assets/video2026/13.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/13.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/13-sm.mp4" data-full="../assets/video2026/13.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:06</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="13" aria-label="Смотреть видео 14">
-          <span class="st-card__media"><img src="../assets/video2026/14.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/14-sm.mp4" data-full="../assets/video2026/14.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/14.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/14-sm.mp4" data-full="../assets/video2026/14.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:31</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="14" aria-label="Смотреть видео 15">
-          <span class="st-card__media"><img src="../assets/video2026/15.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/15-sm.mp4" data-full="../assets/video2026/15.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/15.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/15-sm.mp4" data-full="../assets/video2026/15.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:15</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="15" aria-label="Смотреть видео 16">
-          <span class="st-card__media"><img src="../assets/video2026/16.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/16-sm.mp4" data-full="../assets/video2026/16.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/16.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/16-sm.mp4" data-full="../assets/video2026/16.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:38</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="16" aria-label="Смотреть видео 17">
-          <span class="st-card__media"><img src="../assets/video2026/17.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/17-sm.mp4" data-full="../assets/video2026/17.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/17.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/17-sm.mp4" data-full="../assets/video2026/17.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:19</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="17" aria-label="Смотреть видео 18">
-          <span class="st-card__media"><img src="../assets/video2026/18.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/18-sm.mp4" data-full="../assets/video2026/18.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/18.jpg" alt="" width="720" height="1280" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/18-sm.mp4" data-full="../assets/video2026/18.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:09</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="18" aria-label="Смотреть видео 19">
-          <span class="st-card__media"><img src="../assets/video2026/19.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/19-sm.mp4" data-full="../assets/video2026/19.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/19.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/19-sm.mp4" data-full="../assets/video2026/19.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:11</span></span>
         </button></li>
         <li class="st-card"><button type="button" class="st-card__btn" data-st-open="19" aria-label="Смотреть видео 20">
-          <span class="st-card__media"><img src="../assets/video2026/20.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/20-sm.mp4" data-full="../assets/video2026/20.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
+          <span class="st-card__media"><img data-lazy-src="../assets/video2026/20.jpg" alt="" width="720" height="1272" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="../assets/video2026/20-sm.mp4" data-full="../assets/video2026/20.mp4" aria-hidden="true"></video><span class="st-card__play" aria-hidden="true"></span></span>
           <span class="st-card__cap"><span class="st-card__name"></span><span class="st-card__time">0:20</span></span>
         </button></li>
       </ul>
@@ -1541,22 +1541,23 @@ P.S. Креветки в темпуре действительно очень в
   </div>
 
 
-  <script src="sections.js?v=20261112144136" defer></script>
-  <script src="cases.js?v=20261112144136" defer></script>
-  <script src="cases-slider.js?v=20261112144136" defer></script>
-  <script src="tasting.js?v=20261112144136" defer></script>
-  <script src="forms.js?v=20261112144136" defer></script>
-  <script src="header.js?v=20261112144136" defer></script>
-  <script src="lens.js?v=20261112144136" defer></script>
-  <script src="anim.js?v=20261112144136" defer></script>
-  <script src="liquid.js?v=20261112144136" defer></script>
-  <script src="send.js?v=20261112144136" defer></script>
-  <script src="formerr.js?v=20261112144136" defer></script>
-  <script src="lead.js?v=20261112144136" defer></script>
-  <script src="reviews.js?v=20261112144136" defer></script>
-  <script src="stories.js?v=20261112144136" defer></script>
-  <script src="blocks.js?v=20261112144136" defer></script>
-  <script src="menu5.js?v=20261112144136" defer></script>
-  <script src="main.js?v=20261112144136" defer></script>
+  <script src="sections.js?v=20261112151046" defer></script>
+  <script src="cases.js?v=20261112151046" defer></script>
+  <script src="cases-slider.js?v=20261112151046" defer></script>
+  <script src="tasting.js?v=20261112151046" defer></script>
+  <script src="forms.js?v=20261112151046" defer></script>
+  <script src="header.js?v=20261112151046" defer></script>
+  <script src="lens.js?v=20261112151046" defer></script>
+  <script src="anim.js?v=20261112151046" defer></script>
+  <script src="liquid.js?v=20261112151046" defer></script>
+  <script src="lazy-near.js?v=20261112151046" defer></script>
+  <script src="send.js?v=20261112151046" defer></script>
+  <script src="formerr.js?v=20261112151046" defer></script>
+  <script src="lead.js?v=20261112151046" defer></script>
+  <script src="reviews.js?v=20261112151046" defer></script>
+  <script src="stories.js?v=20261112151046" defer></script>
+  <script src="blocks.js?v=20261112151046" defer></script>
+  <script src="menu5.js?v=20261112151046" defer></script>
+  <script src="main.js?v=20261112151046" defer></script>
 </body>
 </html>

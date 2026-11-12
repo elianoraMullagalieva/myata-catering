@@ -50,7 +50,10 @@
     } else {
       // видео грузим только сейчас — после скриптов, чтобы 4 МБ ролика не занимали канал,
       // пока не готова раскладка первого экрана (сам файл не меняется)
-      if (!video.getAttribute("src") && video.dataset.src) { video.src = video.dataset.src; video.load(); }
+      // Android-телефоны получают лёгкую версию того же ролика (≈0,4 МБ вместо 4 МБ, картинка та же)
+      const androidPhone = /Android/i.test(navigator.userAgent) && Math.min(screen.width, screen.height) < 768;
+      const heroSrc = androidPhone && video.dataset.srcLight ? video.dataset.srcLight : video.dataset.src;
+      if (!video.getAttribute("src") && heroSrc) { video.src = heroSrc; video.load(); }
       const shown = () => video.classList.add("is-playing");
       video.addEventListener("playing", shown, { once: true });
       if (!video.paused && video.readyState > 2) shown();
@@ -182,9 +185,12 @@
   // чтобы они не отнимали канал у первого экрана (раньше из-за этого сайт подтормаживал)
   const extra = [];
   const warmLater = () => {
+    // телефон, слабое устройство или экономия трафика — заранее ничего тяжёлого не качаем:
+    // фото кейса грузятся, когда кейс открывают. На компьютере — обложки и первые 2 кадра каждого кейса.
+    const light = window.__lite || matchMedia("(hover: none)").matches || (navigator.connection && navigator.connection.saveData);
     const srcs = [...new Set([
       ...[...document.querySelectorAll("[data-img]")].map((el) => el.dataset.img),
-      ...(window.MYATA_CASES || []).flatMap((c) => [c.cover && c.cover.src, ...(c.photos || []).map((p) => p && (p.src || p))]),
+      ...(light ? [] : (window.MYATA_CASES || []).flatMap((c) => [c.cover && c.cover.src, ...(c.photos || []).slice(0, 2).map((p) => p && (p.src || p))])),
     ])].filter((s) => typeof s === "string");
     let i = 0;
     const next = () => { if (i >= srcs.length) return; const im = new Image(); im.decoding = "async"; im.src = srcs[i++]; im.onload = im.onerror = () => setTimeout(next, 60); };
