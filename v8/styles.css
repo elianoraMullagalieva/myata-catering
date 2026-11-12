@@ -5454,3 +5454,7 @@ html.lite .v2-glow { display: none; }
   .st__head { margin-bottom: clamp(18px, 3.4vh, 80px); gap: clamp(8px, 1.4vh, 18px); }
   .st__nav { margin-top: clamp(12px, 2vh, 40px); }
 }
+/* пальчик по контурам образца: тонкая линия, плавно покачивается влево-вправо */
+.st-tap__hand { width: clamp(15px, 0.8rem + 0.2vw, 19px); stroke-width: 1; animation: st-sway 2.8s ease-in-out infinite; }
+@keyframes st-sway { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
+@media (prefers-reduced-motion: reduce) { .st-tap__hand { animation: none; } }
