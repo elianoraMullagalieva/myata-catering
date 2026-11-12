@@ -5405,3 +5405,52 @@ html.lite .v2-glow { display: none; }
 @media (min-width: 768px) and (max-width: 1100px) {
   .st-tap--desk { right: auto; left: var(--edge, 24px); }
 }
+
+/* ===== видео: тонкий пальчик + два варианта подсказки =====
+   вариант 1 (по умолчанию): подсказка по центру под заголовком — вместо подзаголовка, стрелки по центру под лентой;
+   вариант 2 (?tap=2): подсказка слева, стрелки справа — оба края по второму от центра ролику */
+.st-tap__hand {
+  width: clamp(20px, 1.05rem + 0.25vw, 26px); height: auto; flex: none; overflow: visible;
+  color: #1c1714; animation: none; transform: none;
+  fill: none; stroke: currentColor; stroke-width: 1.05; stroke-linecap: round; stroke-linejoin: round;
+}
+.st-tap__palm { transform-box: fill-box; transform-origin: 30% 10%; animation: st-tap2 2.6s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
+.st-tap__ring { opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; animation: st-tap2-ring 2.6s ease-out infinite; }
+.st-tap__ring--2 { animation-delay: 0.12s; }
+@keyframes st-tap2 { 0%, 30%, 100% { transform: translate3d(0, 0, 0) scale(1); } 40% { transform: translate3d(0, 1.6px, 0) scale(0.95); } 52% { transform: translate3d(0, 0, 0) scale(1); } }
+@keyframes st-tap2-ring { 0%, 38% { opacity: 0; transform: scale(0.7); } 46% { opacity: 0.85; } 72%, 100% { opacity: 0; transform: scale(1.15); } }
+@media (prefers-reduced-motion: reduce) { .st-tap__palm, .st-tap__ring { animation: none; } .st-tap__ring { opacity: 0.6; } }
+
+.st-tap--head { display: none; margin: 0; padding: 0; }
+@media (min-width: 768px) {
+  /* все ролики чуть ниже — минус 10px по высоте */
+  .st { --st-w: calc(clamp(216px, 20.7vw, 526px) - 5.6px); }
+  html:not(.tap2) .st-tap--head { display: flex; }
+  html:not(.tap2) .st-tap--desk { display: none; }
+  html:not(.tap2) .st__nav { justify-content: center; }
+  .tap2 .st__nav {
+    --st-off: calc(var(--st-w) * 1.88 + var(--st-gap) * 2);
+    justify-content: space-between; align-items: center;
+    padding-inline: max(var(--edge, 24px), calc(50% - var(--st-off)));
+  }
+  .tap2 .st-tap--desk { position: static; transform: none; justify-content: flex-start; }
+}
+@media (min-width: 1024px) and (max-height: 860px) {
+  .st { --st-w: calc(clamp(200px, 18vw, 600px) - 5.6px); }
+}
+
+/* ===== меню: блок ровно в высоту экрана, кнопка всегда видна =====
+   отступы и заголовок зависят и от высоты окна, а не только от ширины */
+@media (min-width: 1024px) {
+  .m5 { height: 100vh; height: 100svh; min-height: 540px; }
+  .m5__text { padding-top: clamp(96px, 15vh, 190px); padding-bottom: clamp(24px, 6vh, 90px); gap: clamp(16px, 3vh, 40px); }
+  .m5__title { font-size: min(clamp(28px, 1rem + 2.22vw, 76px), 7.2vh); }
+  .m5__lead { font-size: min(clamp(15px, 0.6rem + 0.55vw, 24px), 2.6vh); margin-top: min(clamp(16px, 0.6rem + 0.8vw, 36px), 3vh); }
+  .m5__btn { min-height: min(clamp(52px, 2rem + 1.9vw, 84px), 9vh); flex: none; }
+}
+/* видео: блок с подсказкой и стрелками целиком в экран — отступы зависят от высоты окна */
+@media (min-width: 1024px) {
+  .st { padding-top: clamp(44px, 7vh, 170px); }
+  .st__head { margin-bottom: clamp(18px, 3.4vh, 80px); gap: clamp(8px, 1.4vh, 18px); }
+  .st__nav { margin-top: clamp(12px, 2vh, 40px); }
+}
