@@ -219,3 +219,32 @@
 @media (max-width: 767px){
 .sx-card__media{ aspect-ratio: 304 / 398; }
 }
+
+/* подсказка и стрелки над лентой (вариант 3): края — по второму ролику от центральной пары,
+   строка в 40–50px над ним (у этого ролика масштаб 0.85, кадры выровнены по низу) */
+.sx-row {
+  position: relative; z-index: 2; pointer-events: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: max(var(--edge, 24px), calc(50% - (var(--st-w) * 1.85 + var(--st-gap) * 1.5)));
+  margin-bottom: calc(clamp(40px, 2.4vw, 50px) - var(--st-w) * 398 / 304 * 0.15);
+}
+.sx-row > * { pointer-events: auto; }
+.sx-row .sx__arrows { display: flex; gap: 10px; }
+.st-tap {
+  display: flex; align-items: center; gap: 10px; margin: 0;
+  font-size: clamp(11px, 0.62rem + 0.18vw, 14px); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.45;
+  color: rgba(28, 23, 20, 0.55); text-align: left;
+}
+.st-tap__hand {
+  width: clamp(15px, 0.8rem + 0.2vw, 19px); height: auto; flex: none; overflow: visible; color: #1c1714;
+  fill: none; stroke: currentColor; stroke-width: 0.8; stroke-linecap: round; stroke-linejoin: round;
+  animation: st-sway 2.8s ease-in-out infinite;
+}
+@keyframes st-sway { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
+@media (prefers-reduced-motion: reduce) { .st-tap__hand { animation: none; } }
+@media (max-width: 767px) {
+  .sx-row { justify-content: center; padding-inline: 16px; margin-bottom: 18px; }
+  .sx-row .sx__arrows { display: none; }
+  .st-tap br { display: none; }
+  .st-tap { font-size: 11px; text-align: center; }
+}
