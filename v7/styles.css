@@ -5464,3 +5464,10 @@ html.lite .v2-glow { display: none; }
   .tap3 .st-tap__br { display: inline; }
   .tap3 .st-tap--desk { text-align: left; line-height: 1.45; }
 }
+/* вариант 3: строка с подсказкой и стрелками опущена к роликам, над которыми стоит
+   (верх второго от центра ролика = верх ленты + 20% высоты кадра) */
+@media (min-width: 768px) {
+  .tap3 .st__nav { position: relative; z-index: 2; pointer-events: none; margin-bottom: clamp(20px, 3.4vh, 56px);
+    transform: translateY(calc(clamp(20px, 3.4vh, 56px) + var(--st-w) * 16 / 9 * 0.2 - clamp(14px, 1.8vh, 26px))); }
+  .tap3 .st__nav > * { pointer-events: auto; }
+}
