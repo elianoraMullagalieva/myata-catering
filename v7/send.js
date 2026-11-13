@@ -61,6 +61,9 @@
       body["Откуда пришёл"] = store.get("myata_ref") || "";
     } catch (e) {}
 
+    // цель «Заявка» в Яндекс Метрике (если посетитель разрешил аналитику)
+    if (window.MYATA_GOAL) window.MYATA_GOAL("lead", { form: formName });
+
     // keepalive — запрос долетит, даже если страница уже переходит на «Спасибо»
     const req = fetch(ENDPOINT, {
       method: "POST",
