@@ -74,6 +74,11 @@
     box.querySelector(".ck__no").addEventListener("click", () => close("no"));
   }
   // не мешаем первому экрану: показываем после загрузки страницы
-  if (document.readyState === "complete") setTimeout(show, 1200);
-  else window.addEventListener("load", () => setTimeout(show, 1200), { once: true });
+  // показываем после заставки-загрузки (html.is-loaded), не раньше чем через 1,2 с после неё
+  const root = document.documentElement;
+  const wait = () => {
+    if (!document.querySelector(".v2-loader") || root.classList.contains("is-loaded")) { setTimeout(show, 1200); return; }
+    new MutationObserver((l, mo) => { if (root.classList.contains("is-loaded")) { mo.disconnect(); setTimeout(show, 1200); } }).observe(root, { attributes: true, attributeFilter: ["class"] });
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wait, { once: true }); else wait();
 })();
