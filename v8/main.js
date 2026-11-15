@@ -212,7 +212,7 @@
 
   let closeTimer = 0;
 
-  function setOpen(open) {
+  function setOpen(open, byKeyboard) {
     clearTimeout(closeTimer);
     burger.setAttribute("aria-expanded", String(open));
     burger.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
@@ -222,15 +222,17 @@
       drawer.hidden = false;
       void drawer.offsetWidth;
       drawer.classList.add("is-open");
+      // с клавиатуры — фокус на первый пункт; пальцем/мышью — на само меню, без рамки на ссылке
       const first = drawer.querySelector("a");
-      if (first) first.focus({ preventScroll: true });
+      if (byKeyboard && first) first.focus({ preventScroll: true });
+      else { drawer.setAttribute("tabindex", "-1"); drawer.style.outline = "none"; drawer.focus({ preventScroll: true }); }
     } else {
       drawer.classList.remove("is-open");
       closeTimer = setTimeout(() => { drawer.hidden = true; }, 450);
     }
   }
 
-  burger.addEventListener("click", () => setOpen(burger.getAttribute("aria-expanded") !== "true"));
+  burger.addEventListener("click", (e) => setOpen(burger.getAttribute("aria-expanded") !== "true", e.detail === 0));
   drawer.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") {

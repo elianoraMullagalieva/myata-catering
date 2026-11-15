@@ -5471,3 +5471,48 @@ html.lite .v2-glow { display: none; }
     transform: translateY(calc(clamp(20px, 3.4vh, 56px) + var(--st-w) * 16 / 9 * 0.2 - clamp(40px, 2.4vw, 50px))); }
   .tap3 .st__nav > * { pointer-events: auto; }
 }
+
+
+/* ===== правки по мобильной версии (14.11) ===== */
+/* 1. «Услуги» на телефоне и планшете видны сразу — не ждём скрипты, прокрутку и фото (было «долго белым») */
+@media (hover: none), (max-width: 1023px) {
+  .js [data-reveal] .svc__head,
+  .js [data-reveal] .svc-slot,
+  .js [data-reveal] .svc__progress,
+  .js [data-reveal] .qz__left > *,
+  .js [data-reveal] .qz__card { opacity: 1; transform: none; transition: none; }
+  .svc-card__photo { background: #e9e6e2; }
+}
+/* 3. отзывы на телефоне: один жест — одна карточка */
+@media (max-width: 1023px) {
+  .rv-card { scroll-snap-stop: always; }
+}
+/* 4. полный отзыв на телефоне: окно одной высоты, текст прокручивается внутри, стрелки не прыгают */
+@media (max-width: 767px) {
+  .rvm__box { display: flex; flex-direction: column; height: min(680px, calc(100svh - 32px)); overflow: hidden; padding: 56px 24px 24px; }
+  .rvm__quote { flex: none; }
+  .rvm__body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .rvm__body > * { flex: none; }
+  .rvm__text { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; margin-bottom: 16px; -webkit-overflow-scrolling: touch; }
+  .rvm__foot { flex-direction: column; align-items: flex-start; flex-wrap: nowrap; gap: 14px; margin-top: 18px; }
+  .rvm__person { max-width: 100%; min-width: 0; }
+  .rvm__person > div, .rvm__person > span:last-child { min-width: 0; }
+  .rvm__name, .rvm__type { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+/* 5. меню на телефоне: лента блюд вместо колонок */
+.m5-strip { display: none; }
+@media (max-width: 767px) {
+  .m5__cols { display: none !important; }
+  .m5 { grid-template-rows: auto auto !important; height: auto !important; }
+  .m5-strip { display: block; align-self: start; padding-bottom: 48px; }
+  .m5-swipe { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 0 var(--edge); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242, 237, 230, 0.6); }
+  .m5-swipe .cases-swipe__hand { width: 18px; height: 18px; color: #f2ede6; }
+  .m5-strip__vp { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge); overscroll-behavior-x: contain; scrollbar-width: none; }
+  .m5-strip__vp::-webkit-scrollbar { display: none; }
+  .m5-strip__list { display: flex; gap: 12px; width: max-content; margin: 0; padding: 0 var(--edge); list-style: none; }
+  .m5-strip .m5-card { width: 62vw; scroll-snap-align: start; aspect-ratio: 3 / 4; }
+}
+/* 6. «Нам доверяют…» на телефоне — по левому краю, как остальные заголовки */
+@media (max-width: 767px) {
+  .tm__logos-label { margin: 0; max-width: none; text-align: left; }
+}

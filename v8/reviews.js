@@ -62,6 +62,18 @@
   window.addEventListener("resize", update, { passive: true });
   update();
 
+  // телефон: после жеста лента всегда встаёт ровно по карточке (iOS иногда останавливает её между карточками)
+  let touching = false, settleT = 0;
+  const settle = () => {
+    if (touching || vp.classList.contains("is-dragging")) return;
+    const st = step(), max = vp.scrollWidth - vp.clientWidth;
+    const target = Math.min(max, Math.max(0, Math.round(vp.scrollLeft / st) * st));
+    if (Math.abs(target - vp.scrollLeft) > 2 && vp.scrollLeft < max - 2) vp.scrollTo({ left: target, behavior: reduce ? "auto" : "smooth" });
+  };
+  vp.addEventListener("touchstart", () => { touching = true; clearTimeout(settleT); }, { passive: true });
+  vp.addEventListener("touchend", () => { touching = false; clearTimeout(settleT); settleT = setTimeout(settle, 260); }, { passive: true });
+  vp.addEventListener("scroll", () => { clearTimeout(settleT); settleT = setTimeout(settle, 220); }, { passive: true });
+
   // мышью — тянем ленту, как в «Услугах»
   let drag = null, moved = false;
   vp.addEventListener("pointerdown", (e) => {
