@@ -5516,3 +5516,30 @@ html.lite .v2-glow { display: none; }
 @media (max-width: 767px) {
   .tm__logos-label { margin: 0; max-width: none; text-align: left; }
 }
+
+/* ===== телефон: одинаковые отступы у всех блоков — 56px сверху и снизу (как у «Услуг») ===== */
+@media (max-width: 767px) {
+  .svc { padding-bottom: 56px; }
+  .qz { padding-bottom: 32px; }
+  .cases { padding-top: 56px; padding-bottom: 56px; }
+  .tst__right { padding-bottom: 26px; }
+  .why { padding-top: 56px; padding-bottom: 56px; }
+  .m5__text { padding-top: 56px; }
+  .m5-strip { padding-bottom: 56px; }
+  .st { padding-top: 56px; padding-bottom: 26px; }
+  .tm__text { padding-top: 56px; }
+  .tm__logos { padding-bottom: 56px; }
+  .rv { padding-top: 56px; padding-bottom: 56px; }
+  .ct5__info { padding-bottom: 56px; }
+}
+/* окно отзыва: «Оригинал отзыва» — справа в строке с датой, без линии; имя слева, стрелки справа */
+.rvm__body { position: relative; }
+.rvm__meta { padding-right: 11em; min-height: 1.4em; }
+.rvm__orig { position: absolute; top: 0; right: 0; padding: 0; border-bottom: 0; line-height: 1.4; }
+.rvm__orig:hover { opacity: 0.7; }
+@media (max-width: 767px) {
+  .rvm__foot { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 12px; }
+  .rvm__person { flex: 0 1 auto; }
+  .rvm__nav { flex: none; }
+  .rvm__nav .svc__arrow { width: 48px; height: 48px; }
+}

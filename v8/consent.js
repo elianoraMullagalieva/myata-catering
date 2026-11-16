@@ -43,7 +43,7 @@
 .ck p{margin:0 0 16px;color:rgba(242,237,230,.78)}
 .ck a{color:#f2ede6;text-decoration:underline;text-underline-offset:2px}
 .ck__row{display:flex;gap:10px}
-.ck button{flex:1;min-height:46px;padding:0 18px;border-radius:0;cursor:pointer;font:500 12px/1 "Golos Text",system-ui,sans-serif;
+.ck button{flex:0 0 auto;min-width:160px;min-height:46px;padding:0 18px;border-radius:0;cursor:pointer;font:500 12px/1 "Golos Text",system-ui,sans-serif;
   letter-spacing:.08em;text-transform:uppercase;transition:background-color .25s ease,border-color .25s ease,color .25s ease}
 .ck__yes{background:#f2ede6;color:#161210;border:1px solid #f2ede6}
 .ck__yes:hover{background:#fff}
@@ -61,7 +61,7 @@
     box.setAttribute("role", "dialog");
     box.setAttribute("aria-label", "Уведомление о cookie");
     box.innerHTML = `<p>Мы используем cookie и Яндекс Метрику, чтобы понимать, как работает сайт, и делать его удобнее. Подробнее — в&nbsp;<a href="${policy}" target="_blank" rel="noopener">Политике cookie</a>.</p>
-      <div class="ck__row"><button type="button" class="ck__yes">Принять</button><button type="button" class="ck__no">Отклонить</button></div>`;
+      <div class="ck__row"><button type="button" class="ck__yes">Принять</button></div>`;
     document.body.appendChild(box);
     requestAnimationFrame(() => requestAnimationFrame(() => box.classList.add("is-on")));
     const close = (v) => {
@@ -71,7 +71,6 @@
       setTimeout(() => box.remove(), 450);
     };
     box.querySelector(".ck__yes").addEventListener("click", () => close("yes"));
-    box.querySelector(".ck__no").addEventListener("click", () => close("no"));
   }
   // не мешаем первому экрану: показываем после загрузки страницы
   // показываем после заставки-загрузки (html.is-loaded), не раньше чем через 1,2 с после неё
