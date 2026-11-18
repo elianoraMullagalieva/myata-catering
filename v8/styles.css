@@ -5550,3 +5550,8 @@ html.lite .v2-glow { display: none; }
   .rvm__nav { flex: none; }
   .rvm__nav .svc__arrow { width: 48px; height: 48px; }
 }
+/* телефон: «Почему мы?» — того же размера, что соседние заголовки; логотипы и «Отзывы» на одном белом фоне — отступ между ними один, 56px */
+@media (max-width: 767px) {
+  .why__title { font-size: 34px; }
+  .rv { padding-top: 0; }
+}
