@@ -5555,3 +5555,6 @@ html.lite .v2-glow { display: none; }
   .why__title { font-size: 34px; }
   .rv { padding-top: 0; }
 }
+
+/* «Почему мы?» на телефоне — как соседние заголовки «Дегустации» и «Меню» (28px) */
+@media (max-width: 767px) { .why__title { font-size: 28px; } }
