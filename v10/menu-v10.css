@@ -1,0 +1,190 @@
+/* ======================================================================
+   МЕНЮ v10 — минимал (.mv, Figma 258:323, кадр 1440×859)
+   Слева фото повара (620px) с заголовком, кнопкой и подписями [01]–[04];
+   справа разделы меню. Открытый раздел показывает три фото блюд,
+   раздел раскрывается при наведении на заголовок (menu-v10.js),
+   фото блюда при наведении чуть увеличивается.
+   Размеры заданы в vw от кадра 1440, с ограничениями сверху и снизу.
+   ====================================================================== */
+.mv{
+  --mv-ink: #1c1714;
+  --mv-line: rgba(28, 23, 20, 0.15);
+  position: relative;
+  display: grid;
+  grid-template-columns: 43.06% 1fr;               /* 620 / 1440 */
+  min-height: clamp(640px, 59.65vw, 1200px);       /* 859 / 1440 */
+  background: #fff;
+  color: var(--mv-ink);
+  font-family: var(--font-display);
+}
+.mv :where(h2, h3, p, ul){ margin: 0; padding: 0; }
+.mv ul{ list-style: none; }
+
+/* ---------- фото повара ---------- */
+.mv__hero{ position: relative; overflow: hidden; color: #fff; }
+.mv__photo{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mv__intro{
+  position: absolute;
+  left: 50%; top: 34.9%;                           /* 300 / 859 */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
+}
+.mv__title{
+  font-weight: 400;
+  font-size: clamp(34px, 3.75vw, 76px);            /* 54 / 1440 */
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.mv__title em{ font-family: var(--font-accent); font-style: italic; letter-spacing: -0.003em; }
+.mv__lead{
+  width: clamp(240px, 22.2vw, 440px);              /* 320 / 1440 */
+  margin-top: clamp(12px, 1.1vw, 22px);
+  font-weight: 500;
+  font-size: clamp(14px, 1.11vw, 22px);            /* 16 / 1440 */
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+}
+.mv__btn{
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(14px, 1.25vw, 26px);
+  height: clamp(52px, 4.36vw, 86px);               /* 62.75 / 1440 */
+  margin-top: clamp(18px, 1.6vw, 32px);
+  padding-inline: clamp(22px, 1.94vw, 40px);       /* 27.9 / 1440 */
+  background: #fff;
+  color: #0a0a0a;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(11px, 0.83vw, 16px);            /* 12 / 1440 */
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.mv__btn svg{ width: 19px; height: 9px; flex: none; transition: transform 0.4s var(--ease); }
+@media (hover: hover){
+  .mv__btn:hover{ background: var(--mv-ink); color: #fff; }
+  .mv__btn:hover svg{ transform: translateX(4px); }
+}
+.mv__btn:focus-visible{ outline: 1px solid #fff; outline-offset: 4px; }
+.mv__tag{
+  position: absolute;
+  font-weight: 500;
+  font-size: clamp(10px, 0.76vw, 14px);            /* 11 / 1440 */
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.mv__tag--1{ left: 15%;   top: 6.75%; }            /* 93, 58 */
+.mv__tag--2{ left: 78.7%; top: 26.4%; }            /* 488, 227 */
+.mv__tag--3{ left: 8.87%; top: 74.7%; }            /* 55, 642 */
+.mv__tag--4{ left: 71.9%; top: 86.3%; }            /* 446, 741 */
+
+/* ---------- разделы ---------- */
+.mv__list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(40px, 4.44vw, 90px) clamp(24px, 3.89vw, 80px) clamp(36px, 3.89vw, 80px);  /* 64 / 56 */
+}
+.mv-sec{ border-top: 1px solid var(--mv-line); }
+.mv-sec:last-child{ border-bottom: 1px solid var(--mv-line); }
+.mv-sec__h{ font: inherit; }
+.mv-sec__head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: clamp(18px, 1.67vw, 34px) 0;            /* 24 / 1440 */
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: clamp(22px, 1.94vw, 40px);            /* 28 / 1440 */
+  letter-spacing: -0.03em;
+  text-align: left;
+  cursor: pointer;
+}
+.mv-sec__head > span{ transition: transform 0.45s var(--ease); }
+.mv-sec__head:focus-visible{ outline: 1px solid var(--mv-ink); outline-offset: 4px; }
+.mv-sec__icon{ flex: none; width: 20px; height: 20px; }
+.mv-sec__icon--minus,
+.mv-sec.is-open .mv-sec__icon--plus{ display: none; }
+.mv-sec.is-open .mv-sec__icon--minus{ display: block; }
+/* при наведении текст чуть сдвигается, плюсик поворачивается; раскрытие — только по нажатию (menu-v10.js) */
+.mv-sec__icon{ transition: transform 0.5s var(--ease); }
+@media (hover: hover){
+  .mv-sec__head:hover > span{ transform: translateX(8px); }
+  .mv-sec:not(.is-open) .mv-sec__head:hover .mv-sec__icon--plus{ transform: rotate(90deg); }
+}
+
+/* плавное раскрытие: строка сетки 0fr → 1fr */
+.mv-sec__panel{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+.mv-sec.is-open .mv-sec__panel{ grid-template-rows: 1fr; }
+.mv-sec__dishes{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  min-height: 0;
+  overflow: hidden;
+}
+.mv-sec__dishes::after{ content: ""; grid-column: 1 / -1; height: clamp(14px, 1.94vw - 14px, 30px); } /* 28px снизу вместе с зазором */
+.mv-dish{
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+}
+.mv-sec.is-open .mv-dish{ opacity: 1; transform: none; transition-delay: calc(0.12s + var(--i, 0) * 0.06s); }
+.mv-dish:nth-child(2){ --i: 1; }
+.mv-dish:nth-child(3){ --i: 2; }
+.mv-dish__ph{
+  display: block;
+  aspect-ratio: 226.667 / 204;
+  overflow: hidden;
+  background: #efebe6;
+}
+.mv-dish__ph img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+@media (hover: hover){
+  .mv-dish:hover .mv-dish__ph img{ transform: scale(1.06); }
+}
+.mv-dish__name{
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(13px, 1.04vw, 20px);            /* 15 / 1440 */
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- планшет и телефон: фото сверху, разделы под ним ---------- */
+@media (max-width: 900px){
+  .mv{ grid-template-columns: 1fr; min-height: 0; }
+  .mv__hero{ aspect-ratio: 620 / 859; max-height: 120vh; }
+  .mv__intro{ top: 50%; transform: translate(-50%, -50%); }
+  .mv__list{ padding: 40px var(--edge, 16px) 56px; }
+}
+@media (max-width: 560px){
+  .mv__hero{ aspect-ratio: 375 / 560; }
+  .mv__tag{ display: none; }
+  .mv-sec__dishes{ gap: 8px; }
+  .mv-dish__name{ font-size: 12px; margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .mv-sec__panel, .mv-dish, .mv-dish__ph img, .mv-sec__head > span{ transition: none; }
+}

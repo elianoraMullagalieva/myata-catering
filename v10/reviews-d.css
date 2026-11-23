@@ -1,0 +1,312 @@
+/* ======================================================================
+   ОТЗЫВЫ D — цитата + переключатель-аватары (.rd, Figma 258:716, кадр 1440×859)
+   и поп-ап «Все отзывы» (.rdm, Figma 258:741).
+   Заголовок и кнопка стоят на месте, цитата в середине сама меняется раз в 3 с.
+   Размеры — в vw от кадра 1440 с ограничениями.
+   ====================================================================== */
+.rd{
+  --b-ink: #1c1714;
+  --rd-mute: #6e645b;
+  --rd-line: rgba(28, 23, 20, 0.35);
+  position: relative;
+  padding: clamp(48px, 3.61vw, 90px) clamp(16px, 4.17vw, 100px) clamp(40px, 3.4vw, 80px);  /* 52 / 60 / 49 */
+  background: #fff;
+  color: var(--b-ink);
+  font-family: var(--font-display);
+}
+.rd :where(h2, h3, p, ul){ margin: 0; padding: 0; }
+.rd ul{ list-style: none; }
+
+/* ---------- заголовок ---------- */
+.rd__head{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+.rd__title{
+  max-width: 12.9em;                                    /* 820 / 64 */
+  font-weight: 400;
+  font-size: clamp(34px, 4.44vw, 110px);                /* 64 / 1440 */
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.rd__title em{ font-family: var(--font-accent); font-style: italic; letter-spacing: -0.0025em; }
+.rd__lead{
+  flex: none;
+  width: clamp(240px, 23.6vw, 520px);                   /* 340 / 1440 */
+  padding-bottom: 0.2em;
+  font-weight: 500;
+  font-size: clamp(15px, 1.25vw, 26px);                 /* 18 / 1440 */
+  line-height: 1.4;
+  color: rgba(28, 23, 20, 0.75);
+}
+
+/* ---------- цитата ---------- */
+.rd__stage{
+  display: grid;
+  grid-template-columns: clamp(64px, 7.64vw, 180px) minmax(0, clamp(300px, 54.2vw, 1180px)); /* 110 + 780 */
+  margin-top: clamp(48px, 6.94vw, 160px);               /* 100 / 1440 */
+  padding-left: clamp(0px, 11.1vw, 260px);              /* 220 − 60 */
+}
+.rd__quote{
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(90px, 10.4vw, 240px);                /* 150 / 1440 */
+  line-height: 0.75;
+  margin-top: 0.35em;                                   /* знак — чуть ниже метки, как в макете */
+}
+.rd__body{ padding-top: clamp(20px, 2.78vw, 64px); }    /* метка на 40px ниже верха кавычки (1440) */
+.rd__slides{ display: grid; }
+/* смена отзыва — мягко слева направо: новый выезжает слева, прежний уходит вправо */
+.rd{ --rd-soft: cubic-bezier(0.45, 0, 0.2, 1); }
+.rd-slide{
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-40px);
+  transition: opacity 0.7s var(--rd-soft), transform 0.9s var(--rd-soft), visibility 0s linear 0.9s;
+}
+.rd-slide.is-out{ transform: translateX(40px); }
+.rd-slide.is-active{
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.9s var(--rd-soft) 0.25s, transform 1.1s var(--rd-soft) 0.25s, visibility 0s;
+}
+.rd-slide__meta{ display: flex; align-items: center; gap: clamp(12px, 0.97vw, 24px); }
+.rd-slide__date{ font-size: clamp(12px, 0.9vw, 18px); color: var(--rd-mute); }
+.rd-slide__text{
+  margin-top: clamp(16px, 1.53vw, 34px);
+  font-size: clamp(17px, 1.53vw, 34px);                 /* 22 / 1440 */
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+.rd-slide__who{ display: none; }                         /* имя под текстом — только на телефоне */
+.rd-text-short{ display: none; }
+.rd-slide__links{ display: flex; gap: clamp(20px, 1.67vw, 40px); margin-top: clamp(12px, 1.11vw, 24px); }
+
+/* метка и ссылки */
+.rd-tag{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1px solid var(--rd-line);
+  border-radius: 100px;
+  background: none;
+  color: var(--b-ink);
+  font: inherit;
+  font-weight: 500;
+  font-size: clamp(12px, 0.83vw, 16px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.rd-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--b-ink);
+  font: inherit;
+  font-weight: 500;
+  font-size: clamp(12px, 0.83vw, 16px);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  transition: opacity 0.4s var(--rd-soft);
+}
+.rd-link img{ width: 12px; height: 5px; flex: none; }
+@media (hover: hover){ .rd-link:hover{ opacity: 0.6; } }
+.rd-link:focus-visible, .rd-tag:focus-visible{ outline: 1px solid var(--b-ink); outline-offset: 3px; }
+
+/* ---------- переключатель-аватары ---------- */
+.rd__people{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(28px, 3.06vw, 64px);
+  min-height: 68px;
+}
+.rd-person{
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--b-ink);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.8s var(--rd-soft), padding 0.8s var(--rd-soft);
+}
+.rd-person__ava{
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f2f2f2;
+  font-weight: 500;
+  font-size: 17.68px;
+  transition: background-color 0.8s var(--rd-soft);
+}
+.rd-person__info{
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns 0.8s var(--rd-soft), margin 0.8s var(--rd-soft);
+}
+.rd-person__in{
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.4s var(--rd-soft);
+}
+.rd-person__name{ display: block; font-weight: 500; font-size: 17px; color: #fff; }
+.rd-person__type{ display: block; margin-top: 2px; font-size: 12px; color: rgba(255, 255, 255, 0.6); }
+.rd-person.is-active{ padding: 8px 28px 8px 8px; background: #1c1714; cursor: default; }
+.rd-person.is-active .rd-person__ava{ background: #f2ede6; }
+.rd-person.is-active .rd-person__info{ grid-template-columns: 1fr; margin-left: 14px; }
+.rd-person.is-active .rd-person__in{ opacity: 1; transition-delay: 0.2s; }
+@media (hover: hover){
+  .rd-person:not(.is-active):hover .rd-person__ava{ background: #e6e1db; }
+}
+.rd-person:focus-visible{ outline: 1px solid var(--b-ink); outline-offset: 3px; }
+
+/* ---------- кнопка ---------- */
+.rd__foot{ display: flex; justify-content: flex-end; margin-top: clamp(40px, 7.4vw, 170px); }
+.rd__all{ border: 0; cursor: pointer; }
+
+/* ======================================================================
+   поп-ап «Все отзывы»
+   ====================================================================== */
+.rdm{ position: fixed; inset: 0; z-index: 89; display: grid; place-items: center; padding: 16px; }
+.rdm[hidden]{ display: none; }
+.rdm__backdrop{ position: absolute; inset: 0; background: rgba(22, 18, 16, 0.85); opacity: 0; transition: opacity 0.35s var(--ease); } /* Figma 267:1242 */
+.rdm__box{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(86.1vw, 1600px);                           /* 1240 / 1440 */
+  height: min(35.28vw, 660px, calc(100dvh - 32px));     /* 508 / 1440 (Figma 267:1244): видна одна строка отзывов, остальные — прокруткой */
+  min-height: min(460px, calc(100dvh - 32px));
+  border-radius: 8px;
+  background: #f2f2f2;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px) scale(0.985);
+  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease);
+}
+.rdm.is-open .rdm__backdrop, .rdm.is-open .rdm__box{ opacity: 1; }
+.rdm.is-open .rdm__box{ transform: none; }
+.rdm__top{
+  position: relative;
+  flex: none;
+  padding: clamp(24px, 2.78vw, 56px) clamp(16px, 3.33vw, 72px) clamp(20px, 1.67vw, 36px); /* 40 / 48 */
+}
+.rdm__title{ font-weight: 400; font-size: clamp(30px, 3.33vw, 72px); line-height: 1.2; letter-spacing: -0.05em; }
+.rdm__title em{ font-family: var(--font-accent); font-style: italic; letter-spacing: -0.003em; }
+.rdm__close{
+  position: absolute;
+  top: clamp(18px, 3.2vw, 64px);
+  right: clamp(8px, 2.8vw, 60px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.rdm__close img{ width: 19px; height: 19px; transition: transform 0.4s var(--ease); }
+@media (hover: hover){ .rdm__close:hover img{ transform: rotate(90deg); } }
+.rdm__filters{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(14px, 1.11vw, 24px); }
+.rdm__filters .rd-tag{ cursor: pointer; transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
+.rdm__filters .rd-tag[aria-pressed="true"]{ background: #1c1714; border-color: rgba(255, 255, 255, 0.35); color: #fff; }
+@media (hover: hover){ .rdm__filters .rd-tag[aria-pressed="false"]:hover{ border-color: var(--b-ink); } }
+.rdm__grid{
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: clamp(12px, 1.11vw, 24px);                       /* 16 / 1440 */
+  padding: 0 clamp(16px, 3.33vw, 72px) clamp(16px, 3.33vw, 72px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.rdm-card{
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  gap: 18px;
+  min-height: clamp(260px, 19.4vw, 360px);              /* 280 / 1440 */
+  padding: clamp(20px, 1.94vw, 40px);                   /* 28 / 1440 */
+  border-radius: 6px;
+  background: #fff;
+  animation: rdm-in 0.5s var(--ease) both;
+}
+.rdm-card[hidden]{ display: none; }
+@keyframes rdm-in{ from{ opacity: 0; transform: translateY(10px); } }
+.rdm-card__top{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; }
+.rdm-card__date{ font-size: clamp(12px, 0.9vw, 18px); color: rgba(28, 23, 20, 0.55); white-space: nowrap; }
+.rdm-card__text{
+  flex: none;                                           /* не сжимать: карточка растёт под текст */
+  font-size: clamp(14px, 0.97vw, 20px);                 /* 14 / 1440 */
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
+}
+.rdm-card > .rd-link{ align-self: start; justify-self: start; }
+/* в макете 267:1258 у карточки видны только метка, дата, текст и «Читать полностью»;
+   имя и «Оригинал» — в поп-апе «Отзыв полностью» */
+.rdm-card__bottom{
+  display: none;                                        /* чтобы вернуть имя и «Оригинал» в карточку — display: flex */
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(28, 23, 20, 0.15);
+}
+.rdm-card__name{ font-weight: 500; font-size: clamp(16px, 1.25vw, 24px); letter-spacing: -0.01em; }
+
+/* ---------- адаптив ---------- */
+@media (max-width: 1100px){
+  .rdm__grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rd__stage{ padding-left: 0; }
+}
+@media (max-width: 767px){
+  .rd-text-full{ display: none; }
+  .rd-text-short{ display: inline; }
+  .rdm-card__text{ display: block; -webkit-line-clamp: unset; overflow: visible; }
+  .rd__head{ flex-direction: column; align-items: flex-start; gap: 14px; }
+  .rd__lead{ width: auto; }
+  .rd__stage{ grid-template-columns: 1fr; margin-top: 36px; }
+  .rd__quote{ font-size: 80px; margin: 0 0 -12px; }
+  .rd__body{ padding-top: 0; }
+  /* на телефоне плашка с именем не помещается в строку — только кружки, активный тёмный, имя под текстом */
+  .rd-slide__who{ display: block; margin-top: 12px; font-weight: 500; font-size: 15px; }
+  .rd__people{ flex-wrap: nowrap; min-height: 52px; }
+  .rd-person.is-active{ padding: 0; background: transparent; }
+  .rd-person.is-active .rd-person__ava{ background: #1c1714; color: #fff; }
+  .rd-person.is-active .rd-person__info{ grid-template-columns: 0fr; margin-left: 0; }
+  .rd-person.is-active .rd-person__in{ opacity: 0; }
+  .rd__foot{ justify-content: stretch; }
+  .rd__all{ width: 100%; }
+  .rdm__box{ width: 100%; height: min(560px, calc(100dvh - 32px)); min-height: 0; }
+  .rdm__grid{ grid-template-columns: minmax(0, 1fr); }
+  .rdm-card{ height: auto; }
+}
+@media (prefers-reduced-motion: reduce){
+  .rd-slide, .rd-slide.is-active, .rd-person, .rd-person__ava, .rd-person__info, .rd-person__in, .rdm__box, .rdm__backdrop{ transition: none; }
+  .rdm-card{ animation: none; }
+}

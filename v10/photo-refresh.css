@@ -1,0 +1,33 @@
+/* Photographs from Figma section 283:1424. Existing page layout is preserved. */
+.tm__photo img { object-position: 50% 50%; }
+.ct5__photo { object-position: 50% 16.25%; }
+
+/* Keep the new contact photograph visible; the brand sits in its lower corner. */
+.ct5__visual .ct5__logo,
+.ct5__visual.is-live .ct5__logo {
+  left: auto;
+  top: auto;
+  right: 5.4%;
+  bottom: 4.7%;
+  width: clamp(72px, 13%, 110px);
+  transform: none;
+  animation: none;
+  background: #fff;
+}
+
+/* Match the preview crops in the design while retaining the original files. */
+[data-st-open="1"] .sx-card__media > img {
+  inset: -64.26% auto auto -35.68%;
+  width: 171.16%;
+  height: 171.03%;
+}
+[data-st-open="2"] .sx-card__media > img {
+  inset: -20.75% auto auto -26.16%;
+  width: 126.27%;
+  height: 126.27%;
+}
+[data-st-open="4"] .sx-card__media > img {
+  inset: -16.43% auto auto 0.07%;
+  width: 120.65%;
+  height: 120.65%;
+}

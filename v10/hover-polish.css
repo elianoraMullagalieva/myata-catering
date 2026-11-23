@@ -1,0 +1,24 @@
+/* ======================================================================
+   Лёгкое увеличение фото при наведении — там, где его не было.
+   Медленно и едва заметно (1.03–1.05), только на устройствах с мышью;
+   рамки фото обрезают выход за край (overflow: hidden).
+   ====================================================================== */
+.tst__photo,
+.why__photo img,
+.tm__photo img,
+.mv__photo,
+.sx-card__media img{
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.why__photo, .tm__photo, .mv__hero, .sx-card__media{ overflow: hidden; }
+@media (hover: hover){
+  .tst:hover .tst__photo,
+  .why__photo:hover img,
+  .tm__photo:hover img,
+  .mv__hero:hover .mv__photo{ transform: scale(1.03); }
+  .sx-card__btn:hover .sx-card__media img{ transform: scale(1.05); }
+}
+@media (prefers-reduced-motion: reduce){
+  .tst__photo, .why__photo img, .tm__photo img, .mv__photo, .sx-card__media img{ transition: none; transform: none !important; }
+}
