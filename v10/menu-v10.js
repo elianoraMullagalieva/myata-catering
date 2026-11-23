@@ -1,5 +1,5 @@
 /* Меню v10: при наведении текст заголовка чуть сдвигается (CSS), раздел раскрывается по нажатию
-   на заголовок или плюсик. Открыт один раздел; повторное нажатие на открытый — закрывает его. */
+   на заголовок или плюсик. Открыт один раздел; повторное нажатие на открытый его не закрывает (блок не прыгает). */
 (() => {
   const root = document.querySelector("[data-mv]");
   if (!root) return;
@@ -12,8 +12,9 @@
 
   secs.forEach((sec) => {
     sec.querySelector(".mv-sec__head").addEventListener("click", () => {
-      const willOpen = !sec.classList.contains("is-open");
-      secs.forEach((s) => set(s, s === sec && willOpen));
+      // всегда открыт один раздел: нажатие на открытый ничего не меняет — высота блока постоянная
+      if (sec.classList.contains("is-open")) return;
+      secs.forEach((s) => set(s, s === sec));
     });
   });
 })();

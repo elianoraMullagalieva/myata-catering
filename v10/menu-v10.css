@@ -188,3 +188,17 @@
 @media (prefers-reduced-motion: reduce){
   .mv-sec__panel, .mv-dish, .mv-dish__ph img, .mv-sec__head > span{ transition: none; }
 }
+
+/* ===== Меню v10 (правка Эли): блок ровно в высоту экрана, 5 разделов по 3 блюда — без прыжков =====
+   раздел всегда открыт один, у всех одинаковая высота (3 фото в ряд, подпись в одну строку);
+   размер фото и отступы зависят от высоты окна, поэтому блок помещается и на 13″ */
+@media (min-width: 901px){
+  .mv{ min-height: 0; height: 100vh; height: 100svh; min-height: 600px; max-height: 1200px; }
+  .mv__hero{ height: 100%; }
+  .mv__photo{ height: 100%; }
+  .mv__list{ justify-content: center; padding-top: clamp(84px, 11vh, 130px); padding-bottom: clamp(28px, 5vh, 70px); }
+  .mv-sec__head{ padding: clamp(10px, 1.9vh, 28px) 0; font-size: clamp(20px, min(1.94vw, 3.6vh), 38px); }
+  .mv-dish__ph{ aspect-ratio: auto; height: clamp(110px, 21vh, 250px); }
+  .mv-sec__dishes::after{ height: clamp(10px, 2.2vh, 26px); }
+}
+@media (min-width: 901px){ .mv-dish__name{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } }
