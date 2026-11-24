@@ -1,0 +1,12 @@
+/* ======================================================================
+   Лёгкая оптимизация (без сжатия файлов):
+   1) значки play в ленте — без размытия фона (blur над играющим видео пересчитывается каждый кадр);
+   2) фото не держат постоянный отдельный слой (will-change) — слой создаётся только при наведении;
+   3) бесконечные анимации стоят на паузе, пока их блок за экраном (класс .is-off ставит perf.js).
+   ====================================================================== */
+.sx-card__play { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; background: rgba(0, 0, 0, 0.32) !important; }
+.why__photo img, .tm__photo img, .mv__photo, .sx-card__media img { will-change: auto !important; }
+@media (hover: hover) {
+  .why__photo:hover img, .tm__photo:hover img, .mv__hero:hover .mv__photo, .sx-card__btn:hover .sx-card__media img { will-change: transform !important; }
+}
+.is-off, .is-off * { animation-play-state: paused !important; }

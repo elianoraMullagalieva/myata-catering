@@ -4,6 +4,7 @@
   <meta name="robots" content="noindex, nofollow">
   <meta charset="utf-8">
 
+  <script>(function(m){document.documentElement.classList.add('st'+(m?m[1]:'1'));})(location.search.match(/[?&]st=([123])/));</script>
   <script>document.documentElement.classList.replace("no-js", "js");
   // страховка: прелоадер не дольше 3 с от начала загрузки, даже если скрипты и фото ещё в пути
   setTimeout(function () { document.documentElement.classList.add("is-loaded"); }, 3000);</script>
@@ -23,12 +24,13 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="assets/fonts/geologica-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/manrope-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261119a">
-  <link rel="stylesheet" href="stories-sx.css?v=20261116b">
+  <link rel="stylesheet" href="styles.css?v=20261125040707">
+  <link rel="stylesheet" href="stories-sx.css?v=20261125040707">
   <link rel="stylesheet" href="menu-v10.css?v=20261123165048">
   <link rel="stylesheet" href="reviews-d.css?v=20261117b">
   <link rel="stylesheet" href="hover-polish.css?v=20261123165048">
-  <link rel="stylesheet" href="photo-refresh.css?v=20261121a">
+  <link rel="stylesheet" href="photo-refresh.css?v=20261125040707">
+  <link rel="stylesheet" href="perf.css?v=20261125040450">
 </head>
 <body class="v2">
   <!-- прелоадер: исчезает, когда готов первый экран (класс is-loaded, main.js) -->
@@ -322,7 +324,7 @@
       <h2 class="qz__title" id="qz-title">Рассчитаем кейтеринг<br> для <em>вашего мероприятия</em></h2>
       <p class="qz__lead">Оставьте параметры мероприятия&nbsp;— подготовим предварительный расчёт и&nbsp;предложим подходящий формат</p>
       <figure class="qz__photo">
-        <img loading="lazy" decoding="async" src="assets/quiz-alina.jpg" alt="Алина Юсупова, главный супервайзер, у фуршетного стола" decoding="async">
+        <img loading="lazy" decoding="async" src="assets/quiz-alina-2026.png" width="896" height="1200" alt="Алина Юсупова, главный супервайзер, у фуршетного стола" decoding="async">
         <figcaption class="qz__badge">
           <span class="qz__badge-mark"><svg viewBox="0 0 25 25" aria-hidden="true"><path d="M16.79 16.02l3.03 1.21-.66 3.76-3.03-1.22.66-3.75zM1.8.03l6.5 6.5-1.77 1.77L.03 1.8 1.8.03zM11.25 9.67h2.5V0h-2.5v9.67zm0 5.66h2.5V25h-2.5v-9.67zM9.67 11.25v2.5H0v-2.5h9.67zm5.66 0v2.5H25v-2.5h-9.67z" fill="currentColor"/></svg></span>
           <span class="qz__badge-box"><b>Алина Юсупова</b><span>главный супервайзер</span></span>
@@ -746,7 +748,7 @@
   <!-- Контакты (Figma 1026:600): фото листа с логотипом слева, контакты справа -->
   <section class="ct5" id="contacts" aria-labelledby="ct5-title">
     <div class="ct5__visual" data-ct5-visual>
-      <picture><source srcset="assets/photos-2026-11/contacts.webp" type="image/webp"><img class="ct5__photo" src="assets/photos-2026-11/contacts.webp" alt="" loading="lazy" decoding="async" width="768" height="1024"></picture>
+      <video class="ct5__photo ct5__video" data-src="assets/contacts-2026.mp4" muted loop playsinline preload="none" width="834" height="1112" aria-hidden="true"></video>
       <div class="ct5__logo" role="img" aria-label="МЯТА"></div>
     </div>
     <div class="ct5__info">
@@ -818,13 +820,14 @@
   <script src="tasting.js?v=20261112201026" defer></script>
   <script src="forms.js?v=20261112201026" defer></script>
   <script src="header.js?v=20261112201026" defer></script>
-  <script src="liquid.js?v=20261121a" defer></script>
+  <script src="liquid.js?v=20261125040707" defer></script>
   <script src="lead.js?v=20261112201026" defer></script>
   <script src="reviews.js?v=20261116a" defer></script>
   <script src="reviews-d.js?v=20261117b" defer></script>
   <script src="stories-sx.js?v=20261116b" defer></script>
-  <script src="blocks.js?v=20261123165048" defer></script>
+  <script src="blocks.js?v=20261125040707" defer></script>
   <script src="menu-v10.js?v=20261123165048" defer></script>
   <script src="main.js?v=20261112201026" defer></script>
+  <script src="perf.js?v=20261125040450" defer></script>
 </body>
 </html>

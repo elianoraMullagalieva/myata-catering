@@ -5018,3 +5018,37 @@ img, .v2-video, .st-card video { pointer-events: none; -webkit-user-drag: none; 
 .liquid-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
 .has-liquid > .liquid-canvas { opacity: 1; }
 .tst__right .liquid-canvas { z-index: 0; }
+
+/* ===== Квиз: новое фото Алины (тёмный интерьер) и стеклянная плашка с белым текстом =====
+   лицо и фигура — в верхней половине кадра, поэтому кадр держим за верх, а плашку ставим
+   в левый нижний угол, на тёмную часть стола — она не перекрывает лицо и силуэт */
+.qz__photo img { object-position: 50% 22% !important; transform: none !important; }
+.qz__badge { top: auto !important; left: clamp(14px, 4%, 28px) !important; bottom: clamp(14px, 4%, 28px); padding: 0 !important; display: flex; align-items: center; gap: 0; }
+.qz__badge-mark {
+  position: static !important; flex: none; width: 34px !important; height: 34px !important; margin-right: -1px;
+  background: rgba(255, 255, 255, 0.14) !important; color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.32); border-right: 0;
+  -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+}
+.qz__badge-box {
+  background: rgba(255, 255, 255, 0.14) !important; color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  padding: 8px 14px 9px !important;
+}
+.qz__badge-box b { color: #fff; }
+.qz__badge-box span { color: rgba(255, 255, 255, 0.78) !important; }
+@media (max-width: 767px) {
+  .qz__photo img { object-position: 50% 26% !important; }
+  .qz__badge-mark { width: 28px !important; height: 28px !important; }
+  .qz__badge-box { padding: 6px 10px 7px !important; }
+}
+/* новое фото: без светлой растушёвки слева (была для старого светлого фото) и без фона-подложки */
+.qz__photo { background: #14100e !important; }
+.qz__photo img { -webkit-mask-image: none !important; mask-image: none !important; }
+/* телефон: кадр выше (4:5) — видно Алину целиком, плашка на столе, а не на фигуре */
+@media (max-width: 767px) {
+  .qz__photo { aspect-ratio: 4 / 5 !important; height: auto !important; }
+  .qz__photo img { object-position: 50% 30% !important; }
+}

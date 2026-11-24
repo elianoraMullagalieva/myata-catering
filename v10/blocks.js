@@ -71,3 +71,24 @@
     fine.addEventListener?.("change", fix);
   });
 })();
+
+/* Контакты: видео грузится, когда до блока около экрана, играет только пока видно — не тормозит прокрутку */
+(() => {
+  const v = document.querySelector(".ct5__video");
+  if (!v) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const load = () => { if (!v.src) { v.src = v.dataset.src; v.load(); } };
+  if (!("IntersectionObserver" in window)) { load(); if (!reduce) v.play().catch(() => {}); return; }
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) load(); }, { rootMargin: "100% 0px" }).observe(v);
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !reduce) { load(); v.play().catch(() => {}); } else v.pause();
+  }, { threshold: 0.15 }).observe(v);
+})();
+
+/* Лента видео, вариант 3: стрелки переезжают к заголовку (по бокам от него) */
+(() => {
+  if (!document.documentElement.classList.contains("st3")) return;
+  const a = document.querySelector(".sx-row .sx__arrows"), h = document.querySelector(".sx__head");
+  if (!a || !h || !window.matchMedia("(min-width: 768px)").matches) return;
+  h.appendChild(a);
+})();

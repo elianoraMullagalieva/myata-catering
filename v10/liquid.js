@@ -10,7 +10,7 @@
   const getLib = () => lib || (lib = import("./vendor/ogl.mjs"));
   // [контейнер, картинка, вертикальный фокус кадра]
   const targets = [
-    [document.querySelector("[data-ct5-visual]"), ".ct5__photo", 0.1625],
+    // контакты: без эффекта — там видео (по правке Эли)
     [document.querySelector(".tst__right"), ".tst__photo", 0.5],
   ];
   targets.forEach(([box, sel, fy]) => {

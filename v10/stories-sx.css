@@ -287,3 +287,43 @@
   .sx-card__media{ aspect-ratio: 3 / 4; transform: none; }
   .sx-card__cap{ transform: none; }
 }
+
+/* ===== Лента видео: три варианта (?st=1 / ?st=2 / ?st=3), по правке Эли =====
+   общее: без подзаголовка, ролики выше — размер считается и от ширины, и от высоты экрана,
+   чтобы весь блок (заголовок + лента + подсказка со стрелками) помещался в один экран */
+@media (min-width: 768px){
+  .sx{
+    --st-w: min(clamp(240px, 26vw, 700px), calc((100vh - 360px) * 0.75));
+    display: flex; flex-direction: column;
+    padding-top: clamp(76px, 10vh, 140px); padding-bottom: clamp(36px, 6vh, 90px);
+  }
+  .sx__lead{ display: none !important; }
+  .sx__title{ font-size: min(clamp(30px, 1rem + 3.33vw, 104px), 8.4vh) !important; }
+  .sx__head{ margin: 0 !important; }
+  .sx-row{ margin-bottom: 0 !important; }
+  /* вариант 1 и 2: заголовок сверху, управление под лентой */
+  html:not(.st3) .sx__head{ order: 0; margin-bottom: clamp(18px, 3.4vh, 44px) !important; }
+  html:not(.st3) .sx__viewport{ order: 1; }
+  html:not(.st3) .sx-row{ order: 2; margin-top: clamp(12px, 2.2vh, 30px) !important; }
+  /* вариант 2: «стрелка · подсказка · стрелка» по центру под главным роликом */
+  .st2 .sx-row{ justify-content: center; gap: clamp(18px, 2vw, 36px); padding-inline: var(--edge, 24px); }
+  .st2 .sx-row .sx__arrows{ display: contents; }
+  .st2 .sx-row [data-st-prev]{ order: 0; }
+  .st2 .sx-row .st-tap{ order: 1; }
+  .st2 .sx-row [data-st-next]{ order: 2; }
+  .st2 .st-tap br{ display: none; }
+  /* вариант 3: подсказка по центру над лентой, заголовок под лентой, стрелки по бокам заголовка */
+  .st3 .sx-row{ order: 0; justify-content: center; margin-bottom: clamp(12px, 2.2vh, 30px) !important; }
+  .st3 .st-tap br{ display: none; }
+  .st3 .sx__viewport{ order: 1; }
+  .st3 .sx__head{ order: 2; margin-top: clamp(16px, 3vh, 40px) !important; position: relative; width: 100%;
+    padding-inline: var(--edge, 24px); box-sizing: border-box;
+    display: flex; align-items: center; justify-content: center; }
+  .st3 .sx__title{ white-space: nowrap; font-size: min(clamp(30px, 1rem + 3.33vw, 104px), 8.4vh, 4.6vw) !important; }
+  .st3 .sx__head .sx__arrows{ position: absolute; inset: 50% var(--edge, 24px) auto; transform: translateY(-50%);
+    display: flex; justify-content: space-between; pointer-events: none; }
+  .st3 .sx__head .sx__arrows > *{ pointer-events: auto; }
+}
+
+/* подзаголовок «Каждое событие…» убран везде (и на телефоне) */
+.sx__lead{ display: none !important; }
