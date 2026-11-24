@@ -249,81 +249,37 @@
   .st-tap { font-size: 11px; text-align: center; }
 }
 
-/* ===== Видео C4 — «барабан» (Figma 259:334) =====
-   в центре один ролик 326×435 (при 1440), соседи 0.92, следующие 0.83, крайние уходят за край;
-   кадры 3:4, выровнены по середине, подпись (название + длительность) — под каждым кадром;
-   значок play виден на каждом ролике; лента листается сама (stories-sx.js) */
-.sx{
-  --st-w: clamp(220px, 22.64vw, 640px);
-  --st-gap: clamp(12px, 1.667vw, 40px);
-  padding-top: clamp(56px, 0.5rem + 4.5vw, 150px);
+/* ===== v10: лента видео по образцу Эли =====
+   два центральных ролика крупнее, остальные меньше; заголовок внизу; без подзаголовка, стрелок и значков play;
+   подсказка — мелко и аккуратно, обычными буквами; на компьютере при наведении на ролик — круг «Смотреть»
+   (как «Открыть» в кейсах); на телефоне — один крупный ролик по центру, точки, подсказка, заголовок */
+.sx-row, .sx__lead, .sx-card__play, .sx__head .sx__arrows { display: none !important; }
+.sx-hint {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin: clamp(14px, 2.2vh, 26px) 0 0; padding: 0 16px;
+  font-size: clamp(12px, 0.68rem + 0.12vw, 14px); line-height: 1.3; letter-spacing: 0.01em;
+  color: rgba(28, 23, 20, 0.5); text-align: center;
 }
-/* подсказка и стрелки над лентой: края — по внешним краям соседних с центром роликов (масштаб 0.92),
-   строка на 24px выше их верха (кадры выровнены по середине, сосед ниже центрального на 4% высоты) */
-.sx-row{
-  padding-inline: max(var(--edge, 24px), calc(50% - var(--st-w) * 1.42 - var(--st-gap)));
-  margin-bottom: calc(clamp(18px, 1.667vw, 32px) - var(--st-w) * 4 / 3 * 0.04);
+.sx-hint .st-tap__hand { width: 15px; height: auto; flex: none; color: #1c1714; fill: none; stroke: currentColor; stroke-width: 0.9; stroke-linecap: round; stroke-linejoin: round; overflow: visible; animation: st-sway 2.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sx-hint .st-tap__hand { animation: none; } }
+.sx__head { margin-top: clamp(18px, 3vh, 44px) !important; }
+/* круг «Смотреть» вместо курсора над роликом */
+.sx-cursor { position: fixed; left: 0; top: 0; z-index: 20; width: 0; height: 0; pointer-events: none; }
+.sx-cursor__ball {
+  position: absolute; left: -46px; top: -46px; display: grid; place-items: center;
+  width: 92px; height: 92px; border-radius: 50%; background: #1c1714; color: #fff;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0; transform: scale(0.2); transition: transform 0.5s var(--ease-expo, cubic-bezier(0.16, 1, 0.3, 1)), opacity 0.3s ease;
 }
-.sx-card__media{ aspect-ratio: 3 / 4; transform-origin: 50% 50%; border-radius: 10px; }
-.sx__viewport{ height: calc(var(--st-w) * 4 / 3 + clamp(28px, 1.3rem + 0.5vw, 44px)); }
-/* подпись идёт за нижним краем уменьшенного кадра */
-.sx-card__cap{
-  margin-top: 10px;
-  font-size: clamp(12px, 0.5rem + 0.35vw, 17px);
-  transform: translateY(calc((var(--s, 1) - 1) * var(--st-w) * 2 / 3));
+.sx-cursor.is-on .sx-cursor__ball { opacity: 1; transform: scale(1); }
+@media (hover: hover) and (pointer: fine) { .sx__viewport.has-cursor, .sx__viewport.has-cursor * { cursor: none; } }
+/* точки — только на телефоне */
+.sx__dots { display: none; }
+@media (max-width: 767px) {
+  .sx { --st-w: 59vw; --st-gap: 14px; }
+  .sx__dots { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
+  .sx__dots i { width: 6px; height: 6px; border-radius: 3px; background: rgba(28, 23, 20, 0.25); transition: width 0.4s ease, background-color 0.3s; }
+  .sx__dots i.is-on { width: 20px; background: #1c1714; }
+  .sx-hint { margin-top: 14px; font-size: 12px; }
+  .sx__title { text-align: center; }
 }
-.sx-card__name{ font-weight: 500; color: #1c1714; }
-.sx-card__time{ color: #6e645b; }
-.sx-card__play{
-  opacity: 0.9;
-  background: rgba(0, 0, 0, 0.22);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-}
-.sx__head{ margin-top: clamp(28px, 0.5rem + 2vw, 80px); }
-@media (max-width: 767px){
-  .sx{ --st-w: 70vw; --st-gap: 16vw; padding-top: 72px; }
-  .sx-row{ padding-inline: 16px; margin-bottom: 18px; }
-  .sx-card__media{ aspect-ratio: 3 / 4; transform: none; }
-  .sx-card__cap{ transform: none; }
-}
-
-/* ===== Лента видео: три варианта (?st=1 / ?st=2 / ?st=3), по правке Эли =====
-   общее: без подзаголовка, ролики выше — размер считается и от ширины, и от высоты экрана,
-   чтобы весь блок (заголовок + лента + подсказка со стрелками) помещался в один экран */
-@media (min-width: 768px){
-  .sx{
-    --st-w: min(clamp(240px, 26vw, 700px), calc((100vh - 360px) * 0.75));
-    display: flex; flex-direction: column;
-    padding-top: clamp(76px, 10vh, 140px); padding-bottom: clamp(36px, 6vh, 90px);
-  }
-  .sx__lead{ display: none !important; }
-  .sx__title{ font-size: min(clamp(30px, 1rem + 3.33vw, 104px), 8.4vh) !important; }
-  .sx__head{ margin: 0 !important; }
-  .sx-row{ margin-bottom: 0 !important; }
-  /* вариант 1 и 2: заголовок сверху, управление под лентой */
-  html:not(.st3) .sx__head{ order: 0; margin-bottom: clamp(18px, 3.4vh, 44px) !important; }
-  html:not(.st3) .sx__viewport{ order: 1; }
-  html:not(.st3) .sx-row{ order: 2; margin-top: clamp(12px, 2.2vh, 30px) !important; }
-  /* вариант 2: «стрелка · подсказка · стрелка» по центру под главным роликом */
-  .st2 .sx-row{ justify-content: center; gap: clamp(18px, 2vw, 36px); padding-inline: var(--edge, 24px); }
-  .st2 .sx-row .sx__arrows{ display: contents; }
-  .st2 .sx-row [data-st-prev]{ order: 0; }
-  .st2 .sx-row .st-tap{ order: 1; }
-  .st2 .sx-row [data-st-next]{ order: 2; }
-  .st2 .st-tap br{ display: none; }
-  /* вариант 3: подсказка по центру над лентой, заголовок под лентой, стрелки по бокам заголовка */
-  .st3 .sx-row{ order: 0; justify-content: center; margin-bottom: clamp(12px, 2.2vh, 30px) !important; }
-  .st3 .st-tap br{ display: none; }
-  .st3 .sx__viewport{ order: 1; }
-  .st3 .sx__head{ order: 2; margin-top: clamp(16px, 3vh, 40px) !important; position: relative; width: 100%;
-    padding-inline: var(--edge, 24px); box-sizing: border-box;
-    display: flex; align-items: center; justify-content: center; }
-  .st3 .sx__title{ white-space: nowrap; font-size: min(clamp(30px, 1rem + 3.33vw, 104px), 8.4vh, 4.6vw) !important; }
-  .st3 .sx__head .sx__arrows{ position: absolute; inset: 50% var(--edge, 24px) auto; transform: translateY(-50%);
-    display: flex; justify-content: space-between; pointer-events: none; }
-  .st3 .sx__head .sx__arrows > *{ pointer-events: auto; }
-}
-
-/* подзаголовок «Каждое событие…» убран везде (и на телефоне) */
-.sx__lead{ display: none !important; }

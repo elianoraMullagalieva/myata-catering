@@ -85,10 +85,23 @@
   }, { threshold: 0.15 }).observe(v);
 })();
 
-/* Лента видео, вариант 3: стрелки переезжают к заголовку (по бокам от него) */
+/* Лента видео: на компьютере над роликом вместо курсора — круг «Смотреть» (как «Открыть» в кейсах) */
 (() => {
-  if (!document.documentElement.classList.contains("st3")) return;
-  const a = document.querySelector(".sx-row .sx__arrows"), h = document.querySelector(".sx__head");
-  if (!a || !h || !window.matchMedia("(min-width: 768px)").matches) return;
-  h.appendChild(a);
+  const vp = document.querySelector(".sx__viewport"), cur = document.querySelector(".sx-cursor");
+  if (!vp || !cur || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  vp.classList.add("has-cursor");
+  let x = 0, y = 0, cx = 0, cy = 0, raf = 0, on = false;
+  const tick = () => {
+    cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;
+    cur.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
+    raf = (on || Math.abs(x - cx) > 0.5 || Math.abs(y - cy) > 0.5) ? requestAnimationFrame(tick) : 0;
+  };
+  vp.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    x = e.clientX; y = e.clientY;
+    const hit = !!e.target.closest(".sx-card__btn");
+    if (hit !== on) { on = hit; cur.classList.toggle("is-on", on); if (on && !raf) { cx = x; cy = y; } }
+    if (!raf) raf = requestAnimationFrame(tick);
+  });
+  vp.addEventListener("pointerleave", () => { on = false; cur.classList.remove("is-on"); });
 })();

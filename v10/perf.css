@@ -10,3 +10,11 @@
   .why__photo:hover img, .tm__photo:hover img, .mv__hero:hover .mv__photo, .sx-card__btn:hover .sx-card__media img { will-change: transform !important; }
 }
 .is-off, .is-off * { animation-play-state: paused !important; }
+
+/* «Кейсы»: лёгкая привязка при прокрутке — если доехать почти до блока, страница мягко
+   встаёт ровно на него, во весь экран (только компьютер; на телефоне не мешаем листать) */
+@media (min-width: 1024px) and (hover: hover) {
+  html { scroll-snap-type: y proximity; }
+  .cases { scroll-snap-align: start; scroll-snap-stop: normal; min-height: 100vh; min-height: 100svh; box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: center; }
+}

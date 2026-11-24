@@ -20,6 +20,11 @@
   const vp = st.querySelector("[data-st-viewport]");
   const track = st.querySelector("[data-st-track]");
   const countEl = st.querySelector("[data-st-count]");
+  // точки под лентой (видны только на телефоне)
+  const dotsBox = document.createElement("div");
+  dotsBox.className = "sx__dots"; dotsBox.setAttribute("aria-hidden", "true");
+  vp.after(dotsBox);
+  const dotEls = Array.from({ length: st.querySelectorAll(".sx-card").length }, () => dotsBox.appendChild(document.createElement("i")));
   const base = [...track.children];
   const N = base.length;
   if (!N) return;
@@ -40,24 +45,27 @@
 
   /* ---------- геометрия ---------- */
   let w = 0, g = 0, half = 0;
-  // масштаб ролика по расстоянию от центра (в карточках), как в макете «барабан»:
-  // центральный 326×435, соседи 300×400 (0.92), следующие 270×360 (0.83)
+  // масштаб ролика по расстоянию от центра (в карточках):
+  // компьютер — два центральных кадра крупные, следующие на 15% меньше, крайние ещё меньше;
+  // телефон — один крупный по центру, соседи меньше (0.74)
   const scaleAt = (a) => {
     if (phone.matches) return 1;
-    if (a <= 1) return 1 - 0.08 * smooth(a);
-    if (a <= 2) return 0.92 - 0.09 * smooth(a - 1);
-    return 0.83;
+    if (phone.matches) return a <= 1 ? 1 - 0.26 * smooth(a) : 0.74;
+    if (a <= 0.5) return 1;
+    if (a <= 1.5) return 1 - 0.15 * smooth(a - 0.5);
+    if (a <= 2.5) return 0.85 - 0.13 * smooth(a - 1.5);
+    return 0.72;
   };
   const smooth = (t) => t * t * (3 - 2 * t);
-  // в центре экрана всегда один ролик
-  const snap = (x) => Math.round(x);
+  // на компьютере центр экрана — между двумя кадрами (позиции …,1.5, 2.5…), на телефоне — по центру кадра
+  const snap = (x) => (phone.matches ? Math.round(x) : Math.floor(x) + 0.5);
   function measure() {
     w = cards[0].offsetWidth;
     g = parseFloat(getComputedStyle(track).columnGap) || 16; // зазор в px (в CSS он может быть в vw)
     half = vp.clientWidth / 2;
   }
   /* ---------- состояние ---------- */
-  let p = N + 1; // текущая позиция (дробный индекс у центра): старт — «Фуршет на террасе» по центру
+  let p = N + (phone.matches ? 1 : 1.5); // старт: на компьютере — между «Фуршет на террасе» и «Корпоратив», на телефоне — «Фуршет на террасе»
   let target = p;
   let vel = 0;
   let drag = null;
@@ -103,6 +111,7 @@
       c.style.setProperty("--s", sc[k].toFixed(4));
       if (Math.abs(xx) < bestD) { bestD = Math.abs(xx); best = k; }
     }
+    if (dotEls.length) { const di = ((Math.round(p) % N) + N) % N; dotEls.forEach((d, k) => d.classList.toggle("is-on", k === di)); }
     if (countEl) { const idx = ((Math.round(p) % N) + N) % N; countEl.textContent = `${pad2(idx + 1)} / ${pad2(N)}`; }
     if (best !== current) { current = best; play(); }
   }
@@ -272,7 +281,7 @@
     pv.pause();
     document.body.classList.remove("is-locked");
     // лента встаёт на тот ролик, который досматривали
-    const k = Math.round(target);
+    const k = Math.round(target - (phone.matches ? 0 : 0.5));
     autoRestart();
     target = k + (((idx - k) % N) + N) % N - (((idx - k) % N + N) % N > N / 2 ? N : 0);
     kick();

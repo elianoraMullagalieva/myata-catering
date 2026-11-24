@@ -202,3 +202,19 @@
   .mv-sec__dishes::after{ height: clamp(10px, 2.2vh, 26px); }
 }
 @media (min-width: 901px){ .mv-dish__name{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } }
+
+/* «Меню», фото слева (правка Эли): «Авангард» правее — не на тарелке, «Средиземноморье» левее;
+   под заголовком и подзаголовком — очень лёгкое размытие с еле заметным затемнением, края мягко растворяются */
+@media (min-width: 901px){
+  .mv__tag--3{ left: 4.2%; }
+  .mv__tag--4{ left: 81%; }
+}
+.mv__intro{ isolation: isolate; }
+.mv__intro::before{
+  content: ""; position: absolute; z-index: -1; inset: -14% -16% -12%;
+  background: rgba(10, 8, 7, 0.14);
+  -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%);
+  pointer-events: none;
+}
